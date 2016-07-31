@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/rabbit"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/rabbit
+	http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd">
+
+    <connection-factory
+            id="rabbitConnectionFactory"
+            host="${rabbit.mq.host}"
+            username="${rabbit.mq.user}"
+            password="${rabbit.mq.pwd}"
+            port="${rabbit.mq.port}"
+            connection-timeout="${rabbit.mq.connectionTimeout}"
+            virtual-host="${rabbit.mq.virtualHost}"
+            publisher-confirms="true"
+            publisher-returns="true"
+    />
+
+    <admin id="rabbitAdmin" connection-factory="rabbitConnectionFactory"/>
+
+</beans:beans>
