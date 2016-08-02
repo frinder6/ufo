@@ -1,9 +1,11 @@
 package com.ufo.base;
 
-import org.apache.log4j.Logger;
+import ch.qos.logback.core.joran.spi.JoranException;
+import ch.qos.logback.ext.spring.LogbackConfigurer;
 import org.junit.runners.model.InitializationError;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.Log4jConfigurer;
 
 import java.io.FileNotFoundException;
 
@@ -12,13 +14,15 @@ import java.io.FileNotFoundException;
  */
 public class Junit4Log4jClassRunner extends SpringJUnit4ClassRunner {
 
-    private static final Logger logger = Logger.getLogger(Junit4Log4jClassRunner.class);
+    private static final Logger logger = LoggerFactory.getLogger(Junit4Log4jClassRunner.class);
 
     static {
         try {
-            Log4jConfigurer.initLogging("file:src/main/webapp/WEB-INF/log4j.properties");
+            LogbackConfigurer.initLogging("file:src/main/webapp/WEB-INF/logback.xml");
         } catch (FileNotFoundException e) {
             logger.error(e.getMessage());
+        } catch (JoranException e) {
+            e.printStackTrace();
         }
     }
 

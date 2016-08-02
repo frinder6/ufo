@@ -1,10 +1,10 @@
-package com.ufo.mq.consumer;
+package com.ufo.consumer;
 
 import com.alibaba.fastjson.JSON;
-import com.ufo.mq.base.ExchangeType;
-import com.ufo.mq.base.MsgHandler;
-import com.ufo.mq.base.MsgHandlerDecorator;
-import com.ufo.mq.base.MsgManager;
+import com.ufo.base.MsgEntity;
+import com.ufo.base.MsgHandler;
+import com.ufo.base.MsgHandlerDecorator;
+import com.ufo.base.MsgManager;
 import com.ufo.exception.ExchangeTypeDoNotSupportException;
 import com.ufo.exception.QueueNotExistsException;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -21,8 +21,16 @@ public class MsgConsumer extends MsgManager {
 
     private MsgHandler msgHandler;
 
-    public MsgConsumer(CachingConnectionFactory rabbitConnectionFactory, RabbitAdmin rabbitAdmin, ExchangeType exchangeType, String queueName, String exchangeName, String routingKey, MsgHandler msgHandler) throws ExchangeTypeDoNotSupportException, QueueNotExistsException {
-        super(rabbitConnectionFactory, rabbitAdmin, exchangeType, queueName, exchangeName, routingKey);
+    /**
+     * @param rabbitConnectionFactory
+     * @param rabbitAdmin
+     * @param msgEntity
+     * @param msgHandler
+     * @throws ExchangeTypeDoNotSupportException
+     * @throws QueueNotExistsException
+     */
+    public MsgConsumer(CachingConnectionFactory rabbitConnectionFactory, RabbitAdmin rabbitAdmin, MsgEntity msgEntity, MsgHandler msgHandler) throws ExchangeTypeDoNotSupportException, QueueNotExistsException {
+        super(rabbitConnectionFactory, rabbitAdmin, msgEntity);
         logger.info("*********************************consumer begin init !");
         this.simpleMessageListenerContainer = new SimpleMessageListenerContainer(rabbitConnectionFactory);
         this.msgHandler = msgHandler;
@@ -30,12 +38,12 @@ public class MsgConsumer extends MsgManager {
         /**
          * 采用装饰模式，在接收到消息后执行一些通用操作（记录日志表等）后再执行业务处理
          */
-        MsgHandlerDecorator decorator = new MsgHandlerDecorator(msgHandler);
-        adapter.setDelegate(decorator);
+        // MsgHandlerDecorator decorator = new MsgHandlerDecorator(msgHandler);
+        adapter.setDelegate(msgHandler);
         adapter.setDefaultListenerMethod("handleMessage");
         this.simpleMessageListenerContainer.setMessageListener(adapter);
-        this.simpleMessageListenerContainer.setQueueNames(queueName);
-        CONSUMER.put(queueName, this);
+        this.simpleMessageListenerContainer.setQueueNames(msgEntity.getQueueName());
+        CONSUMER.put(msgEntity.getQueueName(), this);
         try {
             logger.info(JSON.toJSONString(this));
         } catch (Exception e) {
@@ -71,4 +79,5 @@ public class MsgConsumer extends MsgManager {
         }
         return 0;
     }
+
 }

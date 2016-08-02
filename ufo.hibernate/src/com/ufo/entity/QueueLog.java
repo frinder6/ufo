@@ -1,0 +1,106 @@
+package com.ufo.entity;
+
+/**
+ * Created by frinder_liu on 2016/8/2.
+ */
+public class QueueLog {
+    private long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    private String ip;
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    private String queueName;
+
+    public String getQueueName() {
+        return queueName;
+    }
+
+    public void setQueueName(String queueName) {
+        this.queueName = queueName;
+    }
+
+    private String exchangeName;
+
+    public String getExchangeName() {
+        return exchangeName;
+    }
+
+    public void setExchangeName(String exchangeName) {
+        this.exchangeName = exchangeName;
+    }
+
+    private String routingKey;
+
+    public String getRoutingKey() {
+        return routingKey;
+    }
+
+    public void setRoutingKey(String routingKey) {
+        this.routingKey = routingKey;
+    }
+
+    private String className;
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    private String context;
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        QueueLog log = (QueueLog) o;
+
+        if (id != log.id) return false;
+        if (ip != null ? !ip.equals(log.ip) : log.ip != null) return false;
+        if (queueName != null ? !queueName.equals(log.queueName) : log.queueName != null) return false;
+        if (exchangeName != null ? !exchangeName.equals(log.exchangeName) : log.exchangeName != null) return false;
+        if (routingKey != null ? !routingKey.equals(log.routingKey) : log.routingKey != null) return false;
+        if (className != null ? !className.equals(log.className) : log.className != null) return false;
+        if (context != null ? !context.equals(log.context) : log.context != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (ip != null ? ip.hashCode() : 0);
+        result = 31 * result + (queueName != null ? queueName.hashCode() : 0);
+        result = 31 * result + (exchangeName != null ? exchangeName.hashCode() : 0);
+        result = 31 * result + (routingKey != null ? routingKey.hashCode() : 0);
+        result = 31 * result + (className != null ? className.hashCode() : 0);
+        result = 31 * result + (context != null ? context.hashCode() : 0);
+        return result;
+    }
+}

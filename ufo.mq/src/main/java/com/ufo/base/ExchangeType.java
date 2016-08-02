@@ -1,4 +1,4 @@
-package com.ufo.mq.base;
+package com.ufo.base;
 
 /**
  * Created by frinder_liu on 2016/7/31.

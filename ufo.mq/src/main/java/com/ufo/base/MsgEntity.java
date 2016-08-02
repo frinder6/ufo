@@ -1,6 +1,5 @@
-package com.ufo.mq;
+package com.ufo.base;
 
-import com.ufo.mq.base.ExchangeType;
 import lombok.Data;
 
 /**

@@ -1,19 +1,20 @@
 package com.ufo.aop;
 
 import com.alibaba.fastjson.JSON;
-import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
  * Created on 2016/7/31.
  */
-@Component
+//@Component
 @Aspect
 public class SystemLogAdvisor {
 
-    private static final Logger logger = Logger.getLogger(SystemLogAdvisor.class);
+    private static final Logger logger = LoggerFactory.getLogger(SystemLogAdvisor.class);
 
     @Pointcut("execution(* com.ufo..*.*(..))")
     public void logPointCut() {
