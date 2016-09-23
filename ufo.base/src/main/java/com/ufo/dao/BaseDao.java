@@ -1,6 +1,10 @@
 package com.ufo.dao;
 
+import com.ufo.entity.Page;
+import com.ufo.entity.SqlEntity;
+import com.ufo.exception.SqlFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -8,29 +12,29 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by frinder_liu on 2016/8/1.
+ * Created on 2016/8/1.
  */
 
 @Repository
-public class BaseDao<T> {
+public class BaseDao<T> implements IDao<T> {
 
     @Autowired
     private NamedParameterJdbcTemplate namedJdbcTemplate;
 
     /**
-     * @param tableName
      * @param entity
-     * @param cols
      * @return
+     * @throws SqlFormatException
      */
-    public long persist(String tableName, T entity, String[] cols) {
-        String sql = JdbcUtil.SingleFactory.SINGLE.getInsertSql(tableName, cols);
-        SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity);
+    public long persist(SqlEntity<T> entity) throws SqlFormatException {
+        String sql = JdbcUtil.SingleFactory.SINGLE.getInsertSql(entity);
+        SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity.getEntity());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         this.namedJdbcTemplate.update(sql, paramSource, keyHolder);
         return keyHolder.getKey().longValue();
@@ -38,72 +42,84 @@ public class BaseDao<T> {
 
 
     /**
-     * @param tableName
-     * @param id
-     * @return
-     */
-    public int delete(String tableName, long id) {
-        String sql = JdbcUtil.SingleFactory.SINGLE.getDeleteSql(tableName);
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("id", id);
-        return this.namedJdbcTemplate.update(sql, paramMap);
-    }
-
-
-    /**
-     * @param tableName
      * @param entity
-     * @param whereCols
      * @return
      */
-    public int deleteWheres(String tableName, T entity, String[] whereCols) {
-        String sql = JdbcUtil.SingleFactory.SINGLE.getWheresDeleteSql(tableName, whereCols);
-        SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity);
+    public int delete(SqlEntity<T> entity) {
+        String sql = JdbcUtil.SingleFactory.SINGLE.getDeleteSql(entity.getTableName());
+        SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity.getEntity());
         return this.namedJdbcTemplate.update(sql, paramSource);
     }
 
 
     /**
-     * @param tableName
      * @param entity
-     * @param valueCols
-     * @param whereCols
      * @return
      */
-    public int modify(String tableName, T entity, String[] valueCols, String[] whereCols) {
-        String sql = JdbcUtil.SingleFactory.SINGLE.getUpdateSql(tableName, valueCols, whereCols);
-        SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity);
+    public int deleteWheres(SqlEntity<T> entity) {
+        String sql = JdbcUtil.SingleFactory.SINGLE.getWheresDeleteSql(entity);
+        SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity.getEntity());
         return this.namedJdbcTemplate.update(sql, paramSource);
     }
 
 
     /**
-     *
-     * @param tableName
      * @param entity
-     * @param valueCols
-     * @param whereCols
      * @return
+     * @throws SqlFormatException
      */
-    public List<T> selectForList(String tableName, T entity, String[] valueCols, String[] whereCols) {
-        String sql = JdbcUtil.SingleFactory.SINGLE.getSelectSql(tableName, valueCols, whereCols);
-        SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity);
-        return (List<T>) this.namedJdbcTemplate.queryForList(sql, paramSource, entity.getClass());
+    public int modify(SqlEntity<T> entity) throws SqlFormatException {
+        String sql = JdbcUtil.SingleFactory.SINGLE.getUpdateSql(entity);
+        SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity.getEntity());
+        return this.namedJdbcTemplate.update(sql, paramSource);
     }
 
 
     /**
-     *
-     * @param tableName
      * @param entity
-     * @param valueCols
-     * @param whereCols
      * @return
+     * @throws SqlFormatException
      */
-    public T selectForSingle(String tableName, T entity, String[] valueCols, String[] whereCols){
-        String sql = JdbcUtil.SingleFactory.SINGLE.getSelectSql(tableName, valueCols, whereCols);
-        SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity);
-        return (T) this.namedJdbcTemplate.queryForObject(sql, paramSource, entity.getClass());
+    public List<T> selectForList(SqlEntity<T> entity) throws SqlFormatException {
+        String sql = JdbcUtil.SingleFactory.SINGLE.getSelectSql(entity);
+        SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity.getEntity());
+        return (List<T>) this.namedJdbcTemplate.query(sql, paramSource, new BeanPropertyRowMapper(entity.getEntity().getClass()));
+    }
+
+
+    /**
+     * @param entity
+     * @return
+     * @throws SqlFormatException
+     */
+    public T selectForSingle(SqlEntity<T> entity) throws SqlFormatException {
+        String sql = JdbcUtil.SingleFactory.SINGLE.getSelectSql(entity);
+        SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity.getEntity());
+        return (T) this.namedJdbcTemplate.queryForObject(sql, paramSource, new BeanPropertyRowMapper(entity.getEntity().getClass()));
+    }
+
+
+    /**
+     * @param entity
+     * @param page
+     * @return
+     * @throws SqlFormatException
+     */
+    public List<T> selectPage(SqlEntity<T> entity, Page page) throws SqlFormatException {
+        String sql = JdbcUtil.SingleFactory.SINGLE.getPageSelectSql(entity, page);
+        SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity.getEntity());
+        return this.namedJdbcTemplate.query(sql, paramSource, new BeanPropertyRowMapper(entity.getEntity().getClass()));
+    }
+
+
+    /**
+     * @param entity
+     * @param tableName
+     * @param cols
+     */
+    public void setValue(SqlEntity<T> entity, String tableName, String[] cols) {
+        entity.setTableName(tableName);
+        entity.setValueCols(Arrays.asList(cols));
     }
 
 }

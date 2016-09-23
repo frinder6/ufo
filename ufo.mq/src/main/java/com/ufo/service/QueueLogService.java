@@ -1,22 +1,31 @@
 package com.ufo.service;
 
 import com.ufo.dao.IDao;
-import com.ufo.entity.QueueLog;
+import com.ufo.entity.QueueLogEntity;
+import com.ufo.entity.SqlEntity;
+import com.ufo.exception.SqlFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
- * Created by frinder_liu on 2016/8/2.
+ * Created on 2016/8/2.
  */
 
 @Service
-public class QueueLogService extends BaseService<QueueLog> {
+public class QueueLogService extends BaseService<QueueLogEntity> {
 
     @Autowired
-    private IDao<QueueLog> queueLogIDao;
+    private IDao<QueueLogEntity> queueLogDao;
 
     @Override
-    public long insert(QueueLog entity) {
-        return this.queueLogIDao.insert(entity);
+    public long insert(SqlEntity<QueueLogEntity> entity) throws SqlFormatException {
+        return this.queueLogDao.persist(entity);
+    }
+
+    @Override
+    public List<QueueLogEntity> selectForList(SqlEntity<QueueLogEntity> entity) throws SqlFormatException {
+        return this.queueLogDao.selectForList(entity);
     }
 }

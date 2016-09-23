@@ -5,12 +5,18 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-@Getter
+/**
+ * Created on 2016/7/31.
+ */
 @Setter
-public class MsgHeader implements Serializable {
-    private String ip;
+@Getter
+public class Message implements Serializable {
+
+    private String host;
     private String className;
     private String queueName;
     private String exchangeName;
     private String routingKey;
+    private String context;
+
 }

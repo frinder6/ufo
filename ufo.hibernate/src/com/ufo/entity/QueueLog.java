@@ -1,10 +1,16 @@
 package com.ufo.entity;
 
 /**
- * Created by frinder_liu on 2016/8/2.
+ * Created on 2016/8/3.
  */
 public class QueueLog {
     private long id;
+    private String ip;
+    private String queueName;
+    private String exchangeName;
+    private String routingKey;
+    private String className;
+    private String context;
 
     public long getId() {
         return id;
@@ -14,8 +20,6 @@ public class QueueLog {
         this.id = id;
     }
 
-    private String ip;
-
     public String getIp() {
         return ip;
     }
@@ -23,8 +27,6 @@ public class QueueLog {
     public void setIp(String ip) {
         this.ip = ip;
     }
-
-    private String queueName;
 
     public String getQueueName() {
         return queueName;
@@ -34,8 +36,6 @@ public class QueueLog {
         this.queueName = queueName;
     }
 
-    private String exchangeName;
-
     public String getExchangeName() {
         return exchangeName;
     }
@@ -43,8 +43,6 @@ public class QueueLog {
     public void setExchangeName(String exchangeName) {
         this.exchangeName = exchangeName;
     }
-
-    private String routingKey;
 
     public String getRoutingKey() {
         return routingKey;
@@ -54,8 +52,6 @@ public class QueueLog {
         this.routingKey = routingKey;
     }
 
-    private String className;
-
     public String getClassName() {
         return className;
     }
@@ -63,8 +59,6 @@ public class QueueLog {
     public void setClassName(String className) {
         this.className = className;
     }
-
-    private String context;
 
     public String getContext() {
         return context;

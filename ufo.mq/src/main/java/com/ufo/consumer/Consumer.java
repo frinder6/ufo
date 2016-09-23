@@ -1,10 +1,9 @@
 package com.ufo.consumer;
 
 import com.alibaba.fastjson.JSON;
-import com.ufo.base.MsgEntity;
-import com.ufo.base.MsgHandler;
-import com.ufo.base.MsgHandlerDecorator;
-import com.ufo.base.MsgManager;
+import com.ufo.base.RabbitEntity;
+import com.ufo.base.MessageHandler;
+import com.ufo.base.RabbitManager;
 import com.ufo.exception.ExchangeTypeDoNotSupportException;
 import com.ufo.exception.QueueNotExistsException;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -15,11 +14,11 @@ import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 /**
  * Created on 2016/7/31.
  */
-public class MsgConsumer extends MsgManager {
+public class Consumer extends RabbitManager {
 
     private SimpleMessageListenerContainer simpleMessageListenerContainer;
 
-    private MsgHandler msgHandler;
+    private MessageHandler messageHandler;
 
     /**
      * @param rabbitConnectionFactory
@@ -29,16 +28,12 @@ public class MsgConsumer extends MsgManager {
      * @throws ExchangeTypeDoNotSupportException
      * @throws QueueNotExistsException
      */
-    public MsgConsumer(CachingConnectionFactory rabbitConnectionFactory, RabbitAdmin rabbitAdmin, MsgEntity msgEntity, MsgHandler msgHandler) throws ExchangeTypeDoNotSupportException, QueueNotExistsException {
+    public Consumer(CachingConnectionFactory rabbitConnectionFactory, RabbitAdmin rabbitAdmin, RabbitEntity msgEntity, MessageHandler msgHandler) throws ExchangeTypeDoNotSupportException, QueueNotExistsException {
         super(rabbitConnectionFactory, rabbitAdmin, msgEntity);
         logger.info("*********************************consumer begin init !");
         this.simpleMessageListenerContainer = new SimpleMessageListenerContainer(rabbitConnectionFactory);
-        this.msgHandler = msgHandler;
+        this.messageHandler = msgHandler;
         MessageListenerAdapter adapter = new MessageListenerAdapter();
-        /**
-         * 采用装饰模式，在接收到消息后执行一些通用操作（记录日志表等）后再执行业务处理
-         */
-        // MsgHandlerDecorator decorator = new MsgHandlerDecorator(msgHandler);
         adapter.setDelegate(msgHandler);
         adapter.setDefaultListenerMethod("handleMessage");
         this.simpleMessageListenerContainer.setMessageListener(adapter);

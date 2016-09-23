@@ -1,11 +1,17 @@
 package com.ufo.dao;
 
 import com.google.common.base.CaseFormat;
+import com.google.common.collect.Lists;
+import com.ufo.entity.Page;
+import com.ufo.entity.SqlEntity;
+import com.ufo.exception.SqlFormatException;
+
+import java.util.List;
 
 /**
- * Created by frinder_liu on 2016/8/1.
+ * Created on 2016/8/1.
  */
-public class JdbcUtil {
+public class JdbcUtil<T> {
 
     private JdbcUtil() {
     }
@@ -13,6 +19,7 @@ public class JdbcUtil {
     public static class SingleFactory {
         public static final JdbcUtil SINGLE = new JdbcUtil();
     }
+
 
     /**
      * 下划线转驼峰格式
@@ -26,26 +33,32 @@ public class JdbcUtil {
 
 
     /**
-     * @param tableName
-     * @param cols
+     * @param entity
      * @return
+     * @throws SqlFormatException
      */
-    public String getInsertSql(String tableName, String[] cols) {
+    public String getInsertSql(SqlEntity<T> entity) throws SqlFormatException {
         String insertSql = "INSERT INTO %s ( %s ) VALUES ( %s )";
         StringBuilder insertCols = new StringBuilder();
         StringBuilder insertValues = new StringBuilder();
-        int i = 0;
-        for (String col : cols) {
-            if (i == 0) {
-                insertCols.append(col);
-                insertValues.append(":" + convert2Camel(col));
-            } else {
-                insertCols.append(", ".concat(col));
-                insertValues.append(", :" + convert2Camel(col));
+        if (!entity.getValueCols().isEmpty()) {
+            int i = 0;
+            for (String col : entity.getValueCols()) {
+                if (i == 0) {
+                    insertCols.append(col);
+                    insertValues.append(":" + convert2Camel(col));
+                } else {
+                    insertCols.append(", ".concat(col));
+                    insertValues.append(", :" + convert2Camel(col));
+                }
+                ++i;
             }
-            ++i;
+            insertCols.append(", create_time");
+            insertValues.append(", NOW()");
+        } else {
+            throw new SqlFormatException(insertSql);
         }
-        return String.format(insertSql, tableName, insertCols, insertValues);
+        return String.format(insertSql, entity.getTableName(), insertCols, insertValues);
     }
 
 
@@ -59,56 +72,77 @@ public class JdbcUtil {
     }
 
     /**
-     * @param tableName
-     * @param whereCols
+     * @param entity
      * @return
      */
-    public String getWheresDeleteSql(String tableName, String[] whereCols) {
-        String deleteSql = "DELETE FROM %s WHERE 1 = 1 %";
-        return String.format(deleteSql, tableName, getWheres(whereCols));
+    public String getWheresDeleteSql(SqlEntity<T> entity) {
+        String deleteSql = "DELETE FROM %s WHERE 1 != 1 %s";
+        return String.format(deleteSql, entity.getTableName(), getWheres(entity.getWhereCols()));
     }
 
     /**
-     * @param tableName
-     * @param valueCols
-     * @param whereCols
+     * @param entity
      * @return
+     * @throws SqlFormatException
      */
-    public String getUpdateSql(String tableName, String[] valueCols, String[] whereCols) {
-        String updateSql = "UPDATE %s SET %s WHERE 1 = 1 %s";
+    public String getUpdateSql(SqlEntity<T> entity) throws SqlFormatException {
+        String updateSql = "UPDATE %s SET %s WHERE 1 != 1 %s";
         StringBuilder updateValues = new StringBuilder();
         int i = 0;
-        for (String col : valueCols) {
-            if (i == 0) {
-                updateValues.append(col + " = :" + convert2Camel(col));
-            } else {
-                updateValues.append(", " + col + " = :" + convert2Camel(col));
+        if (!entity.getValueCols().isEmpty()) {
+            for (String col : entity.getValueCols()) {
+                if (i == 0) {
+                    updateValues.append(col + " = :" + convert2Camel(col));
+                } else {
+                    updateValues.append(", " + col + " = :" + convert2Camel(col));
+                }
+                ++i;
             }
-            ++i;
+        } else {
+            throw new SqlFormatException(updateSql);
         }
-        return String.format(updateSql, tableName, updateValues, getWheres(whereCols));
+        return String.format(updateSql, entity.getTableName(), updateValues, getWheres(entity.getWhereCols()));
     }
 
 
     /**
-     * @param tableName
-     * @param valueCols
-     * @param whereCols
+     * @param entity
      * @return
+     * @throws SqlFormatException
      */
-    public String getSelectSql(String tableName, String[] valueCols, String[] whereCols) {
-        String selectSql = "SELECT %s FROM %s WHERE 1 = 1 %s";
+    public String getSelectSql(SqlEntity<T> entity) throws SqlFormatException {
+        String selectSql = "SELECT %s FROM %s WHERE 1 != 1 %s";
         StringBuilder selectValues = new StringBuilder();
-        int i = 0;
-        for (String col : valueCols) {
-            if (i == 0) {
-                selectValues.append(col);
-            } else {
-                selectValues.append(", ".concat(col));
+        if (!entity.getValueCols().isEmpty()) {
+            int i = 0;
+            for (String col : entity.getValueCols()) {
+                if (i == 0) {
+                    selectValues.append(col + " AS " + convert2Camel(col));
+                } else {
+                    selectValues.append(", ".concat(col) + " AS " + convert2Camel(col));
+                }
+                ++i;
             }
-            ++i;
+        } else {
+            throw new SqlFormatException(selectSql);
         }
-        return String.format(selectSql, selectValues, tableName, getWheres(whereCols));
+        return String.format(selectSql, selectValues, entity.getTableName(), getWheres(entity.getWhereCols()));
+    }
+
+
+    /**
+     *
+     * @param entity
+     * @param page
+     * @return
+     * @throws SqlFormatException
+     */
+    public String getPageSelectSql(SqlEntity<T> entity, Page page) throws SqlFormatException {
+        StringBuilder selectSql = new StringBuilder(getSelectSql(entity));
+        if (null != page) {
+            selectSql.append(" LIMIT ").append(page.getPageIndex()).append(", ").append(page.getPageIndex());
+        }
+        return selectSql.toString();
     }
 
 
@@ -116,16 +150,20 @@ public class JdbcUtil {
      * @param whereCols
      * @return
      */
-    public String getWheres(String[] whereCols) {
+    public String getWheres(List<String> whereCols) {
         StringBuilder whereValues = new StringBuilder();
-        int i = 0;
-        for (String col : whereCols) {
-            if (i == 0) {
-                whereValues.append(col + " = :" + convert2Camel(col));
-            } else {
-                whereValues.append(" AND " + col + " = :" + convert2Camel(col));
+        if (!whereCols.isEmpty()) {
+            whereValues.append(" OR ( ");
+            int i = 0;
+            for (String col : whereCols) {
+                if (i == 0) {
+                    whereValues.append(col + " = :" + convert2Camel(col));
+                } else {
+                    whereValues.append(" AND " + col + " = :" + convert2Camel(col));
+                }
+                ++i;
             }
-            ++i;
+            whereValues.append(" )");
         }
         return whereValues.toString();
     }
@@ -133,7 +171,7 @@ public class JdbcUtil {
 
     public static void main(String[] args) {
         String[] cols = {"abc_efg", "id_ip"};
-        System.out.println(SingleFactory.SINGLE.getWheres(cols));
+        System.out.println(SingleFactory.SINGLE.getWheres(Lists.asList(String.class, cols)));
     }
 
 }

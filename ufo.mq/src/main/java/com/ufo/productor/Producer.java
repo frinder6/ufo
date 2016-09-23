@@ -1,9 +1,9 @@
 package com.ufo.productor;
 
 import com.alibaba.fastjson.JSON;
-import com.ufo.base.MsgEntity;
-import com.ufo.base.MsgManager;
-import com.ufo.base.UFOMessage;
+import com.ufo.base.RabbitEntity;
+import com.ufo.base.RabbitManager;
+import com.ufo.base.Message;
 import com.ufo.exception.ExchangeTypeDoNotSupportException;
 import com.ufo.exception.QueueNotExistsException;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
  * Created on 2016/7/31.
  */
 @Getter
-public class MsgProducer extends MsgManager {
+public class Producer extends RabbitManager {
 
     /**
      *
@@ -24,10 +24,10 @@ public class MsgProducer extends MsgManager {
      * @throws ExchangeTypeDoNotSupportException
      * @throws QueueNotExistsException
      */
-    public MsgProducer(CachingConnectionFactory rabbitConnectionFactory, RabbitAdmin rabbitAdmin, MsgEntity msgEntity) throws ExchangeTypeDoNotSupportException, QueueNotExistsException {
+    public Producer(CachingConnectionFactory rabbitConnectionFactory, RabbitAdmin rabbitAdmin, RabbitEntity msgEntity) throws ExchangeTypeDoNotSupportException, QueueNotExistsException {
         super(rabbitConnectionFactory, rabbitAdmin, msgEntity);
         logger.info("********************************* producer begin init !");
-        PRODUCTOR.put(msgEntity.getQueueName(), this);
+        PRODUCER.put(msgEntity.getQueueName(), this);
         try {
             logger.info(JSON.toJSONString(this));
         } catch (Exception e) {
@@ -39,7 +39,7 @@ public class MsgProducer extends MsgManager {
      *
      * @param message
      */
-    public void convertAndSend(UFOMessage message){
+    public void convertAndSend(Message message){
         this.getRabbitTemplate().convertAndSend(message);
     }
 

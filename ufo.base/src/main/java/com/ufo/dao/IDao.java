@@ -1,8 +1,19 @@
 package com.ufo.dao;
 
+import com.ufo.entity.SqlEntity;
+import com.ufo.exception.SqlFormatException;
+
+import java.util.List;
+
 /**
- * Created by frinder_liu on 2016/8/1.
+ * Created on 2016/8/1.
  */
 public interface IDao<T> {
-    long insert(T entity);
+
+    long persist(SqlEntity<T> entity) throws SqlFormatException;
+
+    List<T> selectForList(SqlEntity<T> entity) throws SqlFormatException;
+
+    T selectForSingle(SqlEntity<T> entity) throws SqlFormatException;
+
 }

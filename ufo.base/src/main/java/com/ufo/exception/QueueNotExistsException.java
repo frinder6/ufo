@@ -1,7 +1,8 @@
 package com.ufo.exception;
 
 /**
- * Created by frinder_liu on 2016/7/31.
+ * Created on 2016/7/31.
+ *
  */
 public class QueueNotExistsException extends Exception {
 

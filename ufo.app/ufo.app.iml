@@ -35,10 +35,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="ufo.base" />
     <orderEntry type="module" module-name="ufo.mq" />
+    <orderEntry type="module" module-name="ufo.entity" />
+    <orderEntry type="library" name="Maven: org.mybatis.generator:mybatis-generator-core:1.3.2" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.log4jdbc:log4jdbc:1.2" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:19.0" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.12.4" level="project" />

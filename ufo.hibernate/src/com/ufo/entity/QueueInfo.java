@@ -1,7 +1,7 @@
 package com.ufo.entity;
 
 /**
- * Created by frinder_liu on 2016/8/2.
+ * Created on 2016/8/3.
  */
 public class QueueInfo {
     private long id;
