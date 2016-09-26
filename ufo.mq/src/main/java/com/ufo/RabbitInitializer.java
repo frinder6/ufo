@@ -61,7 +61,6 @@ public class RabbitInitializer implements ApplicationContextAware {
         String[] whereCols = {"status"};
         SqlEntity<QueueInfoEntity> sqlEntity = new SqlEntity<>();
         sqlEntity.setEntity(entity);
-        sqlEntity.setEntityType(QueueInfoEntity.class);
         sqlEntity.setWhereCols(Arrays.asList(whereCols));
         List<QueueInfoEntity> queueList = this.queueInfoService.selectForList(sqlEntity);
 

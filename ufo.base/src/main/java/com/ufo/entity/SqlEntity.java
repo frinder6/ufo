@@ -2,6 +2,7 @@ package com.ufo.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 
 @Data
-public class SqlEntity<T> {
+public class SqlEntity<T> implements Serializable {
 
     /**
      * 表名
@@ -36,6 +37,13 @@ public class SqlEntity<T> {
     /**
      * 实体类型
      */
-    private Class<T> entityType;
+    public Class<?> getEntityType(){
+        if (null == entity){
+            throw new IllegalArgumentException("实体为null，不符合程序要求，请检查代码修正此错误！");
+        }
+        return entity.getClass();
+    }
+
+
 
 }

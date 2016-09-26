@@ -3,7 +3,11 @@ package com.ufo.dao;
 import com.ufo.entity.Page;
 import com.ufo.entity.SqlEntity;
 import com.ufo.exception.SqlFormatException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -23,6 +27,8 @@ import java.util.Map;
 
 @Repository
 public class BaseDao<T> implements IDao<T> {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private NamedParameterJdbcTemplate namedJdbcTemplate;
@@ -83,7 +89,11 @@ public class BaseDao<T> implements IDao<T> {
     public List<T> selectForList(SqlEntity<T> entity) throws SqlFormatException {
         String sql = JdbcUtil.SingleFactory.SINGLE.getSelectSql(entity);
         SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity.getEntity());
-        return (List<T>) this.namedJdbcTemplate.query(sql, paramSource, new BeanPropertyRowMapper(entity.getEntity().getClass()));
+        try {
+            return (List<T>) this.namedJdbcTemplate.query(sql, paramSource, new BeanPropertyRowMapper(entity.getEntityType()));
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
 
@@ -95,7 +105,11 @@ public class BaseDao<T> implements IDao<T> {
     public T selectForSingle(SqlEntity<T> entity) throws SqlFormatException {
         String sql = JdbcUtil.SingleFactory.SINGLE.getSelectSql(entity);
         SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity.getEntity());
-        return (T) this.namedJdbcTemplate.queryForObject(sql, paramSource, new BeanPropertyRowMapper(entity.getEntity().getClass()));
+        try {
+            return (T) this.namedJdbcTemplate.queryForObject(sql, paramSource, new BeanPropertyRowMapper(entity.getEntityType()));
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
 
@@ -108,7 +122,11 @@ public class BaseDao<T> implements IDao<T> {
     public List<T> selectPage(SqlEntity<T> entity, Page page) throws SqlFormatException {
         String sql = JdbcUtil.SingleFactory.SINGLE.getPageSelectSql(entity, page);
         SqlParameterSource paramSource = new BeanPropertySqlParameterSource(entity.getEntity());
-        return this.namedJdbcTemplate.query(sql, paramSource, new BeanPropertyRowMapper(entity.getEntity().getClass()));
+        try {
+            return this.namedJdbcTemplate.query(sql, paramSource, new BeanPropertyRowMapper(entity.getEntityType()));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
 

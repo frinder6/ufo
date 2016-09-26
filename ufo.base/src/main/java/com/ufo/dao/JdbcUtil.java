@@ -140,7 +140,8 @@ public class JdbcUtil<T> {
     public String getPageSelectSql(SqlEntity<T> entity, Page page) throws SqlFormatException {
         StringBuilder selectSql = new StringBuilder(getSelectSql(entity));
         if (null != page) {
-            selectSql.append(" LIMIT ").append(page.getPageIndex()).append(", ").append(page.getPageIndex());
+            // limit 0, 10  其中，0 是索引，10 是记录数
+            selectSql.append(" LIMIT ").append(page.getPageIndex()).append(", ").append(page.getPageSize());
         }
         return selectSql.toString();
     }
