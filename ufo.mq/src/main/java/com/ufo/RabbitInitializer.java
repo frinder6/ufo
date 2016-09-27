@@ -12,9 +12,8 @@ import com.ufo.productor.Producer;
 import com.ufo.service.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.ExchangeTypes;
+import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class RabbitInitializer implements ApplicationContextAware {
     private CachingConnectionFactory rabbitConnectionFactory;
 
     @Autowired
-    private RabbitAdmin rabbitAdmin;
+    private AmqpAdmin amqpAdmin;
 
     private ApplicationContext applicationContext;
 
@@ -69,10 +69,10 @@ public class RabbitInitializer implements ApplicationContextAware {
             RabbitEntity rabbitEntity = new RabbitEntity();
             BeanUtils.copyProperties(queue, rabbitEntity);
             // producer
-            new Producer(rabbitConnectionFactory, rabbitAdmin, rabbitEntity);
+            new Producer(rabbitConnectionFactory, amqpAdmin, rabbitEntity);
             // consumer
             this.messageHandlerDecorator.setMessageHandler(new TestMsgHandle());
-            new Consumer(rabbitConnectionFactory, rabbitAdmin, rabbitEntity, this.messageHandlerDecorator).startReceive();
+            new Consumer(rabbitConnectionFactory, amqpAdmin, rabbitEntity, this.messageHandlerDecorator).startReceive();
         }
     }
 
@@ -81,4 +81,11 @@ public class RabbitInitializer implements ApplicationContextAware {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
+
+
+    @PreDestroy
+    public void destory(){
+        RabbitManager.destory();
+    }
+
 }

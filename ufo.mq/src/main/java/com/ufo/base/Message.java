@@ -12,6 +12,18 @@ import java.io.Serializable;
 @Getter
 public class Message implements Serializable {
 
+    public Message() {
+    }
+
+    public Message(String host, String className, String queueName, String exchangeName, String routingKey, String context) {
+        this.host = host;
+        this.className = className;
+        this.queueName = queueName;
+        this.exchangeName = exchangeName;
+        this.routingKey = routingKey;
+        this.context = context;
+    }
+
     private String host;
     private String className;
     private String queueName;

@@ -1,0 +1,25 @@
+/**
+ * index页面样式
+ */
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.north-region {
+	height:60px;
+	background:#B3DFDA;
+	padding:10px
+}
+
+.west-content {
+	width:150px;padding:10px;
+}
+
+.east-region {
+	width:100px;padding:10px;
+}
+
+.south-region {
+	height:50px;background:#A9FACD;padding:10px;
+}

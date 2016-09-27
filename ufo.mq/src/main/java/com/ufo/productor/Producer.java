@@ -7,6 +7,7 @@ import com.ufo.base.Message;
 import com.ufo.exception.ExchangeTypeDoNotSupportException;
 import com.ufo.exception.QueueNotExistsException;
 import lombok.Getter;
+import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 
@@ -19,13 +20,13 @@ public class Producer extends RabbitManager {
     /**
      *
      * @param rabbitConnectionFactory
-     * @param rabbitAdmin
+     * @param amqpAdmin
      * @param msgEntity
      * @throws ExchangeTypeDoNotSupportException
      * @throws QueueNotExistsException
      */
-    public Producer(CachingConnectionFactory rabbitConnectionFactory, RabbitAdmin rabbitAdmin, RabbitEntity msgEntity) throws ExchangeTypeDoNotSupportException, QueueNotExistsException {
-        super(rabbitConnectionFactory, rabbitAdmin, msgEntity);
+    public Producer(CachingConnectionFactory rabbitConnectionFactory, AmqpAdmin amqpAdmin, RabbitEntity msgEntity) throws ExchangeTypeDoNotSupportException, QueueNotExistsException {
+        super(rabbitConnectionFactory, amqpAdmin, msgEntity);
         logger.info("********************************* producer begin init !");
         PRODUCER.put(msgEntity.getQueueName(), this);
         try {

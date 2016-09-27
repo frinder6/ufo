@@ -14,6 +14,7 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.util.StringUtils;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -39,7 +40,7 @@ public abstract class RabbitManager {
 
     private CachingConnectionFactory rabbitConnectionFactory;
 
-    private RabbitAdmin rabbitAdmin;
+    private AmqpAdmin amqpAdmin;
 
     private RabbitEntity msgEntity;
 
@@ -52,10 +53,10 @@ public abstract class RabbitManager {
     private RabbitTemplate rabbitTemplate;
 
 
-    public RabbitManager(CachingConnectionFactory rabbitConnectionFactory, RabbitAdmin rabbitAdmin, RabbitEntity msgEntity) throws ExchangeTypeDoNotSupportException, QueueNotExistsException {
+    public RabbitManager(CachingConnectionFactory rabbitConnectionFactory, AmqpAdmin amqpAdmin, RabbitEntity msgEntity) throws ExchangeTypeDoNotSupportException, QueueNotExistsException {
         logger.info("**************************************begin init !");
         this.rabbitConnectionFactory = rabbitConnectionFactory;
-        this.rabbitAdmin = rabbitAdmin;
+        this.amqpAdmin = amqpAdmin;
         this.msgEntity = msgEntity;
         // bindingHandler
         this.bindingHandler = new BindingHandler(msgEntity);
@@ -64,9 +65,9 @@ public abstract class RabbitManager {
         this.rabbitTemplate.setQueue(msgEntity.getQueueName());
         this.rabbitTemplate.setExchange(msgEntity.getExchangeName());
         this.rabbitTemplate.setRoutingKey(msgEntity.getRoutingKey());
-        rabbitAdmin.declareQueue(bindingHandler.getQueue());
-        rabbitAdmin.declareExchange(bindingHandler.getExchange());
-        rabbitAdmin.declareBinding(bindingHandler.getBinding());
+        amqpAdmin.declareQueue(bindingHandler.getQueue());
+        amqpAdmin.declareExchange(bindingHandler.getExchange());
+        amqpAdmin.declareBinding(bindingHandler.getBinding());
         try {
             logger.info(JSON.toJSONString(this));
         } catch (Exception e) {
@@ -122,7 +123,16 @@ public abstract class RabbitManager {
                 logger.info("binding result : [ queue : " + queueName + ", exchange : " + exchangeName + ", routingKey : " + routingKey + " ] !");
             }
         }
+    }
 
+    /**
+     * 销毁监听器
+     */
+    public static void destory(){
+        for (Map.Entry<String, Consumer> entry : CONSUMER.entrySet()){
+            Consumer consumer = entry.getValue();
+            consumer.getSimpleMessageListenerContainer().destroy();
+        }
     }
 
 }

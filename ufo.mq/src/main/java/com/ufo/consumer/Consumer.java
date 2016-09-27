@@ -6,6 +6,8 @@ import com.ufo.base.MessageHandler;
 import com.ufo.base.RabbitManager;
 import com.ufo.exception.ExchangeTypeDoNotSupportException;
 import com.ufo.exception.QueueNotExistsException;
+import lombok.Getter;
+import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
@@ -14,6 +16,7 @@ import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 /**
  * Created on 2016/7/31.
  */
+@Getter
 public class Consumer extends RabbitManager {
 
     private SimpleMessageListenerContainer simpleMessageListenerContainer;
@@ -22,14 +25,14 @@ public class Consumer extends RabbitManager {
 
     /**
      * @param rabbitConnectionFactory
-     * @param rabbitAdmin
+     * @param amqpAdmin
      * @param msgEntity
      * @param msgHandler
      * @throws ExchangeTypeDoNotSupportException
      * @throws QueueNotExistsException
      */
-    public Consumer(CachingConnectionFactory rabbitConnectionFactory, RabbitAdmin rabbitAdmin, RabbitEntity msgEntity, MessageHandler msgHandler) throws ExchangeTypeDoNotSupportException, QueueNotExistsException {
-        super(rabbitConnectionFactory, rabbitAdmin, msgEntity);
+    public Consumer(CachingConnectionFactory rabbitConnectionFactory, AmqpAdmin amqpAdmin, RabbitEntity msgEntity, MessageHandler msgHandler) throws ExchangeTypeDoNotSupportException, QueueNotExistsException {
+        super(rabbitConnectionFactory, amqpAdmin, msgEntity);
         logger.info("*********************************consumer begin init !");
         this.simpleMessageListenerContainer = new SimpleMessageListenerContainer(rabbitConnectionFactory);
         this.messageHandler = msgHandler;

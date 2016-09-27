@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <#include "taglib.ftl" />
+
+    <link rel="stylesheet" type="text/css" href="index.css"/>
+
+    <title>首页</title>
+
+</head>
+<body class="easyui-layout">
+
+    <div data-options="region:'north',border:false" class="north-region">
+        north region
+    </div>
+
+    <div data-options="region:'west',split:true,title:'West'" class="west-content">
+        west content
+    </div>
+
+    <div data-options="region:'east',split:true,collapsed:true,title:'East'" class="east-region">
+        east region
+    </div>
+
+    <div data-options="region:'south',border:false" class="south-region">
+        south region
+    </div>
+
+    <div data-options="region:'center',title:'Center'">
+
+    </div>
+
+</body>
+</html>

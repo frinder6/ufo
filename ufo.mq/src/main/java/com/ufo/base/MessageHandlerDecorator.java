@@ -29,9 +29,6 @@ public class MessageHandlerDecorator implements MessageHandler {
     @Setter
     private MessageHandler messageHandler;
 
-    @Autowired
-    private HttpServletRequest request;
-
 
     @Override
     public void handleMessage(Message message) throws SqlFormatException {
@@ -40,7 +37,6 @@ public class MessageHandlerDecorator implements MessageHandler {
         logger.info("persist message to db !");
         logger.info("****************************");
         QueueLogEntity log = new QueueLogEntity();
-        log.setHost(request.getRemoteHost());
         BeanUtils.copyProperties(message, log);
         SqlEntity<QueueLogEntity> sqlEntity = new SqlEntity<>();
         sqlEntity.setEntity(log);

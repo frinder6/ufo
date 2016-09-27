@@ -49,6 +49,5 @@
 
     <mvc:resources location="/resources/" mapping="/resources/**"/>
 
-    <import resource="applicationContext.xml"/>
 
 </beans>
