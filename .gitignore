@@ -4,3 +4,5 @@
 /ufo.base/target
 /ufo.job/target
 /ufo.mq/target
+*.log
+*.zip
