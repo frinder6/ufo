@@ -323,7 +323,7 @@
 				
 				var cls = 'calendar-day';
 				if (!(opts.year == day[0] && opts.month == day[1])){
-					cls += ' calendar-other-month';
+					cls += ' calendar-images-month';
 				}
 				if (s == todayInfo){cls += ' calendar-today';}
 				if (s == currentInfo){cls += ' calendar-selected';}

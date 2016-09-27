@@ -1,5 +1,5 @@
 <meta charset="UTF-8">
-<link rel="shortcut icon" href="favicon.png" type="image/png"/>
+<link rel="shortcut icon" href="images/favicon.png" type="image/png"/>
 
 <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css"/>
 <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css"/>

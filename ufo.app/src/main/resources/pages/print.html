@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <#include "taglib.ftl" />
+
+    <title>显示所有Bean</title>
+
+</head>
+<body class="easyui-layout">
+
+    <div class="easyui-datalist"
+         title="显示所有Bean"
+         style="width:800px;height:500px"
+         data-options="
+            url: 'bean/print',
+            method: 'get'
+         ">
+    </div>
+
+</body>
+</html>

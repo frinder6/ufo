@@ -80,4 +80,6 @@
         <appender-ref ref="stdout"/>
     </logger>
 
+    <logger name="com.ufo" level="info" />
+
 </configuration>

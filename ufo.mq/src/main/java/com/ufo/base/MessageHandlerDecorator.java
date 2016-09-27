@@ -42,9 +42,9 @@ public class MessageHandlerDecorator implements MessageHandler {
         sqlEntity.setEntity(log);
         this.queueLogDao.persist(sqlEntity);
         this.messageHandler.handleMessage(message);
-        // so other things
+        // so images things
         logger.info("****************************");
-        logger.info("do some other things !");
+        logger.info("do some images things !");
         logger.info("****************************");
     }
 

@@ -49,7 +49,7 @@ public class RabbitInitializer implements ApplicationContextAware {
     private IService<QueueInfoEntity> queueInfoService;
 
 
-    @PostConstruct
+//    @PostConstruct
     public void postHandle() throws ExchangeTypeDoNotSupportException, QueueNotExistsException, SqlFormatException {
         String[] beans = applicationContext.getBeanDefinitionNames();
         logger.info("init beans : ******************************************* ");

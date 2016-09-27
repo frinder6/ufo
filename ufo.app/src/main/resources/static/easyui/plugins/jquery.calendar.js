@@ -294,7 +294,7 @@ _3c=css["style"]||"";
 }
 var cls="calendar-day";
 if(!(_30.year==day[0]&&_30.month==day[1])){
-cls+=" calendar-other-month";
+cls+=" calendar-images-month";
 }
 if(s==_31){
 cls+=" calendar-today";

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created on 2016/7/31.
  */
-//@Component
+@Component
 @Aspect
 public class SystemLogAdvisor {
 
