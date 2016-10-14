@@ -24,7 +24,6 @@
                         password="123456"/>
 
 
-
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
@@ -47,6 +46,17 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 表 -->
+
+
+        <table tableName="ufo_menu_info"
+               domainObjectName="MenuInfoEntity"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
 
 
         <!--<table tableName="ufo_queue_info"

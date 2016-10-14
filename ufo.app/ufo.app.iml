@@ -40,6 +40,7 @@
     <orderEntry type="module" module-name="ufo.base" />
     <orderEntry type="module" module-name="ufo.mq" />
     <orderEntry type="module" module-name="ufo.entity" />
+    <orderEntry type="module" module-name="ufo.dao" scope="TEST" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:1.4.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:1.4.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:4.3.2.RELEASE" level="project" />
@@ -136,7 +137,7 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.21" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:19.0" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.12.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.mybatis.generator:mybatis-generator-core:1.3.2" level="project" />
+    <orderEntry type="library" name="Maven: org.mybatis.generator:mybatis-generator-core:1.3.2" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.11" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-starter-test:1.4.0.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-test:1.4.0.RELEASE" level="project" />

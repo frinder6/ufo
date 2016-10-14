@@ -1,4 +1,4 @@
-package com.ufo.dao;
+package com.ufo.mapper;
 
 import com.ufo.entity.QueueLogEntity;
 import com.ufo.entity.SqlEntity;

@@ -1,4 +1,4 @@
-package com.ufo.dao;
+package com.ufo.mapper;
 
 import com.ufo.entity.Page;
 import com.ufo.entity.SqlEntity;
@@ -13,9 +13,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created on 2016/8/1.

@@ -13,7 +13,7 @@
 }
 
 .west-content {
-	width:150px;padding:10px;
+	width:150px;padding:2px;
 }
 
 .east-region {
@@ -23,3 +23,6 @@
 .south-region {
 	height:50px;background:#A9FACD;padding:10px;
 }
+
+.main-context {
+	padding:3px;}

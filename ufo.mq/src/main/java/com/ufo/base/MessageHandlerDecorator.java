@@ -1,6 +1,6 @@
 package com.ufo.base;
 
-import com.ufo.dao.QueueLogDao;
+import com.ufo.mapper.QueueLogDao;
 import com.ufo.entity.QueueLogEntity;
 import com.ufo.entity.SqlEntity;
 import com.ufo.exception.SqlFormatException;
@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created on 2016/7/31.

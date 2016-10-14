@@ -1,6 +1,6 @@
 package com.ufo.service;
 
-import com.ufo.dao.IDao;
+import com.ufo.mapper.IDao;
 import com.ufo.entity.SqlEntity;
 import com.ufo.exception.SqlFormatException;
 import org.springframework.beans.factory.annotation.Autowired;

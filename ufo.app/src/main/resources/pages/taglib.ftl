@@ -11,6 +11,6 @@
 <script src="layer/layer.js"></script>
 <script type="text/javascript">
     layer.config({
-        extend : 'layer/extend/layer.ext.js'
+        extend : 'extend/layer.ext.js'
     })
 </script>

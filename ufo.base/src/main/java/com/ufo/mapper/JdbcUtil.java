@@ -1,4 +1,4 @@
-package com.ufo.dao;
+package com.ufo.mapper;
 
 import com.google.common.base.CaseFormat;
 import com.google.common.collect.Lists;
