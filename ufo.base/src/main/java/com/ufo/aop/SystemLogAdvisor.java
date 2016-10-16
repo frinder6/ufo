@@ -56,6 +56,7 @@ public class SystemLogAdvisor {
         try {
             logger.info("request info : " + JSON.toJSONString(point));
         } catch (Exception e) {
+//            logger.error("execute error : " + e.getMessage(), e);
             logger.info("request info : " + point.toLongString());
         }
         Object result;
@@ -68,6 +69,7 @@ public class SystemLogAdvisor {
         try {
             logger.info("response info : " + JSON.toJSONString(result));
         } catch (Exception e) {
+//            logger.error("execute error : " + e.getMessage(), e);
             logger.info(result.toString());
         }
         long eTime = System.currentTimeMillis();

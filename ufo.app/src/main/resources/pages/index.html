@@ -20,7 +20,7 @@
                 allowfullscreen="true"></iframe>
     </div>
     <nav id="menu">
-        <ul>
+        <!--<ul>
             <li><a href="#">Home</a></li>
             <li><span>About us</span>
                 <ul>
@@ -36,6 +36,33 @@
                 </ul>
             </li>
             <li><a href="#contact">Contact</a></li>
+        </ul>-->
+        <ul>
+            <#if menus ??>
+                <#list menus as menu>
+                    <#if menu.children ??>
+                        <li><span>${menu.id} - ${menu.text}</span>
+                            <ul>
+                                <#list menu.children as son>
+                                    <#if son.children ??>
+                                        <li><span>${son.id} - ${son.text}</span>
+                                            <ul>
+                                                <#list son.children as gson>
+                                                    <li><a href="${gson.url}">${gson.id} - ${gson.text}</a></li>
+                                                </#list>
+                                            </ul>
+                                        </li>
+                                    <#else>
+                                        <li><a href="${son.url}">${son.id} - ${son.text}</a></li>
+                                    </#if>
+                                </#list>
+                            </ul>
+                        </li>
+                    <#else>
+                        <li><a href="javascript:void(0)">${menu.id} - ${menu.text}</a></li>
+                    </#if>
+                </#list>
+            </#if>
         </ul>
     </nav>
     <div class="footer"></div>

@@ -7,6 +7,16 @@ import java.util.List;
 @Data
 public class MenuInfoVO {
 
+    public MenuInfoVO() {
+    }
+
+    public MenuInfoVO(Long id, String text, Long parentId, String url) {
+        this.id = id;
+        this.text = text;
+        this.parentId = parentId;
+        this.url = url;
+    }
+
     private Long id;
 
     private String text;
