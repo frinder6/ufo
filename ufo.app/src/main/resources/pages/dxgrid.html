@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>显示所有Bean</title>
+
+    <link rel="stylesheet" type="text/css" href="dhtmlx/fonts/font_roboto/roboto.css"/>
+    <link rel="stylesheet" type="text/css" href="dhtmlx/dhtmlx.css"/>
+    <link href="layer/skin/layer.css" rel="stylesheet"/>
+
+
+</head>
+<body onload="doOnLoad()">
+
+
+<div id="gridbox"></div>
+
+
+</body>
+<script src="dhtmlx/dhtmlx.js"></script>
+
+<script type="text/javascript">
+    var grid;
+    function doOnLoad() {
+        grid = new dhtmlXGridObject('gridbox');
+        grid.setImagePath("dhtmlx/imgs/");
+        grid.setHeader("id,name,age");
+        grid.setColumnIds("id,name,age");
+        grid.enableAutoHeight(true);
+        grid.enableAutoWidth(true);
+        grid.init();
+        grid.load('dx/dx.load?pos=10', 'js');
+    }
+</script>
+
+
+</html>
