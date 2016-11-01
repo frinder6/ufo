@@ -4,7 +4,6 @@
 
     <title>显示所有Bean</title>
 
-    <link rel="stylesheet" type="text/css" href="dhtmlx/fonts/font_roboto/roboto.css"/>
     <link rel="stylesheet" type="text/css" href="dhtmlx/dhtmlx.css"/>
     <link href="layer/skin/layer.css" rel="stylesheet"/>
 
@@ -20,16 +19,34 @@
 <script src="dhtmlx/dhtmlx.js"></script>
 
 <script type="text/javascript">
-    var grid;
+
+    var data = {
+        //"pos": 1,
+        //"total_count": 1000,
+        "rows": [{"data": ["name1", 1, 28], "id": 1}, {"data": ["name2", 2, 29], "id": 2}, {
+            "data": ["name3", 3, 30],
+            "id": 3
+        }, {"data": ["name4", 4, 31], "id": 4}, {"data": ["name5", 5, 32], "id": 5}, {
+            "data": ["name6", 6, 33],
+            "id": 6
+        }, {"data": ["name7", 7, 34], "id": 7}, {"data": ["name8", 8, 35], "id": 8}, {
+            "data": ["name9", 9, 27],
+            "id": 9
+        }, {"data": ["name10", 10, 28], "id": 10}]
+
+    };
+
+    var mygrid;
     function doOnLoad() {
-        grid = new dhtmlXGridObject('gridbox');
-        grid.setImagePath('dhtmlx/imgs/');
-        grid.setHeader('id,name,age');
-        grid.setColumnIds('id,name,age');
-        grid.enableAutoHeight(true);
-        grid.enableAutoWidth(true);
-        grid.init();
-        grid.load('dx/dx.load?pos=1', 'js');
+        mygrid = new dhtmlXGridObject('gridbox');
+        mygrid.setImagePath('dhtmlx/imgs/');
+        mygrid.setHeader('name,id,age');
+        mygrid.enableAutoHeight(true);
+        mygrid.enableAutoWidth(true);
+        mygrid.init();
+        mygrid.setSkin("dhx_skyblue");
+        mygrid.load('dx/dx.load?pos=1', 'json');
+        // mygrid.parse(data, 'json');
 
     }
 </script>

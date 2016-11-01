@@ -3,6 +3,8 @@ package com.ufo.entity;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,7 +17,12 @@ public class DxDataEntity implements Serializable {
 
     private int pos;
 
-    private List<Serializable> data;
+    private List<Row> rows = new ArrayList<>();
 
+    @Data
+    public static class Row implements Serializable {
+        private Long id;
+        private Collection<Object> data;
+    }
 
 }

@@ -39,9 +39,17 @@ public class DxController {
         DxDataEntity entity = new DxDataEntity();
         int s = (pos - 1) * 10;
         int e = pos * 10;
-        entity.setTotal_count(DATA.size());
-        entity.setPos(pos);
-        entity.setData(DATA.subList(s, e));
+        //entity.setTotal_count(DATA.size());
+        //entity.setPos(pos);
+        List<Serializable> subList = DATA.subList(s, e);
+        DxDataEntity.Row row;
+        for (Serializable t : subList) {
+            Map<String, Object> map = (Map<String, Object>)t;
+            row = new DxDataEntity.Row();
+            row.setId(Long.parseLong(map.get("id").toString()));
+            row.setData(map.values());
+            entity.getRows().add(row);
+        }
         return entity;
     }
 
@@ -50,7 +58,7 @@ public class DxController {
         int start = Integer.parseInt(request.getParameter("start"));
         int len = Integer.parseInt(request.getParameter("length"));
         String pageNum = request.getParameter("pageNum");
-        if (!StringUtils.isEmpty(pageNum)){
+        if (!StringUtils.isEmpty(pageNum)) {
             start = Integer.parseInt(pageNum) * len;
         }
         DtDataEntity entity = new DtDataEntity();
