@@ -25,27 +25,6 @@
 <script src="dhtmlx/dhtmlx.js"></script>
 
 <script type="text/javascript">
-
-    var data = {
-        "total_count": 50000, "pos": 0, "data": [
-            {
-                "col1": "A Time to Kill",
-                "col2": "John Grisham",
-                "col3": "100"
-            },
-            {
-                "col1": "Blood and Smoke",
-                "col2": "Stephen King",
-                "col3": "1000"
-            },
-            {
-                "col1": "The Rainmaker",
-                "col2": "John Grisham",
-                "col3": "-200"
-            }
-        ]
-    };
-
     var mygrid;
     function doOnLoad() {
         mygrid = new dhtmlXGridObject("gridbox");
@@ -60,7 +39,6 @@
         // mygrid.setPagingSkin("bricks");
         mygrid.setPagingSkin("toolbar", "dhx_skyblue");
         mygrid.load("dx/dx.load", "js");
-        // mygrid.parse(data, "js");
 
     }
 </script>
