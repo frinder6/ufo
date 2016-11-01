@@ -17,12 +17,6 @@ public class DxDataEntity implements Serializable {
 
     private int pos;
 
-    private List<Row> rows = new ArrayList<>();
-
-    @Data
-    public static class Row implements Serializable {
-        private Long id;
-        private Collection<Object> data;
-    }
+    private List<Serializable> data;
 
 }

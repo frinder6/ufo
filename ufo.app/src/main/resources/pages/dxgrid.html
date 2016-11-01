@@ -11,8 +11,14 @@
 </head>
 <body onload="doOnLoad()">
 
+<div>
+    <div id="gridbox"></div>
 
-<div id="gridbox"></div>
+    <div>
+        <div id="recInfoArea"></div>
+        <div id="pagingbox"></div>
+    </div>
+</div>
 
 
 </body>
@@ -21,32 +27,40 @@
 <script type="text/javascript">
 
     var data = {
-        //"pos": 1,
-        //"total_count": 1000,
-        "rows": [{"data": ["name1", 1, 28], "id": 1}, {"data": ["name2", 2, 29], "id": 2}, {
-            "data": ["name3", 3, 30],
-            "id": 3
-        }, {"data": ["name4", 4, 31], "id": 4}, {"data": ["name5", 5, 32], "id": 5}, {
-            "data": ["name6", 6, 33],
-            "id": 6
-        }, {"data": ["name7", 7, 34], "id": 7}, {"data": ["name8", 8, 35], "id": 8}, {
-            "data": ["name9", 9, 27],
-            "id": 9
-        }, {"data": ["name10", 10, 28], "id": 10}]
-
+        "total_count": 50000, "pos": 0, "data": [
+            {
+                "col1": "A Time to Kill",
+                "col2": "John Grisham",
+                "col3": "100"
+            },
+            {
+                "col1": "Blood and Smoke",
+                "col2": "Stephen King",
+                "col3": "1000"
+            },
+            {
+                "col1": "The Rainmaker",
+                "col2": "John Grisham",
+                "col3": "-200"
+            }
+        ]
     };
 
     var mygrid;
     function doOnLoad() {
-        mygrid = new dhtmlXGridObject('gridbox');
-        mygrid.setImagePath('dhtmlx/imgs/');
-        mygrid.setHeader('name,id,age');
+        mygrid = new dhtmlXGridObject("gridbox");
+        mygrid.enablePaging(true, 10, 5, "pagingbox", true, "recInfoArea");
+        mygrid.setImagePath("dhtmlx/imgs/");
+        mygrid.setHeader("id,name,age");
+        mygrid.setColumnIds("id,name,age");
         mygrid.enableAutoHeight(true);
         mygrid.enableAutoWidth(true);
         mygrid.init();
         mygrid.setSkin("dhx_skyblue");
-        mygrid.load('dx/dx.load?pos=1', 'json');
-        // mygrid.parse(data, 'json');
+        // mygrid.setPagingSkin("bricks");
+        mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+        mygrid.load("dx/dx.load", "js");
+        // mygrid.parse(data, "js");
 
     }
 </script>

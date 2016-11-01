@@ -35,21 +35,17 @@ public class DxController {
 
 
     @RequestMapping("/dx.load")
-    public DxDataEntity dx(@RequestParam("pos") int pos) {
+    public DxDataEntity dx(HttpServletRequest request) {
         DxDataEntity entity = new DxDataEntity();
-        int s = (pos - 1) * 10;
-        int e = pos * 10;
-        //entity.setTotal_count(DATA.size());
-        //entity.setPos(pos);
-        List<Serializable> subList = DATA.subList(s, e);
-        DxDataEntity.Row row;
-        for (Serializable t : subList) {
-            Map<String, Object> map = (Map<String, Object>)t;
-            row = new DxDataEntity.Row();
-            row.setId(Long.parseLong(map.get("id").toString()));
-            row.setData(map.values());
-            entity.getRows().add(row);
-        }
+        String posStr = request.getParameter("posStart");
+        int pos = !StringUtils.isEmpty(posStr) ? Integer.parseInt(posStr) : 0;
+        String countStr = request.getParameter("count");
+        int count = !StringUtils.isEmpty(countStr) ? Integer.parseInt(countStr) : 10;
+        System.out.println("pos:" + pos + "; count:" + count);
+        entity.setTotal_count(DATA.size());
+        entity.setPos(pos);
+        List<Serializable> subList = DATA.subList(pos, pos + count);
+        entity.setData(subList);
         return entity;
     }
 
