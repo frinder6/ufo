@@ -32,6 +32,9 @@ $(function () {
             navbar: {
                 title: '导航栏'
             },
+            searchfield: {
+                placeholder:'搜索…'
+            },
             navbars: [
                 {
                     position: 'top',

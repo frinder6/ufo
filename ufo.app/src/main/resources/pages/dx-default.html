@@ -51,13 +51,13 @@
             of: " 的 ",
             notfound: "查询无结果"
         };
-        mygrid.enablePaging(true, 50, 5, "pagingbox", true,"recInfoArea");
+        mygrid.enablePaging(true, 30, 5, "pagingbox", true,"recInfoArea");
         mygrid.setImagePath("dhtmlx/skins/web/imgs/");
         mygrid.setHeader("id,name,age");
         mygrid.setColumnIds("id,name,age");
         mygrid.setColWidth("*");
         mygrid.init();
-        mygrid.setPagingSkin("bricks");
+//        mygrid.setPagingSkin("bricks");
         mygrid.load("dx/dx.load", "js");
     }
 </script>

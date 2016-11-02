@@ -34,7 +34,7 @@
         });
         mylayout.attachStatusBar({
             height: {dhx_skyblue: 30, dhx_web: 31, dhx_terrace: 40}['dhx_web'],
-            text: "<div id='pagingbox'></div><div id='recInfoArea'></div>"
+            text: "<div id='pagingbox'></div>"
         });
         mygrid = mylayout.cells("a").attachGrid();
         mygrid.i18n.paging = {
@@ -51,7 +51,7 @@
             of: " 的 ",
             notfound: "查询无结果"
         };
-        mygrid.enablePaging(true, 50, 5, "pagingbox", true,"recInfoArea");
+        mygrid.enablePaging(true, 30, 5, "pagingbox", true);
         mygrid.setImagePath("dhtmlx/skins/web/imgs/");
         mygrid.setHeader("id,name,age");
         mygrid.setColumnIds("id,name,age");
