@@ -1,10 +1,8 @@
 package com.ufo.controller;
 
-import com.ufo.entity.DtDataEntity;
 import com.ufo.entity.DxDataEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +39,6 @@ public class DxController {
         int pos = !StringUtils.isEmpty(posStr) ? Integer.parseInt(posStr) : 0;
         String countStr = request.getParameter("count");
         int count = !StringUtils.isEmpty(countStr) ? Integer.parseInt(countStr) : 10;
-        System.out.println("pos:" + pos + "; count:" + count);
         entity.setTotal_count(DATA.size());
         entity.setPos(pos);
         List<Serializable> subList = DATA.subList(pos, pos + count);
@@ -49,21 +46,6 @@ public class DxController {
         return entity;
     }
 
-    @RequestMapping("/dt.load")
-    public DtDataEntity dt(HttpServletRequest request) {
-        int start = Integer.parseInt(request.getParameter("start"));
-        int len = Integer.parseInt(request.getParameter("length"));
-        String pageNum = request.getParameter("pageNum");
-        if (!StringUtils.isEmpty(pageNum)) {
-            start = Integer.parseInt(pageNum) * len;
-        }
-        DtDataEntity entity = new DtDataEntity();
-        entity.setStart(start);
-        entity.setRecordsFiltered(DATA.size());
-        entity.setRecordsTotal(DATA.size());
-        entity.setData(DATA.subList(start, start + len));
-        return entity;
-    }
 
 
 }
