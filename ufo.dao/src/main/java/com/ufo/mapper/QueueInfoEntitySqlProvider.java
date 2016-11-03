@@ -8,36 +8,32 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.ufo.entity.MenuInfoEntity;
+import com.ufo.entity.QueueInfoEntity;
 
-public class MenuInfoEntitySqlProvider {
+public class QueueInfoEntitySqlProvider {
 
-    public String insertSelective(MenuInfoEntity record) {
+    public String insertSelective(QueueInfoEntity record) {
         BEGIN();
-        INSERT_INTO("ufo_menu_info");
+        INSERT_INTO("ufo_queue_info");
         
         if (record.getId() != null) {
             VALUES("id", "#{id,jdbcType=BIGINT}");
         }
         
-        if (record.getParentId() != null) {
-            VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
+        if (record.getQueueName() != null) {
+            VALUES("queue_name", "#{queueName,jdbcType=VARCHAR}");
         }
         
-        if (record.getTitle() != null) {
-            VALUES("title", "#{title,jdbcType=VARCHAR}");
+        if (record.getExchangeName() != null) {
+            VALUES("exchange_name", "#{exchangeName,jdbcType=VARCHAR}");
         }
         
-        if (record.getUrl() != null) {
-            VALUES("url", "#{url,jdbcType=VARCHAR}");
+        if (record.getRoutingKey() != null) {
+            VALUES("routing_key", "#{routingKey,jdbcType=VARCHAR}");
         }
         
-        if (record.getIcon() != null) {
-            VALUES("icon", "#{icon,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            VALUES("sort", "#{sort,jdbcType=TINYINT}");
+        if (record.getExchangeType() != null) {
+            VALUES("exchange_type", "#{exchangeType,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {
@@ -63,28 +59,24 @@ public class MenuInfoEntitySqlProvider {
         return SQL();
     }
 
-    public String updateByPrimaryKeySelective(MenuInfoEntity record) {
+    public String updateByPrimaryKeySelective(QueueInfoEntity record) {
         BEGIN();
-        UPDATE("ufo_menu_info");
+        UPDATE("ufo_queue_info");
         
-        if (record.getParentId() != null) {
-            SET("parent_id = #{parentId,jdbcType=BIGINT}");
+        if (record.getQueueName() != null) {
+            SET("queue_name = #{queueName,jdbcType=VARCHAR}");
         }
         
-        if (record.getTitle() != null) {
-            SET("title = #{title,jdbcType=VARCHAR}");
+        if (record.getExchangeName() != null) {
+            SET("exchange_name = #{exchangeName,jdbcType=VARCHAR}");
         }
         
-        if (record.getUrl() != null) {
-            SET("url = #{url,jdbcType=VARCHAR}");
+        if (record.getRoutingKey() != null) {
+            SET("routing_key = #{routingKey,jdbcType=VARCHAR}");
         }
         
-        if (record.getIcon() != null) {
-            SET("icon = #{icon,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            SET("sort = #{sort,jdbcType=TINYINT}");
+        if (record.getExchangeType() != null) {
+            SET("exchange_type = #{exchangeType,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {

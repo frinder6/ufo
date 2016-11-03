@@ -8,36 +8,36 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.ufo.entity.MenuInfoEntity;
+import com.ufo.entity.LogInfoEntity;
 
-public class MenuInfoEntitySqlProvider {
+public class LogInfoEntitySqlProvider {
 
-    public String insertSelective(MenuInfoEntity record) {
+    public String insertSelective(LogInfoEntity record) {
         BEGIN();
-        INSERT_INTO("ufo_menu_info");
+        INSERT_INTO("ufo_log_info");
         
         if (record.getId() != null) {
             VALUES("id", "#{id,jdbcType=BIGINT}");
         }
         
-        if (record.getParentId() != null) {
-            VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
+        if (record.getRequestUrl() != null) {
+            VALUES("request_url", "#{requestUrl,jdbcType=VARCHAR}");
         }
         
-        if (record.getTitle() != null) {
-            VALUES("title", "#{title,jdbcType=VARCHAR}");
+        if (record.getIp() != null) {
+            VALUES("ip", "#{ip,jdbcType=VARCHAR}");
         }
         
-        if (record.getUrl() != null) {
-            VALUES("url", "#{url,jdbcType=VARCHAR}");
+        if (record.getOper() != null) {
+            VALUES("oper", "#{oper,jdbcType=VARCHAR}");
         }
         
-        if (record.getIcon() != null) {
-            VALUES("icon", "#{icon,jdbcType=VARCHAR}");
+        if (record.getClassName() != null) {
+            VALUES("class_name", "#{className,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            VALUES("sort", "#{sort,jdbcType=TINYINT}");
+        if (record.getMethod() != null) {
+            VALUES("method", "#{method,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {
@@ -63,28 +63,28 @@ public class MenuInfoEntitySqlProvider {
         return SQL();
     }
 
-    public String updateByPrimaryKeySelective(MenuInfoEntity record) {
+    public String updateByPrimaryKeySelective(LogInfoEntity record) {
         BEGIN();
-        UPDATE("ufo_menu_info");
+        UPDATE("ufo_log_info");
         
-        if (record.getParentId() != null) {
-            SET("parent_id = #{parentId,jdbcType=BIGINT}");
+        if (record.getRequestUrl() != null) {
+            SET("request_url = #{requestUrl,jdbcType=VARCHAR}");
         }
         
-        if (record.getTitle() != null) {
-            SET("title = #{title,jdbcType=VARCHAR}");
+        if (record.getIp() != null) {
+            SET("ip = #{ip,jdbcType=VARCHAR}");
         }
         
-        if (record.getUrl() != null) {
-            SET("url = #{url,jdbcType=VARCHAR}");
+        if (record.getOper() != null) {
+            SET("oper = #{oper,jdbcType=VARCHAR}");
         }
         
-        if (record.getIcon() != null) {
-            SET("icon = #{icon,jdbcType=VARCHAR}");
+        if (record.getClassName() != null) {
+            SET("class_name = #{className,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            SET("sort = #{sort,jdbcType=TINYINT}");
+        if (record.getMethod() != null) {
+            SET("method = #{method,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {

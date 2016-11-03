@@ -2,18 +2,18 @@ package com.ufo.entity;
 
 import java.util.Date;
 
-public class MenuInfoEntity {
+public class LogInfoEntity {
     private Long id;
 
-    private Long parentId;
+    private String requestUrl;
 
-    private String title;
+    private String ip;
 
-    private String url;
+    private String oper;
 
-    private String icon;
+    private String className;
 
-    private Byte sort;
+    private String method;
 
     private Byte status;
 
@@ -33,44 +33,44 @@ public class MenuInfoEntity {
         this.id = id;
     }
 
-    public Long getParentId() {
-        return parentId;
+    public String getRequestUrl() {
+        return requestUrl;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setRequestUrl(String requestUrl) {
+        this.requestUrl = requestUrl == null ? null : requestUrl.trim();
     }
 
-    public String getTitle() {
-        return title;
+    public String getIp() {
+        return ip;
     }
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+    public void setIp(String ip) {
+        this.ip = ip == null ? null : ip.trim();
     }
 
-    public String getUrl() {
-        return url;
+    public String getOper() {
+        return oper;
     }
 
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+    public void setOper(String oper) {
+        this.oper = oper == null ? null : oper.trim();
     }
 
-    public String getIcon() {
-        return icon;
+    public String getClassName() {
+        return className;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon == null ? null : icon.trim();
+    public void setClassName(String className) {
+        this.className = className == null ? null : className.trim();
     }
 
-    public Byte getSort() {
-        return sort;
+    public String getMethod() {
+        return method;
     }
 
-    public void setSort(Byte sort) {
-        this.sort = sort;
+    public void setMethod(String method) {
+        this.method = method == null ? null : method.trim();
     }
 
     public Byte getStatus() {
@@ -124,13 +124,13 @@ public class MenuInfoEntity {
         if (getClass() != that.getClass()) {
             return false;
         }
-        MenuInfoEntity other = (MenuInfoEntity) that;
+        LogInfoEntity other = (LogInfoEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
-            && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
-            && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
-            && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
-            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
+            && (this.getRequestUrl() == null ? other.getRequestUrl() == null : this.getRequestUrl().equals(other.getRequestUrl()))
+            && (this.getIp() == null ? other.getIp() == null : this.getIp().equals(other.getIp()))
+            && (this.getOper() == null ? other.getOper() == null : this.getOper().equals(other.getOper()))
+            && (this.getClassName() == null ? other.getClassName() == null : this.getClassName().equals(other.getClassName()))
+            && (this.getMethod() == null ? other.getMethod() == null : this.getMethod().equals(other.getMethod()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -143,11 +143,11 @@ public class MenuInfoEntity {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
-        result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
-        result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
-        result = prime * result + ((getIcon() == null) ? 0 : getIcon().hashCode());
-        result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
+        result = prime * result + ((getRequestUrl() == null) ? 0 : getRequestUrl().hashCode());
+        result = prime * result + ((getIp() == null) ? 0 : getIp().hashCode());
+        result = prime * result + ((getOper() == null) ? 0 : getOper().hashCode());
+        result = prime * result + ((getClassName() == null) ? 0 : getClassName().hashCode());
+        result = prime * result + ((getMethod() == null) ? 0 : getMethod().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
@@ -163,11 +163,11 @@ public class MenuInfoEntity {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", parentId=").append(parentId);
-        sb.append(", title=").append(title);
-        sb.append(", url=").append(url);
-        sb.append(", icon=").append(icon);
-        sb.append(", sort=").append(sort);
+        sb.append(", requestUrl=").append(requestUrl);
+        sb.append(", ip=").append(ip);
+        sb.append(", oper=").append(oper);
+        sb.append(", className=").append(className);
+        sb.append(", method=").append(method);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);

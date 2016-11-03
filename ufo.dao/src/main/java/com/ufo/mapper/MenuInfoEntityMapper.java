@@ -13,16 +13,16 @@ public interface MenuInfoEntityMapper {
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into ufo_menu_info (id, name, ",
-        "parent_id, url, icon, ",
-        "status, sort, creater, ",
-        "create_time, modifier, ",
-        "update_time)",
-        "values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, ",
-        "#{parentId,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, ",
-        "#{status,jdbcType=TINYINT}, #{sort,jdbcType=TINYINT}, #{creater,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, ",
-        "#{updateTime,jdbcType=TIMESTAMP})"
+        "insert into ufo_menu_info (id, parent_id, ",
+        "title, url, icon, ",
+        "sort, status, create_time, ",
+        "creater, update_time, ",
+        "updater)",
+        "values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, ",
+        "#{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, ",
+        "#{sort,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, ",
+        "#{updater,jdbcType=VARCHAR})"
     })
     int insert(MenuInfoEntity record);
 
@@ -31,23 +31,23 @@ public interface MenuInfoEntityMapper {
 
     @Select({
         "select",
-        "id, name, parent_id, url, icon, status, sort, creater, create_time, modifier, ",
-        "update_time",
+        "id, parent_id, title, url, icon, sort, status, create_time, creater, update_time, ",
+        "updater",
         "from ufo_menu_info",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.BIGINT),
+        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="url", property="url", jdbcType=JdbcType.VARCHAR),
         @Result(column="icon", property="icon", jdbcType=JdbcType.VARCHAR),
-        @Result(column="status", property="status", jdbcType=JdbcType.TINYINT),
         @Result(column="sort", property="sort", jdbcType=JdbcType.TINYINT),
-        @Result(column="creater", property="creater", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.TINYINT),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="modifier", property="modifier", jdbcType=JdbcType.VARCHAR),
-        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="creater", property="creater", jdbcType=JdbcType.VARCHAR),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="updater", property="updater", jdbcType=JdbcType.VARCHAR)
     })
     MenuInfoEntity selectByPrimaryKey(Long id);
 
@@ -56,16 +56,16 @@ public interface MenuInfoEntityMapper {
 
     @Update({
         "update ufo_menu_info",
-        "set name = #{name,jdbcType=VARCHAR},",
-          "parent_id = #{parentId,jdbcType=BIGINT},",
+        "set parent_id = #{parentId,jdbcType=BIGINT},",
+          "title = #{title,jdbcType=VARCHAR},",
           "url = #{url,jdbcType=VARCHAR},",
           "icon = #{icon,jdbcType=VARCHAR},",
-          "status = #{status,jdbcType=TINYINT},",
           "sort = #{sort,jdbcType=TINYINT},",
-          "creater = #{creater,jdbcType=VARCHAR},",
+          "status = #{status,jdbcType=TINYINT},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
-          "modifier = #{modifier,jdbcType=VARCHAR},",
-          "update_time = #{updateTime,jdbcType=TIMESTAMP}",
+          "creater = #{creater,jdbcType=VARCHAR},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP},",
+          "updater = #{updater,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(MenuInfoEntity record);

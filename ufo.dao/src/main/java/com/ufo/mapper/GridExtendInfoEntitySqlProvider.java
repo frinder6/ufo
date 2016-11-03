@@ -8,36 +8,32 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.ufo.entity.MenuInfoEntity;
+import com.ufo.entity.GridExtendInfoEntity;
 
-public class MenuInfoEntitySqlProvider {
+public class GridExtendInfoEntitySqlProvider {
 
-    public String insertSelective(MenuInfoEntity record) {
+    public String insertSelective(GridExtendInfoEntity record) {
         BEGIN();
-        INSERT_INTO("ufo_menu_info");
+        INSERT_INTO("ufo_grid_extend_info");
         
         if (record.getId() != null) {
             VALUES("id", "#{id,jdbcType=BIGINT}");
         }
         
-        if (record.getParentId() != null) {
-            VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
+        if (record.getGridId() != null) {
+            VALUES("grid_id", "#{gridId,jdbcType=BIGINT}");
         }
         
-        if (record.getTitle() != null) {
-            VALUES("title", "#{title,jdbcType=VARCHAR}");
+        if (record.getImagePath() != null) {
+            VALUES("image_path", "#{imagePath,jdbcType=VARCHAR}");
         }
         
-        if (record.getUrl() != null) {
-            VALUES("url", "#{url,jdbcType=VARCHAR}");
+        if (record.getSkin() != null) {
+            VALUES("skin", "#{skin,jdbcType=VARCHAR}");
         }
         
-        if (record.getIcon() != null) {
-            VALUES("icon", "#{icon,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            VALUES("sort", "#{sort,jdbcType=TINYINT}");
+        if (record.getPagingSkin() != null) {
+            VALUES("paging_skin", "#{pagingSkin,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {
@@ -63,28 +59,24 @@ public class MenuInfoEntitySqlProvider {
         return SQL();
     }
 
-    public String updateByPrimaryKeySelective(MenuInfoEntity record) {
+    public String updateByPrimaryKeySelective(GridExtendInfoEntity record) {
         BEGIN();
-        UPDATE("ufo_menu_info");
+        UPDATE("ufo_grid_extend_info");
         
-        if (record.getParentId() != null) {
-            SET("parent_id = #{parentId,jdbcType=BIGINT}");
+        if (record.getGridId() != null) {
+            SET("grid_id = #{gridId,jdbcType=BIGINT}");
         }
         
-        if (record.getTitle() != null) {
-            SET("title = #{title,jdbcType=VARCHAR}");
+        if (record.getImagePath() != null) {
+            SET("image_path = #{imagePath,jdbcType=VARCHAR}");
         }
         
-        if (record.getUrl() != null) {
-            SET("url = #{url,jdbcType=VARCHAR}");
+        if (record.getSkin() != null) {
+            SET("skin = #{skin,jdbcType=VARCHAR}");
         }
         
-        if (record.getIcon() != null) {
-            SET("icon = #{icon,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            SET("sort = #{sort,jdbcType=TINYINT}");
+        if (record.getPagingSkin() != null) {
+            SET("paging_skin = #{pagingSkin,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {

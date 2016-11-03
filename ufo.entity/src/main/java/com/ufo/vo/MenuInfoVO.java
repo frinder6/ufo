@@ -10,26 +10,22 @@ public class MenuInfoVO {
     public MenuInfoVO() {
     }
 
-    public MenuInfoVO(Long id, String text, Long parentId, String url) {
+    public MenuInfoVO(Long id, String title, Long parentId, String url) {
         this.id = id;
-        this.text = text;
+        this.title = title;
         this.parentId = parentId;
         this.url = url;
     }
 
     private Long id;
 
-    private String text;
+    private String title;
 
     private Long parentId;
 
     private String url;
 
     private String icon;
-
-    private String state;
-
-    private Boolean checked;
 
     private List<MenuInfoVO> children;
 

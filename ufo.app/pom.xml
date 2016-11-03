@@ -29,10 +29,10 @@
         </dependency>
         <dependency>
             <groupId>ufo.framework</groupId>
-            <artifactId>ufo.dao</artifactId>
+            <artifactId>ufo.service</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>test</scope>
         </dependency>
+
     </dependencies>
 
 </project>

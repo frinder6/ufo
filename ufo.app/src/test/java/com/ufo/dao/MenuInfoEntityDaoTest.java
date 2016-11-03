@@ -1,6 +1,7 @@
 package com.ufo.dao;
 
 import com.alibaba.fastjson.JSON;
+import com.ufo.service.GridMetadataColumnService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,13 @@ public class MenuInfoEntityDaoTest {
     @Autowired
     private MenuInfoEntityDao menuInfoEntityDao;
 
+    @Autowired
+    private GridMetadataColumnService gridMetadataColumnService;
+
     @Test
-    public void test(){
+    public void test() {
         System.out.println(JSON.toJSONString(menuInfoEntityDao.selectByPid(0L)));
+        System.out.println(JSON.toJSONString(gridMetadataColumnService.selectById(1L)));
     }
 
 }

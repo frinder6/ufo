@@ -6,3 +6,4 @@
 /ufo.mq/target
 *.log
 *.log.zip
+*.class

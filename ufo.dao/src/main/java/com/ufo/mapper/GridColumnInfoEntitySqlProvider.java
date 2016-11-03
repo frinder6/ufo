@@ -8,36 +8,32 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.ufo.entity.MenuInfoEntity;
+import com.ufo.entity.GridColumnInfoEntity;
 
-public class MenuInfoEntitySqlProvider {
+public class GridColumnInfoEntitySqlProvider {
 
-    public String insertSelective(MenuInfoEntity record) {
+    public String insertSelective(GridColumnInfoEntity record) {
         BEGIN();
-        INSERT_INTO("ufo_menu_info");
+        INSERT_INTO("ufo_grid_column_info");
         
         if (record.getId() != null) {
             VALUES("id", "#{id,jdbcType=BIGINT}");
         }
         
-        if (record.getParentId() != null) {
-            VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
+        if (record.getGridId() != null) {
+            VALUES("grid_id", "#{gridId,jdbcType=BIGINT}");
+        }
+        
+        if (record.getDataId() != null) {
+            VALUES("data_id", "#{dataId,jdbcType=BIGINT}");
         }
         
         if (record.getTitle() != null) {
             VALUES("title", "#{title,jdbcType=VARCHAR}");
         }
         
-        if (record.getUrl() != null) {
-            VALUES("url", "#{url,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIcon() != null) {
-            VALUES("icon", "#{icon,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            VALUES("sort", "#{sort,jdbcType=TINYINT}");
+        if (record.getName() != null) {
+            VALUES("name", "#{title,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {
@@ -63,28 +59,24 @@ public class MenuInfoEntitySqlProvider {
         return SQL();
     }
 
-    public String updateByPrimaryKeySelective(MenuInfoEntity record) {
+    public String updateByPrimaryKeySelective(GridColumnInfoEntity record) {
         BEGIN();
-        UPDATE("ufo_menu_info");
+        UPDATE("ufo_grid_column_info");
         
-        if (record.getParentId() != null) {
-            SET("parent_id = #{parentId,jdbcType=BIGINT}");
+        if (record.getGridId() != null) {
+            SET("grid_id = #{gridId,jdbcType=BIGINT}");
+        }
+        
+        if (record.getDataId() != null) {
+            SET("data_id = #{dataId,jdbcType=BIGINT}");
         }
         
         if (record.getTitle() != null) {
             SET("title = #{title,jdbcType=VARCHAR}");
         }
         
-        if (record.getUrl() != null) {
-            SET("url = #{url,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIcon() != null) {
-            SET("icon = #{icon,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            SET("sort = #{sort,jdbcType=TINYINT}");
+        if (record.getName() != null) {
+            SET("title = #{title,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {

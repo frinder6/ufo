@@ -8,36 +8,24 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.ufo.entity.MenuInfoEntity;
+import com.ufo.entity.GridMetadataColumnInfoEntity;
 
-public class MenuInfoEntitySqlProvider {
+public class GridMetadataColumnInfoEntitySqlProvider {
 
-    public String insertSelective(MenuInfoEntity record) {
+    public String insertSelective(GridMetadataColumnInfoEntity record) {
         BEGIN();
-        INSERT_INTO("ufo_menu_info");
+        INSERT_INTO("ufo_grid_metadata_column_info");
         
         if (record.getId() != null) {
             VALUES("id", "#{id,jdbcType=BIGINT}");
-        }
-        
-        if (record.getParentId() != null) {
-            VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
         }
         
         if (record.getTitle() != null) {
             VALUES("title", "#{title,jdbcType=VARCHAR}");
         }
         
-        if (record.getUrl() != null) {
-            VALUES("url", "#{url,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIcon() != null) {
-            VALUES("icon", "#{icon,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            VALUES("sort", "#{sort,jdbcType=TINYINT}");
+        if (record.getName() != null) {
+            VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {
@@ -63,28 +51,16 @@ public class MenuInfoEntitySqlProvider {
         return SQL();
     }
 
-    public String updateByPrimaryKeySelective(MenuInfoEntity record) {
+    public String updateByPrimaryKeySelective(GridMetadataColumnInfoEntity record) {
         BEGIN();
-        UPDATE("ufo_menu_info");
-        
-        if (record.getParentId() != null) {
-            SET("parent_id = #{parentId,jdbcType=BIGINT}");
-        }
+        UPDATE("ufo_grid_metadata_column_info");
         
         if (record.getTitle() != null) {
             SET("title = #{title,jdbcType=VARCHAR}");
         }
         
-        if (record.getUrl() != null) {
-            SET("url = #{url,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIcon() != null) {
-            SET("icon = #{icon,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            SET("sort = #{sort,jdbcType=TINYINT}");
+        if (record.getName() != null) {
+            SET("name = #{name,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {
