@@ -14,12 +14,12 @@ public interface GridColumnInfoEntityMapper {
 
     @Insert({
         "insert into ufo_grid_column_info (id, grid_id, ",
-        "data_id, title, title, ",
+        "data_id, title, name, ",
         "status, create_time, ",
         "creater, update_time, ",
         "updater)",
         "values (#{id,jdbcType=BIGINT}, #{gridId,jdbcType=BIGINT}, ",
-        "#{dataId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, ",
+        "#{dataId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, ",
         "#{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, ",
         "#{updater,jdbcType=VARCHAR})"
@@ -31,7 +31,7 @@ public interface GridColumnInfoEntityMapper {
 
     @Select({
         "select",
-        "id, grid_id, data_id, title, title, status, create_time, creater, update_time, ",
+        "id, grid_id, data_id, title, name, status, create_time, creater, update_time, ",
         "updater",
         "from ufo_grid_column_info",
         "where id = #{id,jdbcType=BIGINT}"
@@ -58,7 +58,7 @@ public interface GridColumnInfoEntityMapper {
         "set grid_id = #{gridId,jdbcType=BIGINT},",
           "data_id = #{dataId,jdbcType=BIGINT},",
           "title = #{title,jdbcType=VARCHAR},",
-          "title = #{title,jdbcType=VARCHAR},",
+          "name = #{name,jdbcType=VARCHAR},",
           "status = #{status,jdbcType=TINYINT},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "creater = #{creater,jdbcType=VARCHAR},",

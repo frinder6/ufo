@@ -1,4 +1,4 @@
-package com.ufo.dao;
+package com.ufo.service;
 
 import com.alibaba.fastjson.JSON;
 import com.ufo.service.GridService;
@@ -8,19 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.junit.Assert.*;
+
 /**
- * Created by frinder6 on 2016/9/29.
+ * Created by frinder6 on 2016/11/4.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class MenuInfoEntityDaoTest {
+public class GridServiceImplTest {
 
     @Autowired
-    private MenuInfoEntityDao menuInfoEntityDao;
+    private GridService gridService;
 
     @Test
-    public void test() {
-        System.out.println(JSON.toJSONString(menuInfoEntityDao.selectByPid(0L)));
+    public void selectGrid() throws Exception {
+        System.out.println(JSON.toJSONString(gridService.selectGrid("导航信息表")));
     }
 
 }

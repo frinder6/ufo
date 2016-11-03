@@ -33,7 +33,7 @@ public class GridColumnInfoEntitySqlProvider {
         }
         
         if (record.getName() != null) {
-            VALUES("name", "#{title,jdbcType=VARCHAR}");
+            VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {
@@ -76,7 +76,7 @@ public class GridColumnInfoEntitySqlProvider {
         }
         
         if (record.getName() != null) {
-            SET("title = #{title,jdbcType=VARCHAR}");
+            SET("name = #{name,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {

@@ -154,7 +154,7 @@ public class GridColumnInfoEntity {
         sb.append(", gridId=").append(gridId);
         sb.append(", dataId=").append(dataId);
         sb.append(", title=").append(title);
-        sb.append(", title=").append(name);
+        sb.append(", name=").append(name);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);

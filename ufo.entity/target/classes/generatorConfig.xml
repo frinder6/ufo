@@ -58,6 +58,24 @@
             <property name="useActualColumnNames" value="false"/>
         </table>
 
+        <table tableName="ufo_grid_column_info"
+               domainObjectName="GridColumnInfoEntity"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"
+        />
+
+        <table tableName="ufo_grid_metadata_column_info"
+               domainObjectName="GridMetadataColumnInfoEntity"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"
+        />
+
 
         <!--<table tableName="ufo_queue_info"
                domainObjectName="QueueInfoEntity"
@@ -77,14 +95,7 @@
                selectByExampleQueryId="false"
         />
 
-        <table tableName="ufo_grid_column_info"
-               domainObjectName="GridColumnInfoEntity"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"
-        />
+
 
 
         <table tableName="ufo_grid_extend_info"
@@ -105,14 +116,7 @@
                selectByExampleQueryId="false"
         />
 
-        <table tableName="ufo_grid_metadata_column_info"
-               domainObjectName="GridMetadataColumnInfoEntity"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"
-        />-->
+        -->
 
 
     </context>
