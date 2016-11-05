@@ -13,6 +13,8 @@ public class GridColumnInfoEntity {
 
     private String name;
 
+    private Byte isSearch;
+
     private Byte status;
 
     private Date createTime;
@@ -61,6 +63,14 @@ public class GridColumnInfoEntity {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public Byte getIsSearch() {
+        return isSearch;
+    }
+
+    public void setIsSearch(Byte isSearch) {
+        this.isSearch = isSearch;
     }
 
     public Byte getStatus() {
@@ -120,6 +130,7 @@ public class GridColumnInfoEntity {
             && (this.getDataId() == null ? other.getDataId() == null : this.getDataId().equals(other.getDataId()))
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getIsSearch() == null ? other.getIsSearch() == null : this.getIsSearch().equals(other.getIsSearch()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -136,6 +147,7 @@ public class GridColumnInfoEntity {
         result = prime * result + ((getDataId() == null) ? 0 : getDataId().hashCode());
         result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getIsSearch() == null) ? 0 : getIsSearch().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
@@ -155,6 +167,7 @@ public class GridColumnInfoEntity {
         sb.append(", dataId=").append(dataId);
         sb.append(", title=").append(title);
         sb.append(", name=").append(name);
+        sb.append(", isSearch=").append(isSearch);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);

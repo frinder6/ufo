@@ -55,16 +55,26 @@ public class GridServiceImpl implements GridService {
         BeanUtils.copyProperties(gridExtendInfoEntity, dxGridTemplate);
         StringBuilder header = new StringBuilder();
         StringBuilder columnIds = new StringBuilder();
+        StringBuilder searchTitles = new StringBuilder();
+        StringBuilder searchIds = new StringBuilder();
         int i = 0;
         String name;
+        byte isSearch;
         for (GridColumnInfoEntity entity : gridColumnInfoEntityList) {
             name = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, entity.getName());
+            isSearch = entity.getIsSearch();
             if (i == 0) {
                 header.append(entity.getTitle());
                 columnIds.append(name);
+                if (isSearch == 1) {
+                    searchTitles.append(entity.getTitle());
+                    searchIds.append(name);
+                }
             } else {
                 header.append(",").append(entity.getTitle());
                 columnIds.append(",").append(name);
+                searchTitles.append(",").append(entity.getTitle());
+                searchIds.append(",").append(name);
             }
             ++i;
         }

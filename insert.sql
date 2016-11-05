@@ -19,3 +19,15 @@ INSERT INTO `ufo_grid_metadata_column_info` (`id`, `title`, `name`, `status`, `c
 INSERT INTO `ufo_grid_metadata_column_info` (`id`, `title`, `name`, `status`, `create_time`, `creater`, `update_time`, `updater`) VALUES (20, '交换区名', 'exchange_name', 1, '1980-01-01 00:00:00', 'sys', '2016-11-03 09:43:53', 'sys');
 INSERT INTO `ufo_grid_metadata_column_info` (`id`, `title`, `name`, `status`, `create_time`, `creater`, `update_time`, `updater`) VALUES (21, '路由规则', 'routing_key', 1, '1980-01-01 00:00:00', 'sys', '2016-11-03 09:43:14', 'sys');
 INSERT INTO `ufo_grid_metadata_column_info` (`id`, `title`, `name`, `status`, `create_time`, `creater`, `update_time`, `updater`) VALUES (22, '队列类型', 'exchange_type', 1, '1980-01-01 00:00:00', 'sys', '2016-11-03 09:43:05', 'sys');
+
+
+
+INSERT INTO `ufo_grid_column_info` (`id`, `grid_id`, `data_id`, `title`, `name`, `status`, `create_time`, `creater`, `update_time`, `updater`) VALUES ('1', '1', '1', '标题', 'title', '1', '1980-01-01 00:00:00', 'sys', '2016-11-03 23:53:07', 'sys');
+INSERT INTO `ufo_grid_column_info` (`id`, `grid_id`, `data_id`, `title`, `name`, `status`, `create_time`, `creater`, `update_time`, `updater`) VALUES ('2', '1', '24', 'URL', 'url', '1', '1980-01-01 00:00:00', 'sys', '2016-11-03 23:59:41', 'sys');
+INSERT INTO `ufo_grid_column_info` (`id`, `grid_id`, `data_id`, `title`, `name`, `status`, `create_time`, `creater`, `update_time`, `updater`) VALUES ('3', '1', '3', '图标', 'icon', '1', '1980-01-01 00:00:00', 'sys', '2016-11-03 23:59:45', 'sys');
+INSERT INTO `ufo_grid_column_info` (`id`, `grid_id`, `data_id`, `title`, `name`, `status`, `create_time`, `creater`, `update_time`, `updater`) VALUES ('4', '1', '23', '序列', 'sort', '1', '1980-01-01 00:00:00', 'sys', '2016-11-03 23:59:48', 'sys');
+INSERT INTO `ufo_grid_column_info` (`id`, `grid_id`, `data_id`, `title`, `name`, `status`, `create_time`, `creater`, `update_time`, `updater`) VALUES ('5', '1', '8', '状态', 'status', '1', '1980-01-01 00:00:00', 'sys', '2016-11-03 23:59:50', 'sys');
+INSERT INTO `ufo_grid_column_info` (`id`, `grid_id`, `data_id`, `title`, `name`, `status`, `create_time`, `creater`, `update_time`, `updater`) VALUES ('6', '1', '9', '创建时间', 'create_time', '1', '1980-01-01 00:00:00', 'sys', '2016-11-03 23:59:24', 'sys');
+INSERT INTO `ufo_grid_column_info` (`id`, `grid_id`, `data_id`, `title`, `name`, `status`, `create_time`, `creater`, `update_time`, `updater`) VALUES ('7', '1', '11', '创建人', 'creater', '1', '1980-01-01 00:00:00', 'sys', '2016-11-03 23:59:28', 'sys');
+INSERT INTO `ufo_grid_column_info` (`id`, `grid_id`, `data_id`, `title`, `name`, `status`, `create_time`, `creater`, `update_time`, `updater`) VALUES ('8', '1', '12', '修改人', 'updater', '1', '1980-01-01 00:00:00', 'sys', '2016-11-03 23:59:31', 'sys');
+INSERT INTO `ufo_grid_column_info` (`id`, `grid_id`, `data_id`, `title`, `name`, `status`, `create_time`, `creater`, `update_time`, `updater`) VALUES ('9', '1', '13', '修改时间', 'update_time', '1', '1980-01-01 00:00:00', 'sys', '2016-11-03 23:59:34', 'sys');

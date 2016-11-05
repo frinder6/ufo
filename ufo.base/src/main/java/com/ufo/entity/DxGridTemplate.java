@@ -11,6 +11,8 @@ public class DxGridTemplate {
     private String imagePath;
     private StringBuilder header;
     private StringBuilder columnIds;
+    private StringBuilder searchTitles;
+    private StringBuilder searchIds;
     private String skin;
     private String pagingSkin;
 

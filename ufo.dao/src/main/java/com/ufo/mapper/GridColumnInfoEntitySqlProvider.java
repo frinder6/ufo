@@ -36,6 +36,10 @@ public class GridColumnInfoEntitySqlProvider {
             VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
         
+        if (record.getIsSearch() != null) {
+            VALUES("is_search", "#{isSearch,jdbcType=TINYINT}");
+        }
+        
         if (record.getStatus() != null) {
             VALUES("status", "#{status,jdbcType=TINYINT}");
         }
@@ -77,6 +81,10 @@ public class GridColumnInfoEntitySqlProvider {
         
         if (record.getName() != null) {
             SET("name = #{name,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIsSearch() != null) {
+            SET("is_search = #{isSearch,jdbcType=TINYINT}");
         }
         
         if (record.getStatus() != null) {

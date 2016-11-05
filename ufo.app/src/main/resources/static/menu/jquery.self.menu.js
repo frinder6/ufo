@@ -3,24 +3,15 @@ $(function () {
     /**
      * 加载menu
      */
-    var loadMenu = function () {
-        $.ajax({
-            type: 'POST',
-            url: 'menu/server.menu',
-            dataType: 'JSON',
-            async: true,
-            success: function (data) {
-                $('#menu').html(data.value);
-                initMenu();
-            },
-            error: function (msg) {
-                console.log(msg);
-            }
-        });
-    };
+    $.getJSON("menu/server.menu", function (data) {
+        $('#menu').html(data.value);
+        initMenu();
+    });
 
-    loadMenu();
 
+    /**
+     * 菜单样式添加
+     */
     var initMenu = function () {
         /**
          * 初始化菜单项
@@ -33,7 +24,7 @@ $(function () {
                 title: '导航栏'
             },
             searchfield: {
-                placeholder:'搜索…'
+                placeholder: '搜索…'
             },
             navbars: [
                 {

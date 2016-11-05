@@ -48,7 +48,7 @@
 
 
 
-        <table tableName="ufo_menu_info"
+        <!--<table tableName="ufo_menu_info"
                domainObjectName="MenuInfoEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"
@@ -56,7 +56,7 @@
                enableSelectByExample="false"
                selectByExampleQueryId="false">
             <property name="useActualColumnNames" value="false"/>
-        </table>
+        </table>-->
 
         <table tableName="ufo_grid_column_info"
                domainObjectName="GridColumnInfoEntity"
@@ -67,14 +67,14 @@
                selectByExampleQueryId="false"
         />
 
-        <table tableName="ufo_grid_metadata_column_info"
+       <!--<table tableName="ufo_grid_metadata_column_info"
                domainObjectName="GridMetadataColumnInfoEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false"
-        />
+        />-->
 
 
         <!--<table tableName="ufo_queue_info"

@@ -15,14 +15,14 @@ public interface GridColumnInfoEntityMapper {
     @Insert({
         "insert into ufo_grid_column_info (id, grid_id, ",
         "data_id, title, name, ",
-        "status, create_time, ",
-        "creater, update_time, ",
-        "updater)",
+        "is_search, status, ",
+        "create_time, creater, ",
+        "update_time, updater)",
         "values (#{id,jdbcType=BIGINT}, #{gridId,jdbcType=BIGINT}, ",
         "#{dataId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, ",
-        "#{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, ",
-        "#{updater,jdbcType=VARCHAR})"
+        "#{isSearch,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, ",
+        "#{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR})"
     })
     int insert(GridColumnInfoEntity record);
 
@@ -31,8 +31,8 @@ public interface GridColumnInfoEntityMapper {
 
     @Select({
         "select",
-        "id, grid_id, data_id, title, name, status, create_time, creater, update_time, ",
-        "updater",
+        "id, grid_id, data_id, title, name, is_search, status, create_time, creater, ",
+        "update_time, updater",
         "from ufo_grid_column_info",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -42,6 +42,7 @@ public interface GridColumnInfoEntityMapper {
         @Result(column="data_id", property="dataId", jdbcType=JdbcType.BIGINT),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_search", property="isSearch", jdbcType=JdbcType.TINYINT),
         @Result(column="status", property="status", jdbcType=JdbcType.TINYINT),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="creater", property="creater", jdbcType=JdbcType.VARCHAR),
@@ -59,6 +60,7 @@ public interface GridColumnInfoEntityMapper {
           "data_id = #{dataId,jdbcType=BIGINT},",
           "title = #{title,jdbcType=VARCHAR},",
           "name = #{name,jdbcType=VARCHAR},",
+          "is_search = #{isSearch,jdbcType=TINYINT},",
           "status = #{status,jdbcType=TINYINT},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "creater = #{creater,jdbcType=VARCHAR},",

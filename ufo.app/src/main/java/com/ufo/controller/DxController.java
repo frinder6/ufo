@@ -34,14 +34,9 @@ public class DxController {
 
     @RequestMapping("/dx.load")
     public DxDataEntity dx(HttpServletRequest request) {
-        DxDataEntity entity = new DxDataEntity();
-        String posStr = request.getParameter("posStart");
-        int pos = !StringUtils.isEmpty(posStr) ? Integer.parseInt(posStr) : 0;
-        String countStr = request.getParameter("count");
-        int count = !StringUtils.isEmpty(countStr) ? Integer.parseInt(countStr) : 10;
+        DxDataEntity entity = DxDataEntity.getInstance(request);
         entity.setTotal_count(DATA.size());
-        entity.setPos(pos);
-        List<Serializable> subList = DATA.subList(pos, pos + count);
+        List<Serializable> subList = DATA.subList(entity.getFrom(), entity.getTo());
         entity.setData(subList);
         return entity;
     }

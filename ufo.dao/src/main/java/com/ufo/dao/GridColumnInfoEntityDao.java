@@ -17,14 +17,15 @@ public interface GridColumnInfoEntityDao {
 
     @Select({
             "select",
-            "id, title, name ",
+            "id, title, name, is_search ",
             "from ufo_grid_column_info",
             "where grid_id = #{gridId,jdbcType=BIGINT}"
     })
     @Results({
             @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
             @Result(column = "title", property = "title", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR)
+            @Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
+            @Result(column="is_search", property="isSearch", jdbcType=JdbcType.TINYINT)
     })
     List<GridColumnInfoEntity> selectByGridId(Long gridId);
 
