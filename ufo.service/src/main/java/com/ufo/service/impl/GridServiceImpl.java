@@ -66,18 +66,22 @@ public class GridServiceImpl implements GridService {
             if (i == 0) {
                 header.append(entity.getTitle());
                 columnIds.append(name);
-                if (isSearch == 1) {
+                if (isSearch == (byte) 1) {
                     searchTitles.append(entity.getTitle());
                     searchIds.append(name);
                 }
             } else {
                 header.append(",").append(entity.getTitle());
                 columnIds.append(",").append(name);
-                searchTitles.append(",").append(entity.getTitle());
-                searchIds.append(",").append(name);
+                if (isSearch == (byte) 1) {
+                    searchTitles.append(",").append(entity.getTitle());
+                    searchIds.append(",").append(name);
+                }
             }
             ++i;
         }
+        dxGridTemplate.setSearchIds(searchIds);
+        dxGridTemplate.setSearchTitles(searchTitles);
         dxGridTemplate.setHeader(header);
         dxGridTemplate.setColumnIds(columnIds);
         return dxGridTemplate;

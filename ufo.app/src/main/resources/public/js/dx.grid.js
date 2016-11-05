@@ -11,23 +11,13 @@ var baseUrl = "grid/dx.grid.options?gridName=";
 var dhxLayoutGrid = function (grid) {
     dxLayout = new dhtmlXLayoutObject({
         parent: document.body,
-        pattern: "2E",
+        pattern: "2U",
         cells: [
-            {id: "a", header: false, height: 90},
+            {id: "a", text: "搜索栏", header: true, width: 235, collapse: true, collapsed_text: "搜索栏"},
             {id: "b", header: false}
         ]
     });
-    var dxSearchLayout = dxLayout.cells("a").attachLayout({
-        pattern: "2U",
-        cells: [
-            {id: "a", header: false},
-            {id: "b", header: false, width: 150}
-        ]
-    });
-    var inputForm = dxSearchLayout.cells("a").attachForm();
-    inputForm.loadStruct(inputFormJson);
-    var searchForm = dxSearchLayout.cells("b").attachForm();
-    searchForm.loadStruct(searchFormJson);
+
     dxLayout.cells("b").attachToolbar({
         icons_path: "dhtmlx/icon/icons_web/",
         json: buttons
@@ -36,6 +26,8 @@ var dhxLayoutGrid = function (grid) {
     var url = baseUrl + grid.name;
     window.dhx4.ajax.get(url, function (response) {
         var data = JSON.parse(response.xmlDoc.responseText);
+        var searchForm = dxLayout.cells("a").attachForm();
+        searchForm.loadStruct(formJson(data));
         dxLayout.cells("b").attachStatusBar({
             height: {dhx_skyblue: 30, dhx_web: 31, dhx_terrace: 40}[data.skin],
             text: "<div id='pagingbox'></div>"
@@ -50,30 +42,27 @@ var dhxLayoutGrid = function (grid) {
  *
  * @type {*[]}
  */
-var inputFormJson = [
-    {type: "settings", position: "label-left", labelWidth: 110, inputWidth: 150},
-    {type: "input", name: "name", label: "Full Name", value: "Yami Kashimoto"},
-    {type: "input", name: "addr", label: "Address", value: "東京"},
-    {type: "input", name: "mail", label: "Email", value: "yamika@mymail.jp"}
-];
-
-
-/**
- *
- * @type {*[]}
- */
-var searchFormJson = [
-    {
-        type: "block",
-        offsetTop: 1,
-        offsetRight: 1,
-        inputWidth: 100,
+var formJson = function (data) {
+    var formJson = [];
+    formJson.push({type: "settings", position: "label-left", labelWidth: 80, inputWidth: 100});
+    var titles = data.searchTitles.split(",");
+    var ids = data.searchIds.split(",");
+    $(ids).each(function (i, id) {
+        var node = {type: "input"};
+        node.name = id;
+        node.label = titles[i] + "：";
+        formJson.push(node);
+    });
+    formJson.push({
+        type: "block", offsetTop: 20, inputWidth: 200,
         list: [
-            {type: "button", value: "搜索", className: "button_search", width: 50},
-            {type: "button", value: "取消", className: "button_cancel", width: 50}
+            {type: "button", value: "搜索", className: "button_search", width: 30},
+            {type: "newcolumn"},
+            {type: "button", value: "取消", className: "button_cancel", width: 30}
         ]
-    }
-];
+    });
+    return formJson;
+};
 
 
 /**
@@ -123,7 +112,7 @@ var doResize = function () {
  */
 var gridSettings = function (data) {
     dxGrid.i18n.paging = paging;
-    dxGrid.enablePaging(true, 10, 5, "pagingbox", true);
+    dxGrid.enablePaging(true, 20, 5, "pagingbox", true);
     dxGrid.setImagePath(data.imagePath);
     dxGrid.setHeader(data.header);
     dxGrid.setColumnIds(data.columnIds);
