@@ -1,4 +1,4 @@
-package ufo.framework;
+package com.ufo.framework;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

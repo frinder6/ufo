@@ -28,12 +28,13 @@
 <script src="dhtmlx/dhtmlx.js"></script>
 
 <script type="text/javascript">
-    var data={
-        rows:[
-            { id:1, data: ["A Time to Kill", "John Grisham", "100"]},
-            { id:2, data: ["Blood and Smoke", "Stephen King", "1000"]},
-            { id:3, data: ["The Rainmaker", "John Grisham", "-200"]}
-        ]
+    var data = {
+        rows: [
+            {id: 1, data: ["A Time to Kill", "John Grisham", "100"]},
+            {id: 2, data: ["Blood and Smoke", "Stephen King", "1000"]},
+            {id: 3, data: ["The Rainmaker", "John Grisham", "-200"]}
+        ],
+        total_count: 100
     };
 
     var mygrid;
@@ -58,7 +59,7 @@
         mygrid.setImagePath("dhtmlx/skins/skyblue/imgs/");
         mygrid.setHeader("col1,col2,col3");
         //mygrid.setColumnIds("col1,col2,col3");
-         mygrid.setColSorting("str,str,str");
+        mygrid.setColSorting("str,str,str");
         mygrid.init();
         mygrid.setPagingSkin("bricks");
         // mygrid.load("dx/dx.load", "js");

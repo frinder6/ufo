@@ -1,6 +1,5 @@
 package com.ufo.service;
 
-import com.ufo.entity.DxDataEntity;
 import com.ufo.entity.MenuInfoEntity;
 import com.ufo.vo.MenuInfoVO;
 
@@ -13,6 +12,6 @@ public interface MenuService {
 
     List<MenuInfoVO> selectMenu(Long pid);
 
-    void selectPage(DxDataEntity dx, MenuInfoEntity entity);
+    List<MenuInfoEntity> selectPage(MenuInfoEntity entity);
 
 }

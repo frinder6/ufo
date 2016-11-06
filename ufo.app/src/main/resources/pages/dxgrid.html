@@ -55,10 +55,7 @@
         mygrid.setImagePath("dhtmlx/skins/web/imgs/");
         mygrid.setHeader("id,name,age");
         mygrid.setColumnIds("id,name,age");
-        mygrid.setColWidth("50,100,*");
-        mygrid.setColAlign("center,left, left");
-        mygrid.setColTypes("ro,ed,ed");
-        mygrid.setColSorting("id,name,age");
+        mygrid.setColSorting("int,str,int")
         mygrid.init();
         mygrid.setPagingSkin("bricks");
         mygrid.load("dx/dx.load", "js");

@@ -1,7 +1,6 @@
 package com.ufo.controller;
 
-import com.ufo.entity.DxDataEntity;
-import org.springframework.util.StringUtils;
+import com.ufo.entity.DxGridResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,14 +32,12 @@ public class DxController {
 
 
     @RequestMapping("/dx.load")
-    public DxDataEntity dx(HttpServletRequest request) {
-        DxDataEntity entity = DxDataEntity.getInstance(request);
-        entity.setTotal_count(DATA.size());
-        List<Serializable> subList = DATA.subList(entity.getFrom(), entity.getTo());
+    public DxGridResult dx() {
+        DxGridResult entity = new DxGridResult();
+        List<Serializable> subList = DATA.subList(0, 1000);
         entity.setData(subList);
         return entity;
     }
-
 
 
 }

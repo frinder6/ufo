@@ -13,6 +13,7 @@
         <module>ufo.dao</module>
         <module>ufo.service</module>
         <module>ufo.job</module>
+        <module>ufo.config</module>
     </modules>
     <packaging>pom</packaging>
 

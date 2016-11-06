@@ -1,32 +1,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>ufo.framework</artifactId>
         <groupId>ufo.framework</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>ufo.app</artifactId>
-    <packaging>war</packaging>
-    <name>ufo.app Maven Webapp</name>
+
+    <artifactId>ufo.config</artifactId>
+    <packaging>jar</packaging>
+
+    <name>ufo.config</name>
     <url>http://maven.apache.org</url>
 
-    <build>
-        <finalName>ufo.app</finalName>
-    </build>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>ufo.framework</groupId>
-            <artifactId>ufo.base</artifactId>
+            <artifactId>ufo.service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>ufo.framework</groupId>
-            <artifactId>ufo.config</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
     </dependencies>
-
 </project>
