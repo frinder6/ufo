@@ -4,7 +4,7 @@
 
     <title>显示所有Bean</title>
 
-    <link rel="stylesheet" type="text/css" href="dhtmlx/skins/web/dhtmlx.css"/>
+    <link rel="stylesheet" type="text/css" href="dhtmlx/skins/skyblue/dhtmlx.css"/>
     <link href="layer/skin/layer.css" rel="stylesheet"/>
 
     <style>
@@ -19,24 +19,27 @@
 </head>
 <body onload="doOnLoad()">
 
+<div id="gridbox" style="width: 800px;height: 300px;"></div>
+<div>
+    <div id="pagingbox"></div>
+</div>
+<button onclick='mygrid.sortRows(1,"str","asc");'>测试</button>
 </body>
 <script src="dhtmlx/dhtmlx.js"></script>
 
 <script type="text/javascript">
-    var mylayout;
+    var data={
+        rows:[
+            { id:1, data: ["A Time to Kill", "John Grisham", "100"]},
+            { id:2, data: ["Blood and Smoke", "Stephen King", "1000"]},
+            { id:3, data: ["The Rainmaker", "John Grisham", "-200"]}
+        ]
+    };
+
     var mygrid;
 
     function doOnLoad() {
-        mylayout = new dhtmlXLayoutObject({
-            parent: document.body,
-            pattern: "1C",
-            cells: [{id: "a", header: false}]
-        });
-        mylayout.attachStatusBar({
-            height: {dhx_skyblue: 30, dhx_web: 31, dhx_terrace: 40}['dhx_web'],
-            text: "<div id='pagingbox'></div><div id='recInfoArea'></div>"
-        });
-        mygrid = mylayout.cells("a").attachGrid();
+        mygrid = new dhtmlXGridObject("gridbox");
         mygrid.i18n.paging = {
             results: "结果",
             records: "记录从 ",
@@ -51,17 +54,15 @@
             of: " 的 ",
             notfound: "查询无结果"
         };
-        mygrid.enablePaging(true, 50, 5, "pagingbox", true,"recInfoArea");
-        mygrid.setImagePath("dhtmlx/skins/web/imgs/");
-        mygrid.setHeader("id,name,age");
-        mygrid.setColumnIds("id,name,age");
-        mygrid.setColWidth("50,100,*");
-        mygrid.setColAlign("center,left, left");
-        mygrid.setColTypes("ro,ed,ed");
-        mygrid.setColSorting("id,name,age");
+        mygrid.enablePaging(true, 1, 5, "pagingbox", true);
+        mygrid.setImagePath("dhtmlx/skins/skyblue/imgs/");
+        mygrid.setHeader("col1,col2,col3");
+        //mygrid.setColumnIds("col1,col2,col3");
+         mygrid.setColSorting("str,str,str");
         mygrid.init();
         mygrid.setPagingSkin("bricks");
-        mygrid.load("dx/dx.load", "js");
+        // mygrid.load("dx/dx.load", "js");
+        mygrid.parse(data, "json");
     }
 </script>
 
