@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface MenuInfoEntityDao {
@@ -32,11 +31,25 @@ public interface MenuInfoEntityDao {
 
     @Select({
             "select",
-            " ${dx.cols} ",
+            "id, parent_id, title, url, icon, sort, status, create_time, creater, update_time, ",
+            "updater",
             "from ufo_menu_info",
             "limit #{dx.from}, #{dx.to}"
     })
-    List<Map<String, Object>> selectPage(@Param("dx") DxDataEntity dx, @Param("entity") MenuInfoEntity entity);
+    @Results({
+            @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
+            @Result(column = "parent_id", property = "parentId", jdbcType = JdbcType.BIGINT),
+            @Result(column = "title", property = "title", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "url", property = "url", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "icon", property = "icon", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "sort", property = "sort", jdbcType = JdbcType.TINYINT),
+            @Result(column = "status", property = "status", jdbcType = JdbcType.TINYINT),
+            @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "creater", property = "creater", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "updater", property = "updater", jdbcType = JdbcType.VARCHAR)
+    })
+    List<MenuInfoEntity> selectPage(@Param("dx") DxDataEntity dx, @Param("entity") MenuInfoEntity entity);
 
     @Select({
             "select",

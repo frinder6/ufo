@@ -37,7 +37,7 @@ public class GridServiceImpl implements GridService {
             Long gridId = gridInfoEntity.getId();
             List<GridColumnInfoEntity> gridColumnInfoEntityList = gridColumnInfoEntityDao.selectByGridId(gridId);
             GridExtendInfoEntity gridExtendInfoEntity = gridExtendInfoEntityDao.selectByGridId(gridId);
-            return getDxGridTemplate(gridId, gridColumnInfoEntityList, gridExtendInfoEntity);
+            return getDxGridTemplate(gridColumnInfoEntityList, gridExtendInfoEntity);
         } else {
             throw new NullPointerException("表格：[ " + gridName + " ]未配置，请联系管理员！");
         }
@@ -50,9 +50,8 @@ public class GridServiceImpl implements GridService {
      * @param gridExtendInfoEntity
      * @return
      */
-    private DxGridTemplate getDxGridTemplate(Long gridId, List<GridColumnInfoEntity> gridColumnInfoEntityList, GridExtendInfoEntity gridExtendInfoEntity) {
+    private DxGridTemplate getDxGridTemplate(List<GridColumnInfoEntity> gridColumnInfoEntityList, GridExtendInfoEntity gridExtendInfoEntity) {
         DxGridTemplate dxGridTemplate = new DxGridTemplate();
-        dxGridTemplate.setGridId(gridId);
         BeanUtils.copyProperties(gridExtendInfoEntity, dxGridTemplate);
         StringBuilder header = new StringBuilder();
         StringBuilder columnIds = new StringBuilder();
@@ -62,8 +61,7 @@ public class GridServiceImpl implements GridService {
         String name;
         byte isSearch;
         for (GridColumnInfoEntity entity : gridColumnInfoEntityList) {
-            // name = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, entity.getName());
-            name = entity.getName();
+            name = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, entity.getName());
             isSearch = entity.getIsSearch();
             if (i == 0) {
                 header.append(entity.getTitle());

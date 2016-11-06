@@ -1,7 +1,6 @@
 package com.ufo.controller;
 
 import com.ufo.entity.DxDataEntity;
-import com.ufo.entity.GridRow;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +19,7 @@ import java.util.Map;
 @RestController
 public class DxController {
 
-    public static List<Map<String, Object>> DATA = new ArrayList() {{
+    public static List<Serializable> DATA = new ArrayList() {{
         for (int i = 1; i <= 1000; i++) {
             int index = i;
             Map<String, Object> map = new HashMap() {{
@@ -37,18 +36,11 @@ public class DxController {
     public DxDataEntity dx(HttpServletRequest request) {
         DxDataEntity entity = DxDataEntity.getInstance(request);
         entity.setTotal_count(DATA.size());
-        List<Map<String, Object>> subList = DATA.subList(entity.getFrom(), entity.getTo());
-        List<GridRow> rows = new ArrayList<>();
-        for (Map<String, Object> s : subList) {
-            GridRow row = new GridRow();
-            row.setId(s.get("id"));
-            row.getData().add(s.get("name"));
-            row.getData().add(s.get("age"));
-            rows.add(row);
-        }
-        entity.setRows(rows);
+        List<Serializable> subList = DATA.subList(entity.getFrom(), entity.getTo());
+        entity.setData(subList);
         return entity;
     }
+
 
 
 }

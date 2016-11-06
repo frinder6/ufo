@@ -25,11 +25,6 @@ public class MenuController {
     private MenuService menuService;
 
 
-    /**
-     * 组装前端需要 html
-     *
-     * @return
-     */
     @RequestMapping("/server.menu")
     public Value menu() {
         List<MenuInfoVO> menuInfoVOs = menuService.selectMenu(0L);
@@ -37,13 +32,8 @@ public class MenuController {
     }
 
 
-    /**
-     * 分页显示 menu 数据
-     * @param request
-     * @return
-     */
     @RequestMapping("/page.menu")
-    public DxDataEntity page(HttpServletRequest request) {
+    public DxDataEntity page(HttpServletRequest request){
         DxDataEntity dx = DxDataEntity.getInstance(request);
         menuService.selectPage(dx, null);
         return dx;

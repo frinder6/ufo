@@ -53,14 +53,15 @@
         };
         mygrid.enablePaging(true, 50, 5, "pagingbox", true,"recInfoArea");
         mygrid.setImagePath("dhtmlx/skins/web/imgs/");
-        mygrid.setHeader("name,age");
-        mygrid.setColWidth("100,*");
-        mygrid.setColAlign("left,left");
-        mygrid.setColTypes("ed,ed");
-        mygrid.setColSorting("str,int");
+        mygrid.setHeader("id,name,age");
+        mygrid.setColumnIds("id,name,age");
+        mygrid.setColWidth("50,100,*");
+        mygrid.setColAlign("center,left, left");
+        mygrid.setColTypes("ro,ed,ed");
+        mygrid.setColSorting("id,name,age");
         mygrid.init();
         mygrid.setPagingSkin("bricks");
-        mygrid.load("dx/dx.load", "json");
+        mygrid.load("dx/dx.load", "js");
     }
 </script>
 
