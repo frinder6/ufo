@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class DxGridTemplate {
 
+    private Long gridId;
     private String imagePath;
     private StringBuilder header;
     private StringBuilder columnIds;

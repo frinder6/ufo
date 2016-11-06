@@ -4,7 +4,7 @@
 
     <title>显示所有Bean</title>
 
-    <link rel="stylesheet" type="text/css" href="dhtmlx/skins/web/dhtmlx.css"/>
+    <link rel="stylesheet" type="text/css" href="dhtmlx/skins/skyblue/dhtmlx.css"/>
     <link href="layer/skin/layer.css" rel="stylesheet"/>
 
     <style>
@@ -19,24 +19,19 @@
 </head>
 <body onload="doOnLoad()">
 
+<div id="gridbox" style="width: 800px;height: 300px;"></div>
+<div>
+    <div id="pagingbox"></div>
+</div>
+<button onclick='mygrid.sortRows(1,"str","asc");'>测试</button>
 </body>
 <script src="dhtmlx/dhtmlx.js"></script>
 
 <script type="text/javascript">
-    var mylayout;
     var mygrid;
 
     function doOnLoad() {
-        mylayout = new dhtmlXLayoutObject({
-            parent: document.body,
-            pattern: "1C",
-            cells: [{id: "a", header: false}]
-        });
-        mylayout.attachStatusBar({
-            height: {dhx_skyblue: 30, dhx_web: 31, dhx_terrace: 40}['dhx_web'],
-            text: "<div id='pagingbox'></div><div id='recInfoArea'></div>"
-        });
-        mygrid = mylayout.cells("a").attachGrid();
+        mygrid = new dhtmlXGridObject('gridbox');
         mygrid.i18n.paging = {
             results: "结果",
             records: "记录从 ",
@@ -51,14 +46,12 @@
             of: " 的 ",
             notfound: "查询无结果"
         };
-        mygrid.enablePaging(true, 50, 5, "pagingbox", true,"recInfoArea");
-        mygrid.setImagePath("dhtmlx/skins/web/imgs/");
+        mygrid.enablePaging(true, 10, 5, "pagingbox", true);
+        mygrid.setImagePath("dhtmlx/skins/skyblue/imgs/");
         mygrid.setHeader("name,age");
-        mygrid.setColWidth("100,*");
-        mygrid.setColAlign("left,left");
-        mygrid.setColTypes("ed,ed");
-        mygrid.setColSorting("str,int");
+        mygrid.setColSorting("int,str,int");
         mygrid.init();
+        mygrid.setSkin("dhx_skyblue")
         mygrid.setPagingSkin("bricks");
         mygrid.load("dx/dx.load", "json");
     }

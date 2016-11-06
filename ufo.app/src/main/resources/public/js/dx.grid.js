@@ -115,7 +115,7 @@ var gridSettings = function (data) {
     dxGrid.enablePaging(true, 20, 5, "pagingbox", true);
     dxGrid.setImagePath(data.imagePath);
     dxGrid.setHeader(data.header);
-    dxGrid.setColumnIds(data.columnIds);
+    // dxGrid.setColumnIds(data.columnIds);
     dxGrid.setColWidth("*");
     dxGrid.init();
     dxGrid.setSkin(data.skin);

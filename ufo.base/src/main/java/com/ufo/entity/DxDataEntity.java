@@ -15,8 +15,12 @@ import java.util.List;
 @Data
 public class DxDataEntity implements Serializable {
 
-    private DxDataEntity() {
+    public DxDataEntity() {
     }
+
+    private long gridId;
+
+    private String cols;
 
     private int total_count;
 
@@ -29,6 +33,8 @@ public class DxDataEntity implements Serializable {
     private int to;
 
     private Object data;
+
+    private List<GridRow> rows;
 
     public int getFrom() {
         from = pos;
@@ -53,8 +59,11 @@ public class DxDataEntity implements Serializable {
         int pos = !StringUtils.isEmpty(posStr) ? Integer.parseInt(posStr) : 0;
         String countStr = request.getParameter("count");
         int count = !StringUtils.isEmpty(countStr) ? Integer.parseInt(countStr) : 10;
+        String gridIdStr = request.getParameter("gridId");
+        int gridId = !StringUtils.isEmpty(gridIdStr) ? Integer.parseInt(gridIdStr) : 0;
         entity.setPos(pos);
         entity.setSize(count);
+        entity.setGridId(gridId);
         return entity;
     }
 
