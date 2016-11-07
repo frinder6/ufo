@@ -1,8 +1,9 @@
 /**
- *
+ * 保存使用变量值
  */
 var dxLayout, dxWins, dxWin, dxGrid, dxToolbar;
 var baseUrl = "grid/dx.grid.options?gridName=";
+var gridData;
 
 /**
  * dhxLayoutGrid
@@ -13,7 +14,7 @@ var dhxLayoutGrid = function (grid) {
         parent: document.body,
         pattern: "2U",
         cells: [
-            {id: "a", text: "搜索栏", header: true, width: 235, collapse: true, collapsed_text: "搜索栏"},
+            {id: "a", text: "搜索栏", header: true, width: 235, collapse: false, collapsed_text: "搜索栏"},
             {id: "b", header: false}
         ]
     });
@@ -25,9 +26,10 @@ var dhxLayoutGrid = function (grid) {
 
     var url = baseUrl + grid.name;
     window.dhx4.ajax.get(url, function (response) {
-        var data = JSON.parse(response.xmlDoc.responseText);
+        var data = gridData = JSON.parse(response.xmlDoc.responseText);
         var searchForm = dxLayout.cells("a").attachForm();
         searchForm.loadStruct(formJson(data));
+        btnClick(searchForm, grid);
         dxLayout.cells("b").attachStatusBar({
             height: {dhx_skyblue: 30, dhx_web: 31, dhx_terrace: 40}[data.skin],
             text: "<div id='pagingbox'></div>"
@@ -40,25 +42,84 @@ var dhxLayoutGrid = function (grid) {
 
 /**
  *
+ * @param form
+ */
+var btnClick = function (form, grid) {
+    form.attachEvent("onButtonClick", function (name) {
+        if (name == "search") {
+            var isServer = form.getCheckedValue("isServer");
+            var data = form.getFormData();
+            if (isServer) {
+                var params = [];
+                for (var key in data) {
+                    if (data[key] && "isServer" != key) {
+                        params.push(key + "=" + data[key]);
+                    }
+                }
+                reload({
+                    url: grid.url,
+                    data: params.join("&")
+                });
+            } else {
+                for (var key in data) {
+                    if (data[key] && "isServer" != key) {
+                        var index = dxGrid.getColIndexById(key);
+                        dxGrid.filterBy(index, data[key]);
+                    }
+                }
+
+            }
+        }
+        if (name == "cancel") {
+            form.clear();
+        }
+    });
+};
+
+
+/**
+ *
  * @type {*[]}
  */
 var formJson = function (data) {
     var formJson = [];
-    formJson.push({type: "settings", position: "label-left", labelWidth: 80, inputWidth: 100});
+    formJson.push({type: "settings", position: "label-left"});
+    formJson.push({
+        type: "radio",
+        name: "isServer",
+        label: "当前结果",
+        value: false,
+        width: 80,
+        position: "label-right",
+        checked: true,
+        offsetLeft: 10
+    });
+    formJson.push({type: "newcolumn"});
+    formJson.push({
+        type: "radio",
+        name: "isServer",
+        width: 80,
+        value: true,
+        position: "label-right",
+        label: "后台结果",
+        offsetLeft: 10
+    });
+    formJson.push({type: "newcolumn"});
     var titles = data.searchTitles.split(",");
     var ids = data.searchIds.split(",");
     $(ids).each(function (i, id) {
         var node = {type: "input"};
         node.name = id;
         node.label = titles[i] + "：";
+        node.width = 200;
         formJson.push(node);
     });
     formJson.push({
         type: "block", offsetTop: 20, inputWidth: 200,
         list: [
-            {type: "button", value: "搜索", className: "button_search", width: 30},
+            {type: "button", name: "search", value: "搜索", className: "button_search", width: 30},
             {type: "newcolumn"},
-            {type: "button", value: "取消", className: "button_cancel", width: 30}
+            {type: "button", name: "cancel", value: "取消", className: "button_cancel", width: 30}
         ]
     });
     return formJson;
@@ -86,7 +147,7 @@ var dhxWindowGrid = function (grid) {
 
     var url = baseUrl + grid.name;
     window.dhx4.ajax.get(url, function (response) {
-        var data = JSON.parse(response.xmlDoc.responseText);
+        var data = gridData = JSON.parse(response.xmlDoc.responseText);
         dxWin.attachStatusBar({
             height: {dhx_skyblue: 30, dhx_web: 31, dhx_terrace: 40}[data.skin],
             text: "<div id='pagingbox'></div>"
@@ -96,6 +157,21 @@ var dhxWindowGrid = function (grid) {
         dxGrid.load(grid.url, "js");
     });
 };
+
+/**
+ * 重新加载表
+ * @param grid
+ */
+var reload = function (data) {
+    dxGrid.clearAll(true);
+    var url = data.url;
+    if (data.length > 0) {
+        url += "?" + data;
+    }
+    gridSettings(gridData);
+    dxGrid.load(url, "js");
+};
+
 
 /**
  * doResize
