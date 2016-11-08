@@ -10,26 +10,29 @@ var gridData;
  * @param grid
  */
 var dhxLayoutGrid = function (grid) {
+    dxWins = new dhtmlXWindows();
+    dxWins.attachViewportTo(document.body);
     dxLayout = new dhtmlXLayoutObject({
         parent: document.body,
         pattern: "2U",
         cells: [
-            {id: "a", text: "搜索栏", header: true, width: 235, collapse: false, collapsed_text: "搜索栏"},
+            {id: "a", text: "搜索栏", header: true, width: 235, collapse: true, collapsed_text: "搜索栏"},
             {id: "b", header: false}
         ]
     });
 
-    dxLayout.cells("b").attachToolbar({
+    var dxToolBar = dxLayout.cells("b").attachToolbar({
         icons_path: "dhtmlx/icon/icons_web/",
         json: buttons
     });
+    btnClick(dxToolBar);
 
     var url = baseUrl + grid.name;
     window.dhx4.ajax.get(url, function (response) {
         var data = gridData = JSON.parse(response.xmlDoc.responseText);
         var searchForm = dxLayout.cells("a").attachForm();
         searchForm.loadStruct(formJson(data));
-        btnClick(searchForm, grid);
+        formClick(searchForm, grid);
         dxLayout.cells("b").attachStatusBar({
             height: {dhx_skyblue: 30, dhx_web: 31, dhx_terrace: 40}[data.skin],
             text: "<div id='pagingbox'></div>"
@@ -40,11 +43,50 @@ var dhxLayoutGrid = function (grid) {
     });
 };
 
+var btnClick = function (dxToolBar) {
+    dxToolBar.attachEvent("onClick", function (id) {
+        if (id == "new") {
+            // alert(dxGrid.getSelectedId());
+            add();
+        }
+        if (id == "del") {
+            alert("del");
+        }
+        if (id == "mdy") {
+            alert("mdy");
+        }
+    });
+};
+
+
+var add = function () {
+    var addWin = dxWins.createWindow("addWin", 0, 0, 450, 300);
+    addWin.setText("新增");
+    // addWin.centerOnScreen();
+    addWin.bringToTop();
+    addWin.setModal(true);
+    addWin.button("park").hide();
+    addWin.button("minmax").hide();
+    addWin.keepInViewport(true);
+    var addToolbar = addWin.attachToolbar({
+        icons_path: "dhtmlx/icon/icons_web/",
+        offsetTop: 0,
+        offsetLeft: 0,
+        json: [
+            {id: "save", text: "保存", type: "button", img: "save.gif"},
+            {id: "cancel", text: "取消", type: "button", img: "cancel.gif"}
+        ]
+    });
+    addToolbar.addSpacer("save");
+
+};
+
+
 /**
  *
  * @param form
  */
-var btnClick = function (form, grid) {
+var formClick = function (form, grid) {
     form.attachEvent("onButtonClick", function (name) {
         if (name == "search") {
             var isServer = form.getCheckedValue("isServer");
@@ -83,7 +125,7 @@ var btnClick = function (form, grid) {
  */
 var formJson = function (data) {
     var formJson = [];
-    formJson.push({type: "settings", position: "label-left"});
+    formJson.push({type: "settings", position: "label-left", inputWidth: 150});
     formJson.push({
         type: "radio",
         name: "isServer",
@@ -111,7 +153,7 @@ var formJson = function (data) {
         var node = {type: "input"};
         node.name = id;
         node.label = titles[i] + "：";
-        node.width = 200;
+        node.width = 100;
         formJson.push(node);
     });
     formJson.push({

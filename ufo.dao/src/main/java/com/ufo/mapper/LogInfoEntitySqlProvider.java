@@ -8,11 +8,11 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.ufo.entity.LogInfoEntity;
+import com.ufo.entity.LogInfoEntityWithBLOBs;
 
 public class LogInfoEntitySqlProvider {
 
-    public String insertSelective(LogInfoEntity record) {
+    public String insertSelective(LogInfoEntityWithBLOBs record) {
         BEGIN();
         INSERT_INTO("ufo_log_info");
         
@@ -20,16 +20,20 @@ public class LogInfoEntitySqlProvider {
             VALUES("id", "#{id,jdbcType=BIGINT}");
         }
         
+        if (record.getHost() != null) {
+            VALUES("host", "#{host,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getHandler() != null) {
+            VALUES("handler", "#{handler,jdbcType=VARCHAR}");
+        }
+        
         if (record.getRequestUrl() != null) {
             VALUES("request_url", "#{requestUrl,jdbcType=VARCHAR}");
         }
         
-        if (record.getIp() != null) {
-            VALUES("ip", "#{ip,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getOper() != null) {
-            VALUES("oper", "#{oper,jdbcType=VARCHAR}");
+        if (record.getRequestParams() != null) {
+            VALUES("request_params", "#{requestParams,jdbcType=VARCHAR}");
         }
         
         if (record.getClassName() != null) {
@@ -38,6 +42,10 @@ public class LogInfoEntitySqlProvider {
         
         if (record.getMethod() != null) {
             VALUES("method", "#{method,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getMethodParams() != null) {
+            VALUES("method_params", "#{methodParams,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {
@@ -60,23 +68,35 @@ public class LogInfoEntitySqlProvider {
             VALUES("updater", "#{updater,jdbcType=VARCHAR}");
         }
         
+        if (record.getResult() != null) {
+            VALUES("result", "#{result,jdbcType=LONGVARCHAR}");
+        }
+        
+        if (record.getError() != null) {
+            VALUES("error", "#{error,jdbcType=LONGVARCHAR}");
+        }
+        
         return SQL();
     }
 
-    public String updateByPrimaryKeySelective(LogInfoEntity record) {
+    public String updateByPrimaryKeySelective(LogInfoEntityWithBLOBs record) {
         BEGIN();
         UPDATE("ufo_log_info");
+        
+        if (record.getHost() != null) {
+            SET("host = #{host,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getHandler() != null) {
+            SET("handler = #{handler,jdbcType=VARCHAR}");
+        }
         
         if (record.getRequestUrl() != null) {
             SET("request_url = #{requestUrl,jdbcType=VARCHAR}");
         }
         
-        if (record.getIp() != null) {
-            SET("ip = #{ip,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getOper() != null) {
-            SET("oper = #{oper,jdbcType=VARCHAR}");
+        if (record.getRequestParams() != null) {
+            SET("request_params = #{requestParams,jdbcType=VARCHAR}");
         }
         
         if (record.getClassName() != null) {
@@ -85,6 +105,10 @@ public class LogInfoEntitySqlProvider {
         
         if (record.getMethod() != null) {
             SET("method = #{method,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getMethodParams() != null) {
+            SET("method_params = #{methodParams,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {
@@ -105,6 +129,14 @@ public class LogInfoEntitySqlProvider {
         
         if (record.getUpdater() != null) {
             SET("updater = #{updater,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getResult() != null) {
+            SET("result = #{result,jdbcType=LONGVARCHAR}");
+        }
+        
+        if (record.getError() != null) {
+            SET("error = #{error,jdbcType=LONGVARCHAR}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

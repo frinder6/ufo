@@ -1,10 +1,12 @@
 package com.ufo.service;
 
-import com.ufo.entity.LogInfoEntity;
+import org.aspectj.lang.ProceedingJoinPoint;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by frinder6 on 2016/11/7.
  */
 public interface LogService {
-    void insert(LogInfoEntity record);
+    Object insert(ProceedingJoinPoint point, HttpServletRequest request);
 }

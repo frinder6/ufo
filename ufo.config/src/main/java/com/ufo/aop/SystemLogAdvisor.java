@@ -96,15 +96,7 @@ public class SystemLogAdvisor {
     public Object controllerHandle(ProceedingJoinPoint point) throws Throwable {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
-        LogInfoEntity entity = new LogInfoEntity();
-        entity.setIp(request.getRemoteAddr());
-        entity.setRequestUrl(request.getRequestURL().toString());
-        entity.setOper(request.getQueryString());
-        entity.setClassName(point.getTarget().getClass().getName());
-        entity.setMethod(point.getSignature().getName());
-        entity.setCreateTime(new Date());
-        logService.insert(entity);
-        Object result = point.proceed();
+        Object result = logService.insert(point, request);
         return result;
     }
 
