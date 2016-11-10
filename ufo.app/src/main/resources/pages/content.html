@@ -21,13 +21,18 @@
 <body onload="doOnLoad()" onresize="doResize()">
 </body>
 <script src="js/jquery.min.js"></script>
+<script src="layer/layer.js"></script>
 <script src="dhtmlx/dhtmlx.js"></script>
 <script src="js/dx.grid2.js"></script>
 <script type="text/javascript">
     function doOnLoad() {
         init({
             name: "导航信息表",
-            url: "menu/page.menu"
+            url: "menu/page.menu",
+            idUrl: "menu/get.id",
+            addUrl: "menu/add.menu",
+            modifyUrl: "menu/modify.menu",
+            removeUrl: "menu/remove.menu"
         });
     }
 </script>

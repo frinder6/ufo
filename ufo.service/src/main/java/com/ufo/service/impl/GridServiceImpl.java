@@ -1,6 +1,7 @@
 package com.ufo.service.impl;
 
 import com.google.common.base.CaseFormat;
+import com.google.common.base.Joiner;
 import com.ufo.dao.GridColumnInfoEntityDao;
 import com.ufo.dao.GridExtendInfoEntityDao;
 import com.ufo.dao.GridInfoEntityDao;
@@ -13,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,37 +55,53 @@ public class GridServiceImpl implements GridService {
     private DxGridTemplate getDxGridTemplate(List<GridColumnInfoEntity> gridColumnInfoEntityList, GridExtendInfoEntity gridExtendInfoEntity) {
         DxGridTemplate dxGridTemplate = new DxGridTemplate();
         BeanUtils.copyProperties(gridExtendInfoEntity, dxGridTemplate);
-        StringBuilder header = new StringBuilder();
-        StringBuilder columnIds = new StringBuilder();
-        StringBuilder searchTitles = new StringBuilder();
-        StringBuilder searchIds = new StringBuilder();
-        int i = 0;
-        String name;
-        byte isSearch;
+        // 显示列 title
+        List<String> header = new ArrayList<>();
+        // 与显示列对应列 name
+        List<String> columnIds = new ArrayList<>();
+        // 搜索列 title
+        List<String> searchTitles = new ArrayList<>();
+        // 搜索列 name
+        List<String> searchIds = new ArrayList<>();
+        // 支持新增 title
+        List<String> insertTitles = new ArrayList<>();
+        // 支持新增 name
+        List<String> insertIds = new ArrayList<>();
+        // 支持更新 title
+        List<String> modifyTitles = new ArrayList<>();
+        // 支持更新 title
+        List<String> modifyIds = new ArrayList<>();
+        String title, name;
+        byte isSearch, isInsert, isModify;
         for (GridColumnInfoEntity entity : gridColumnInfoEntityList) {
+            title = entity.getTitle();
             name = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, entity.getName());
             isSearch = entity.getIsSearch();
-            if (i == 0) {
-                header.append(entity.getTitle());
-                columnIds.append(name);
-                if (isSearch == (byte) 1) {
-                    searchTitles.append(entity.getTitle());
-                    searchIds.append(name);
-                }
-            } else {
-                header.append(",").append(entity.getTitle());
-                columnIds.append(",").append(name);
-                if (isSearch == (byte) 1) {
-                    searchTitles.append(",").append(entity.getTitle());
-                    searchIds.append(",").append(name);
-                }
+            isInsert = entity.getIsInsert();
+            isModify = entity.getIsModify();
+            header.add(title);
+            columnIds.add(name);
+            if (isSearch == (byte) 1) {
+                searchTitles.add(title);
+                searchIds.add(name);
             }
-            ++i;
+            if (isInsert == (byte) 1) {
+                insertTitles.add(title);
+                insertIds.add(name);
+            }
+            if (isModify == (byte) 1) {
+                modifyTitles.add(title);
+                modifyIds.add(name);
+            }
         }
-        dxGridTemplate.setSearchIds(searchIds);
-        dxGridTemplate.setSearchTitles(searchTitles);
-        dxGridTemplate.setHeader(header);
-        dxGridTemplate.setColumnIds(columnIds);
+        dxGridTemplate.setInsertIds(Joiner.on(",").join(insertIds));
+        dxGridTemplate.setInsertTitles(Joiner.on(",").join(insertTitles));
+        dxGridTemplate.setModifyIds(Joiner.on(",").join(modifyIds));
+        dxGridTemplate.setModifyTitles(Joiner.on(",").join(modifyTitles));
+        dxGridTemplate.setSearchIds(Joiner.on(",").join(searchIds));
+        dxGridTemplate.setSearchTitles(Joiner.on(",").join(searchTitles));
+        dxGridTemplate.setHeader(Joiner.on(",").join(header));
+        dxGridTemplate.setColumnIds(Joiner.on(",").join(columnIds));
         return dxGridTemplate;
     }
 

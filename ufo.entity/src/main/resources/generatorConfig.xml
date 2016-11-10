@@ -46,14 +46,32 @@
         </javaClientGenerator>
         <!-- 表 -->
 
-        <table tableName="ufo_log_info"
+        <!--<table tableName="ufo_grid_button_info"
+               domainObjectName="GridButtonInfoEntity"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"
+        />-->
+
+        <!--<table tableName="ufo_grid_metadata_button_info"
+               domainObjectName="GridMetadataButtonInfoEntity"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"
+        />-->
+
+        <!--<table tableName="ufo_log_info"
                domainObjectName="LogInfoEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false"
-        />
+        />-->
 
 
         <!--<table tableName="ufo_menu_info"

@@ -1,8 +1,14 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/11/3 15:14:09                           */
+/* Created on:     2016/11/10 9:22:37                           */
 /*==============================================================*/
 
+
+drop table if exists ufo_button_metadata_info;
+
+drop index idx_grid_id on ufo_grid_button_info;
+
+drop table if exists ufo_grid_button_info;
 
 drop index idx_title on ufo_grid_column_info;
 
@@ -45,6 +51,53 @@ drop index idx_queue_name on ufo_queue_info;
 drop table if exists ufo_queue_info;
 
 /*==============================================================*/
+/* Table: ufo_button_metadata_info                              */
+/*==============================================================*/
+create table ufo_button_metadata_info
+(
+   id                   bigint not null auto_increment,
+   text                 varchar(50) not null,
+   title                varchar(50) not null default '',
+   img                  varchar(50) not null default '',
+   type                 varchar(50) not null default 'button',
+   action               varchar(50) not null default '',
+   enable               tinyint not null default 1,
+   create_time          timestamp not null default '1980-01-01',
+   creater              varchar(50) not null default 'sys',
+   update_time          timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   updater              varchar(50) not null default 'sys',
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Table: ufo_grid_button_info                                  */
+/*==============================================================*/
+create table ufo_grid_button_info
+(
+   id                   bigint not null auto_increment,
+   grid_id              bigint not null default 0,
+   text                 varchar(50) not null,
+   title                varchar(50) not null default '',
+   img                  varchar(50) not null default '',
+   type                 varchar(50) not null default 'button',
+   action               varchar(50) not null default '',
+   enable               tinyint not null default 1,
+   create_time          timestamp not null default '1980-01-01',
+   creater              varchar(50) not null default 'sys',
+   update_time          timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   updater              varchar(50) not null default 'sys',
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Index: idx_grid_id                                           */
+/*==============================================================*/
+create index idx_grid_id on ufo_grid_button_info
+(
+   grid_id
+);
+
+/*==============================================================*/
 /* Table: ufo_grid_column_info                                  */
 /*==============================================================*/
 create table ufo_grid_column_info
@@ -54,6 +107,11 @@ create table ufo_grid_column_info
    data_id              bigint not null,
    title                varchar(50) not null default '',
    name                 varchar(50) not null default '',
+   is_search            tinyint not null default 1 comment '是否可搜索
+            1 是
+            0 否',
+   is_insert            tinyint not null default 1,
+   is_modify            tinyint not null default 1,
    status               tinyint not null default 1,
    create_time          timestamp not null default '1980-01-01',
    creater              varchar(50) not null default 'sys',
@@ -167,12 +225,16 @@ create unique index idx_name on ufo_grid_metadata_column_info
 create table ufo_log_info
 (
    id                   bigint not null auto_increment,
+   host                 varchar(50) not null default '',
+   handler              varchar(50) not null default '',
    request_url          varchar(200) not null default '',
-   ip                   varchar(50) not null default '',
-   oper                 varchar(50) not null default '',
+   request_params       varchar(200) default '',
    class_name           varchar(200) not null default '',
    method               varchar(200) not null default '',
-   status               tinyint default 1,
+   method_params        varchar(200) not null default '',
+   result               text,
+   error                text,
+   status               tinyint not null default 1,
    create_time          timestamp not null default '1980-01-01',
    creater              varchar(50) not null default 'sys',
    update_time          timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -212,10 +274,11 @@ create index idx_method on ufo_log_info
 create table ufo_menu_info
 (
    id                   bigint not null auto_increment,
-   parent_id            bigint not null,
+   parent_id            bigint not null default 0,
    title                varchar(50) not null default '',
    url                  varchar(50) not null default '',
    icon                 varchar(50) not null default '',
+   sort                 tinyint not null default 0,
    status               tinyint not null default 1,
    create_time          timestamp not null default '1980-01-01',
    creater              varchar(50) not null default 'sys',

@@ -26,6 +26,7 @@ public interface MenuInfoEntityMapper {
     })
     int insert(MenuInfoEntity record);
 
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     @InsertProvider(type=MenuInfoEntitySqlProvider.class, method="insertSelective")
     int insertSelective(MenuInfoEntity record);
 

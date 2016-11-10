@@ -10,10 +10,14 @@ import lombok.Data;
 public class DxGridTemplate {
 
     private String imagePath;
-    private StringBuilder header;
-    private StringBuilder columnIds;
-    private StringBuilder searchTitles;
-    private StringBuilder searchIds;
+    private String header;
+    private String columnIds;
+    private String searchTitles;
+    private String searchIds;
+    private String insertTitles;
+    private String insertIds;
+    private String modifyTitles;
+    private String modifyIds;
     private String skin;
     private String pagingSkin;
 

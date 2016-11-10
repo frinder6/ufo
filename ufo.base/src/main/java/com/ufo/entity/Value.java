@@ -10,6 +10,13 @@ import java.io.Serializable;
 @Data
 public class Value implements Serializable {
 
+    public Value() {
+    }
+
+    public Value(Object value) {
+        this.value = value;
+    }
+
     private Object value;
 
 }

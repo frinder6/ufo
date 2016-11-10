@@ -14,4 +14,12 @@ public interface MenuService {
 
     List<MenuInfoEntity> selectPage(MenuInfoEntity entity);
 
+    MenuInfoEntity findById(Long id);
+
+    Long insert(MenuInfoEntity record);
+
+    void update(MenuInfoEntity record);
+
+    void delete(Long id);
+
 }

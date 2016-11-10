@@ -2,24 +2,20 @@ package com.ufo.entity;
 
 import java.util.Date;
 
-public class GridColumnInfoEntity {
+public class GridMetadataButtonInfoEntity {
     private Long id;
 
-    private Long gridId;
-
-    private Long dataId;
+    private String text;
 
     private String title;
 
-    private String name;
+    private String img;
 
-    private Byte isSearch;
+    private String type;
 
-    private Byte isInsert;
+    private String action;
 
-    private Byte isModify;
-
-    private Byte status;
+    private Byte enable;
 
     private Date createTime;
 
@@ -37,20 +33,12 @@ public class GridColumnInfoEntity {
         this.id = id;
     }
 
-    public Long getGridId() {
-        return gridId;
+    public String getText() {
+        return text;
     }
 
-    public void setGridId(Long gridId) {
-        this.gridId = gridId;
-    }
-
-    public Long getDataId() {
-        return dataId;
-    }
-
-    public void setDataId(Long dataId) {
-        this.dataId = dataId;
+    public void setText(String text) {
+        this.text = text == null ? null : text.trim();
     }
 
     public String getTitle() {
@@ -61,44 +49,36 @@ public class GridColumnInfoEntity {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getName() {
-        return name;
+    public String getImg() {
+        return img;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setImg(String img) {
+        this.img = img == null ? null : img.trim();
     }
 
-    public Byte getIsSearch() {
-        return isSearch;
+    public String getType() {
+        return type;
     }
 
-    public void setIsSearch(Byte isSearch) {
-        this.isSearch = isSearch;
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 
-    public Byte getIsInsert() {
-        return isInsert;
+    public String getAction() {
+        return action;
     }
 
-    public void setIsInsert(Byte isInsert) {
-        this.isInsert = isInsert;
+    public void setAction(String action) {
+        this.action = action == null ? null : action.trim();
     }
 
-    public Byte getIsModify() {
-        return isModify;
+    public Byte getEnable() {
+        return enable;
     }
 
-    public void setIsModify(Byte isModify) {
-        this.isModify = isModify;
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setEnable(Byte enable) {
+        this.enable = enable;
     }
 
     public Date getCreateTime() {
@@ -144,16 +124,14 @@ public class GridColumnInfoEntity {
         if (getClass() != that.getClass()) {
             return false;
         }
-        GridColumnInfoEntity other = (GridColumnInfoEntity) that;
+        GridMetadataButtonInfoEntity other = (GridMetadataButtonInfoEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getGridId() == null ? other.getGridId() == null : this.getGridId().equals(other.getGridId()))
-            && (this.getDataId() == null ? other.getDataId() == null : this.getDataId().equals(other.getDataId()))
+            && (this.getText() == null ? other.getText() == null : this.getText().equals(other.getText()))
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getIsSearch() == null ? other.getIsSearch() == null : this.getIsSearch().equals(other.getIsSearch()))
-            && (this.getIsInsert() == null ? other.getIsInsert() == null : this.getIsInsert().equals(other.getIsInsert()))
-            && (this.getIsModify() == null ? other.getIsModify() == null : this.getIsModify().equals(other.getIsModify()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getImg() == null ? other.getImg() == null : this.getImg().equals(other.getImg()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
+            && (this.getAction() == null ? other.getAction() == null : this.getAction().equals(other.getAction()))
+            && (this.getEnable() == null ? other.getEnable() == null : this.getEnable().equals(other.getEnable()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
@@ -165,14 +143,12 @@ public class GridColumnInfoEntity {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getGridId() == null) ? 0 : getGridId().hashCode());
-        result = prime * result + ((getDataId() == null) ? 0 : getDataId().hashCode());
+        result = prime * result + ((getText() == null) ? 0 : getText().hashCode());
         result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getIsSearch() == null) ? 0 : getIsSearch().hashCode());
-        result = prime * result + ((getIsInsert() == null) ? 0 : getIsInsert().hashCode());
-        result = prime * result + ((getIsModify() == null) ? 0 : getIsModify().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getImg() == null) ? 0 : getImg().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
+        result = prime * result + ((getAction() == null) ? 0 : getAction().hashCode());
+        result = prime * result + ((getEnable() == null) ? 0 : getEnable().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
@@ -187,14 +163,12 @@ public class GridColumnInfoEntity {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", gridId=").append(gridId);
-        sb.append(", dataId=").append(dataId);
+        sb.append(", text=").append(text);
         sb.append(", title=").append(title);
-        sb.append(", name=").append(name);
-        sb.append(", isSearch=").append(isSearch);
-        sb.append(", isInsert=").append(isInsert);
-        sb.append(", isModify=").append(isModify);
-        sb.append(", status=").append(status);
+        sb.append(", img=").append(img);
+        sb.append(", type=").append(type);
+        sb.append(", action=").append(action);
+        sb.append(", enable=").append(enable);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);
         sb.append(", updateTime=").append(updateTime);

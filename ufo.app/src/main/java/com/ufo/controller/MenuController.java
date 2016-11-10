@@ -8,8 +8,10 @@ import com.ufo.vo.MenuInfoVO;
 import com.util.MenuUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,10 +33,35 @@ public class MenuController {
 
 
     @RequestMapping("/page.menu")
-    public DxGridResult page(MenuInfoEntity entity){
+    public DxGridResult page(MenuInfoEntity entity) {
         DxGridResult result = new DxGridResult();
         result.setData(menuService.selectPage(entity));
         return result;
+    }
+
+    @RequestMapping("/get.id")
+    public MenuInfoEntity get(@RequestParam("id") Long id) {
+        return menuService.findById(id);
+    }
+
+
+    @RequestMapping("/add.menu")
+    public Value insert(MenuInfoEntity entity) {
+        entity.setCreateTime(new Date());
+        menuService.insert(entity);
+        return new Value("添加成功！");
+    }
+
+    @RequestMapping("/update.menu")
+    public Value modify(MenuInfoEntity entity) {
+        menuService.update(entity);
+        return new Value("更新成功！");
+    }
+
+    @RequestMapping("/remove.menu")
+    public Value remove(@RequestParam("id") Long id) {
+        menuService.delete(id);
+        return new Value("删除成功！");
     }
 
 

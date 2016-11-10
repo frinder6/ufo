@@ -8,13 +8,13 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.ufo.entity.GridColumnInfoEntity;
+import com.ufo.entity.GridButtonInfoEntity;
 
-public class GridColumnInfoEntitySqlProvider {
+public class GridButtonInfoEntitySqlProvider {
 
-    public String insertSelective(GridColumnInfoEntity record) {
+    public String insertSelective(GridButtonInfoEntity record) {
         BEGIN();
-        INSERT_INTO("ufo_grid_column_info");
+        INSERT_INTO("ufo_grid_button_info");
         
         if (record.getId() != null) {
             VALUES("id", "#{id,jdbcType=BIGINT}");
@@ -24,32 +24,28 @@ public class GridColumnInfoEntitySqlProvider {
             VALUES("grid_id", "#{gridId,jdbcType=BIGINT}");
         }
         
-        if (record.getDataId() != null) {
-            VALUES("data_id", "#{dataId,jdbcType=BIGINT}");
+        if (record.getText() != null) {
+            VALUES("text", "#{text,jdbcType=VARCHAR}");
         }
         
         if (record.getTitle() != null) {
             VALUES("title", "#{title,jdbcType=VARCHAR}");
         }
         
-        if (record.getName() != null) {
-            VALUES("name", "#{name,jdbcType=VARCHAR}");
+        if (record.getImg() != null) {
+            VALUES("img", "#{img,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsSearch() != null) {
-            VALUES("is_search", "#{isSearch,jdbcType=TINYINT}");
+        if (record.getType() != null) {
+            VALUES("type", "#{type,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsInsert() != null) {
-            VALUES("is_insert", "#{isInsert,jdbcType=TINYINT}");
+        if (record.getAction() != null) {
+            VALUES("action", "#{action,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsModify() != null) {
-            VALUES("is_modify", "#{isModify,jdbcType=TINYINT}");
-        }
-        
-        if (record.getStatus() != null) {
-            VALUES("status", "#{status,jdbcType=TINYINT}");
+        if (record.getEnable() != null) {
+            VALUES("enable", "#{enable,jdbcType=TINYINT}");
         }
         
         if (record.getCreateTime() != null) {
@@ -71,40 +67,36 @@ public class GridColumnInfoEntitySqlProvider {
         return SQL();
     }
 
-    public String updateByPrimaryKeySelective(GridColumnInfoEntity record) {
+    public String updateByPrimaryKeySelective(GridButtonInfoEntity record) {
         BEGIN();
-        UPDATE("ufo_grid_column_info");
+        UPDATE("ufo_grid_button_info");
         
         if (record.getGridId() != null) {
             SET("grid_id = #{gridId,jdbcType=BIGINT}");
         }
         
-        if (record.getDataId() != null) {
-            SET("data_id = #{dataId,jdbcType=BIGINT}");
+        if (record.getText() != null) {
+            SET("text = #{text,jdbcType=VARCHAR}");
         }
         
         if (record.getTitle() != null) {
             SET("title = #{title,jdbcType=VARCHAR}");
         }
         
-        if (record.getName() != null) {
-            SET("name = #{name,jdbcType=VARCHAR}");
+        if (record.getImg() != null) {
+            SET("img = #{img,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsSearch() != null) {
-            SET("is_search = #{isSearch,jdbcType=TINYINT}");
+        if (record.getType() != null) {
+            SET("type = #{type,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsInsert() != null) {
-            SET("is_insert = #{isInsert,jdbcType=TINYINT}");
+        if (record.getAction() != null) {
+            SET("action = #{action,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsModify() != null) {
-            SET("is_modify = #{isModify,jdbcType=TINYINT}");
-        }
-        
-        if (record.getStatus() != null) {
-            SET("status = #{status,jdbcType=TINYINT}");
+        if (record.getEnable() != null) {
+            SET("enable = #{enable,jdbcType=TINYINT}");
         }
         
         if (record.getCreateTime() != null) {
