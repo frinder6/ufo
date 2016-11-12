@@ -122,8 +122,10 @@ var fSearchForm = function () {
     formJson.push({type: "newcolumn"});
     var titles = data.searchTitles.split(",");
     var ids = data.searchIds.split(",");
+    var types = data.searchTypes.split(",");
     $(ids).each(function (i, id) {
-        var node = {type: "input"};
+        var node = {};
+        node.type = types[i];
         node.name = id;
         node.label = titles[i] + "：";
         node.width = 100;
@@ -279,6 +281,9 @@ var fDialog = function (p) {
     var dialogForm = dialogWin.attachForm();
     dialogForm.loadStruct(p.formJson);
     dialogForm.enableLiveValidation(true);
+    dialogForm.attachEvent("onFocus", function (name, value) {
+        focus(dialogForm, name);
+    });
     // 绑定事件
     dialogToolbar.attachEvent("onClick", function (id) {
         if (id == "save") {
@@ -297,11 +302,12 @@ var fDialog = function (p) {
                     params.push(key + "=" + data[key]);
                 }
             }
-            window.dhx4.ajax.get(p.url + params.join("&"), function (response) {
-                var data = JSON.parse(response.xmlDoc.responseText);
-                layer.msg(data.value);
-                dialogWin.close();
-            });
+            alert(params.join("&"));
+            // window.dhx4.ajax.get(p.url + params.join("&"), function (response) {
+            //     var data = JSON.parse(response.xmlDoc.responseText);
+            //     layer.msg(data.value);
+            //     dialogWin.close();
+            // });
         }
     });
 };
@@ -314,8 +320,13 @@ var fAdd = function () {
     formJson.push({type: "settings", position: "label-left", labelWidth: 100, inputWidth: 150});
     var titles = data.insertTitles.split(",");
     var ids = data.insertIds.split(",");
+    var types = data.insertTypes.split(",");
     $(ids).each(function (i, id) {
-        var node = {type: "input"};
+        var node = {};
+        node.type = types[i];
+        if (types[i] == "hide") {
+            node.type = "input";
+        }
         node.name = id;
         node.label = titles[i] + "：";
         node.required = true;

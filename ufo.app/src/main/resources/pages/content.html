@@ -35,6 +35,36 @@
             removeUrl: "menu/remove.menu"
         });
     }
+    function focus(dialogForm, name) {
+        var inputName = "parentText";
+        if (name == inputName) {
+            var treeWin = fDxWins.createWindow("treeWin", 300, 200, 250, 300);
+            treeWin.setText("选择父菜单");
+            treeWin.setModal(true);
+            treeWin.button("park").hide();
+            treeWin.button("minmax").hide();
+            treeWin.keepInViewport(true);
+            treeWin.denyResize();
+            var tree = treeWin.attachTree();
+            tree.setSkin("dhx_" + data.skin);
+            tree.setImagePath("dhtmlx/skins/" + data.skin + "/imgs/dhxtree_" + data.skin + "/");
+//            tree.enableRadioButtons(true);
+//            tree.enableSmartXMLParsing(true);
+            tree.loadJSON("menu/server.tree");
+            tree.attachEvent("onDblClick", function (id) {
+                dialogForm.removeItem("parentId");
+                dialogForm.addItem(null, {
+                    label: "父菜单：",
+                    name: "parentId",
+                    type: "input",
+                    value: id
+                });
+                dialogForm.hideItem("parentId");
+                dialogForm.setItemValue(inputName, tree.getSelectedItemText());
+                treeWin.close();
+            });
+        }
+    }
 </script>
 
 

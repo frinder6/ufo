@@ -2,6 +2,7 @@ package com.ufo.service;
 
 import com.ufo.entity.MenuInfoEntity;
 import com.ufo.vo.MenuInfoVO;
+import com.ufo.vo.MenuTreeInfoVO;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
 public interface MenuService {
 
     List<MenuInfoVO> selectMenu(Long pid);
+
+    List<MenuTreeInfoVO> selectTree(Long pid);
 
     List<MenuInfoEntity> selectPage(MenuInfoEntity entity);
 

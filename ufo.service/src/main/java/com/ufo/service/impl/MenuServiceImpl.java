@@ -5,6 +5,7 @@ import com.ufo.entity.MenuInfoEntity;
 import com.ufo.mapper.MenuInfoEntityMapper;
 import com.ufo.service.MenuService;
 import com.ufo.vo.MenuInfoVO;
+import com.ufo.vo.MenuTreeInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,11 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<MenuInfoVO> selectMenu(Long pid) {
         return menuInfoEntityDao.selectByPid(pid);
+    }
+
+    @Override
+    public List<MenuTreeInfoVO> selectTree(Long pid) {
+        return menuInfoEntityDao.selectTreeByPid(pid);
     }
 
 
@@ -54,7 +60,7 @@ public class MenuServiceImpl implements MenuService {
 
 
     @Override
-    public void delete(Long id){
+    public void delete(Long id) {
         menuInfoEntityMapper.deleteByPrimaryKey(id);
     }
 

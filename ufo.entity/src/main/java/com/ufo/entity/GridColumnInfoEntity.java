@@ -13,6 +13,14 @@ public class GridColumnInfoEntity {
 
     private String name;
 
+    private String type;
+
+    private String value;
+
+    private String validate;
+
+    private Byte required;
+
     private Byte isSearch;
 
     private Byte isInsert;
@@ -67,6 +75,38 @@ public class GridColumnInfoEntity {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value == null ? null : value.trim();
+    }
+
+    public String getValidate() {
+        return validate;
+    }
+
+    public void setValidate(String validate) {
+        this.validate = validate == null ? null : validate.trim();
+    }
+
+    public Byte getRequired() {
+        return required;
+    }
+
+    public void setRequired(Byte required) {
+        this.required = required;
     }
 
     public Byte getIsSearch() {
@@ -150,6 +190,10 @@ public class GridColumnInfoEntity {
             && (this.getDataId() == null ? other.getDataId() == null : this.getDataId().equals(other.getDataId()))
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
+            && (this.getValue() == null ? other.getValue() == null : this.getValue().equals(other.getValue()))
+            && (this.getValidate() == null ? other.getValidate() == null : this.getValidate().equals(other.getValidate()))
+            && (this.getRequired() == null ? other.getRequired() == null : this.getRequired().equals(other.getRequired()))
             && (this.getIsSearch() == null ? other.getIsSearch() == null : this.getIsSearch().equals(other.getIsSearch()))
             && (this.getIsInsert() == null ? other.getIsInsert() == null : this.getIsInsert().equals(other.getIsInsert()))
             && (this.getIsModify() == null ? other.getIsModify() == null : this.getIsModify().equals(other.getIsModify()))
@@ -169,6 +213,10 @@ public class GridColumnInfoEntity {
         result = prime * result + ((getDataId() == null) ? 0 : getDataId().hashCode());
         result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
+        result = prime * result + ((getValue() == null) ? 0 : getValue().hashCode());
+        result = prime * result + ((getValidate() == null) ? 0 : getValidate().hashCode());
+        result = prime * result + ((getRequired() == null) ? 0 : getRequired().hashCode());
         result = prime * result + ((getIsSearch() == null) ? 0 : getIsSearch().hashCode());
         result = prime * result + ((getIsInsert() == null) ? 0 : getIsInsert().hashCode());
         result = prime * result + ((getIsModify() == null) ? 0 : getIsModify().hashCode());
@@ -191,6 +239,10 @@ public class GridColumnInfoEntity {
         sb.append(", dataId=").append(dataId);
         sb.append(", title=").append(title);
         sb.append(", name=").append(name);
+        sb.append(", type=").append(type);
+        sb.append(", value=").append(value);
+        sb.append(", validate=").append(validate);
+        sb.append(", required=").append(required);
         sb.append(", isSearch=").append(isSearch);
         sb.append(", isInsert=").append(isInsert);
         sb.append(", isModify=").append(isModify);

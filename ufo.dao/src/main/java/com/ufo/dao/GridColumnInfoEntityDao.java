@@ -17,7 +17,7 @@ public interface GridColumnInfoEntityDao {
 
     @Select({
             "select",
-            "id, title, name, is_search, is_insert, is_modify, status ",
+            "id, title, name, type, value, validate, required, is_search, is_insert, is_modify, status ",
             "from ufo_grid_column_info",
             "where status = 1 and grid_id = #{gridId,jdbcType=BIGINT}"
     })
@@ -25,6 +25,7 @@ public interface GridColumnInfoEntityDao {
             @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
             @Result(column = "title", property = "title", jdbcType = JdbcType.VARCHAR),
             @Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "type", property = "type", jdbcType = JdbcType.VARCHAR),
             @Result(column = "is_search", property = "isSearch", jdbcType = JdbcType.TINYINT),
             @Result(column = "is_insert", property = "isInsert", jdbcType = JdbcType.TINYINT),
             @Result(column = "is_modify", property = "isModify", jdbcType = JdbcType.TINYINT),

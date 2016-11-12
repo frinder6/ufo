@@ -15,16 +15,20 @@ public interface GridColumnInfoEntityMapper {
     @Insert({
         "insert into ufo_grid_column_info (id, grid_id, ",
         "data_id, title, name, ",
-        "is_search, is_insert, ",
-        "is_modify, status, ",
-        "create_time, creater, ",
-        "update_time, updater)",
+        "type, value, validate, ",
+        "required, is_search, ",
+        "is_insert, is_modify, ",
+        "status, create_time, ",
+        "creater, update_time, ",
+        "updater)",
         "values (#{id,jdbcType=BIGINT}, #{gridId,jdbcType=BIGINT}, ",
         "#{dataId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, ",
-        "#{isSearch,jdbcType=TINYINT}, #{isInsert,jdbcType=TINYINT}, ",
-        "#{isModify,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, ",
-        "#{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR})"
+        "#{type,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{validate,jdbcType=VARCHAR}, ",
+        "#{required,jdbcType=TINYINT}, #{isSearch,jdbcType=TINYINT}, ",
+        "#{isInsert,jdbcType=TINYINT}, #{isModify,jdbcType=TINYINT}, ",
+        "#{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, ",
+        "#{updater,jdbcType=VARCHAR})"
     })
     int insert(GridColumnInfoEntity record);
 
@@ -33,8 +37,8 @@ public interface GridColumnInfoEntityMapper {
 
     @Select({
         "select",
-        "id, grid_id, data_id, title, name, is_search, is_insert, is_modify, status, ",
-        "create_time, creater, update_time, updater",
+        "id, grid_id, data_id, title, name, type, value, validate, required, is_search, ",
+        "is_insert, is_modify, status, create_time, creater, update_time, updater",
         "from ufo_grid_column_info",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -44,6 +48,10 @@ public interface GridColumnInfoEntityMapper {
         @Result(column="data_id", property="dataId", jdbcType=JdbcType.BIGINT),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
+        @Result(column="value", property="value", jdbcType=JdbcType.VARCHAR),
+        @Result(column="validate", property="validate", jdbcType=JdbcType.VARCHAR),
+        @Result(column="required", property="required", jdbcType=JdbcType.TINYINT),
         @Result(column="is_search", property="isSearch", jdbcType=JdbcType.TINYINT),
         @Result(column="is_insert", property="isInsert", jdbcType=JdbcType.TINYINT),
         @Result(column="is_modify", property="isModify", jdbcType=JdbcType.TINYINT),
@@ -64,6 +72,10 @@ public interface GridColumnInfoEntityMapper {
           "data_id = #{dataId,jdbcType=BIGINT},",
           "title = #{title,jdbcType=VARCHAR},",
           "name = #{name,jdbcType=VARCHAR},",
+          "type = #{type,jdbcType=VARCHAR},",
+          "value = #{value,jdbcType=VARCHAR},",
+          "validate = #{validate,jdbcType=VARCHAR},",
+          "required = #{required,jdbcType=TINYINT},",
           "is_search = #{isSearch,jdbcType=TINYINT},",
           "is_insert = #{isInsert,jdbcType=TINYINT},",
           "is_modify = #{isModify,jdbcType=TINYINT},",

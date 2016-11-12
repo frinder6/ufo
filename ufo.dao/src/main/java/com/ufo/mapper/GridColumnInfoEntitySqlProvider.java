@@ -36,6 +36,22 @@ public class GridColumnInfoEntitySqlProvider {
             VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
         
+        if (record.getType() != null) {
+            VALUES("type", "#{type,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getValue() != null) {
+            VALUES("value", "#{value,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getValidate() != null) {
+            VALUES("validate", "#{validate,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRequired() != null) {
+            VALUES("required", "#{required,jdbcType=TINYINT}");
+        }
+        
         if (record.getIsSearch() != null) {
             VALUES("is_search", "#{isSearch,jdbcType=TINYINT}");
         }
@@ -89,6 +105,22 @@ public class GridColumnInfoEntitySqlProvider {
         
         if (record.getName() != null) {
             SET("name = #{name,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getType() != null) {
+            SET("type = #{type,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getValue() != null) {
+            SET("value = #{value,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getValidate() != null) {
+            SET("validate = #{validate,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRequired() != null) {
+            SET("required = #{required,jdbcType=TINYINT}");
         }
         
         if (record.getIsSearch() != null) {

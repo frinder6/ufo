@@ -2,6 +2,7 @@ package com.ufo.dao;
 
 import com.ufo.entity.MenuInfoEntity;
 import com.ufo.vo.MenuInfoVO;
+import com.ufo.vo.MenuTreeInfoVO;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
@@ -26,6 +27,20 @@ public interface MenuInfoEntityDao {
             @Result(property = "children", column = "id", many = @Many(select = "com.ufo.dao.MenuInfoEntityDao.selectByPid"))
     })
     List<MenuInfoVO> selectByPid(Long parentId);
+
+
+    @Select({
+            "select",
+            "id, title ",
+            "from ufo_menu_info",
+            "where status = 1 and parent_id = #{parentId,jdbcType=BIGINT} order by sort"
+    })
+    @Results({
+            @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
+            @Result(column = "title", property = "text", jdbcType = JdbcType.VARCHAR),
+            @Result(property = "item", column = "id", many = @Many(select = "com.ufo.dao.MenuInfoEntityDao.selectTreeByPid"))
+    })
+    List<MenuTreeInfoVO> selectTreeByPid(Long parentId);
 
 
     @Select({

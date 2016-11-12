@@ -5,12 +5,14 @@ import com.ufo.entity.MenuInfoEntity;
 import com.ufo.entity.Value;
 import com.ufo.service.MenuService;
 import com.ufo.vo.MenuInfoVO;
+import com.ufo.vo.MenuTreeInfoVO;
 import com.util.MenuUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,8 +29,17 @@ public class MenuController {
 
     @RequestMapping("/server.menu")
     public Value menu() {
-        List<MenuInfoVO> menuInfoVOs = menuService.selectMenu(0L);
+        List<MenuInfoVO> menuInfoVOs = menuService.selectMenu(1L);
         return MenuUtil.MENU_UTIL.menu(menuInfoVOs);
+    }
+
+    @RequestMapping("/server.tree")
+    public MenuTreeInfoVO tree() {
+        MenuTreeInfoVO treeInfoVO = new MenuTreeInfoVO();
+        treeInfoVO.setId(0L);
+        List<MenuTreeInfoVO> treeInfoVOs = menuService.selectTree(0L);
+        treeInfoVO.setItem(treeInfoVOs);
+        return treeInfoVO;
     }
 
 
