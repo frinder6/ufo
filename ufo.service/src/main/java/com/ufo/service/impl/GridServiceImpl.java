@@ -2,6 +2,7 @@ package com.ufo.service.impl;
 
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Joiner;
+import com.ufo.dao.ColumnsDao;
 import com.ufo.dao.GridColumnInfoEntityDao;
 import com.ufo.dao.GridExtendInfoEntityDao;
 import com.ufo.dao.GridInfoEntityDao;
@@ -10,6 +11,7 @@ import com.ufo.entity.GridColumnInfoEntity;
 import com.ufo.entity.GridExtendInfoEntity;
 import com.ufo.entity.GridInfoEntity;
 import com.ufo.service.GridService;
+import com.ufo.vo.ColumnsVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,21 @@ public class GridServiceImpl implements GridService {
 
     @Autowired
     private GridExtendInfoEntityDao gridExtendInfoEntityDao;
+
+    @Autowired
+    private ColumnsDao columnsDao;
+
+
+    @Override
+    public List<GridInfoEntity> selectPage(GridInfoEntity record) {
+        return gridInfoEntityDao.selectPage(record);
+    }
+
+
+    @Override
+    public List<ColumnsVO> selectColumns(String tableName) {
+        return columnsDao.selectByTableName(tableName);
+    }
 
     @Override
     public DxGridTemplate selectGrid(String gridName) {
