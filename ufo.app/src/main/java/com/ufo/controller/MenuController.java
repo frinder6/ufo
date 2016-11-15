@@ -1,6 +1,6 @@
 package com.ufo.controller;
 
-import com.ufo.entity.DxGridResult;
+import com.ufo.entity.GridResult;
 import com.ufo.entity.MenuInfoEntity;
 import com.ufo.entity.Value;
 import com.ufo.service.MenuService;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,10 +43,8 @@ public class MenuController {
 
 
     @RequestMapping("/page.menu")
-    public DxGridResult page(MenuInfoEntity entity) {
-        DxGridResult result = new DxGridResult();
-        result.setData(menuService.selectPage(entity));
-        return result;
+    public GridResult page(MenuInfoEntity entity) {
+        return menuService.selectPage(entity);
     }
 
     @RequestMapping("/get.id")

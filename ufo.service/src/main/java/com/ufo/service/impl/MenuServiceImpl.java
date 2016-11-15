@@ -1,6 +1,7 @@
 package com.ufo.service.impl;
 
 import com.ufo.dao.MenuInfoEntityDao;
+import com.ufo.entity.GridResult;
 import com.ufo.entity.MenuInfoEntity;
 import com.ufo.mapper.MenuInfoEntityMapper;
 import com.ufo.service.MenuService;
@@ -36,8 +37,11 @@ public class MenuServiceImpl implements MenuService {
 
 
     @Override
-    public List<MenuInfoEntity> selectPage(MenuInfoEntity entity) {
-        return menuInfoEntityDao.selectPage(entity);
+    public GridResult selectPage(MenuInfoEntity entity) {
+        GridResult result = new GridResult();
+        result.setTotal(menuInfoEntityDao.selectPageCount(entity));
+        result.setRecords(menuInfoEntityDao.selectPage(entity));
+        return result;
     }
 
     @Override

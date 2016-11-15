@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Window</title>
+    <link href="page/pagination.css" rel="stylesheet"/>
+    <link href="layer/skin/layer.css" rel="stylesheet"/>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #page {
+            margin: 50px;
+        }
+
+    </style>
+
+</head>
+<body>
+<div id="data"></div>
+<div id="page"></div>
+</body>
+<script src="js/jquery-3.1.1.js"></script>
+<script src="page/prettify.min.js"></script>
+<script src="page/pagination.js"></script>
+<script type="text/javascript">
+    var data = [];
+    for (var i = 1; i <= 1000; i++) {
+        data.push(i);
+    }
+    $('#page').pagination({
+        dataSource: data,
+        pageSize: 20,
+        showGoInput: true,
+        showGoButton: true,
+//        prevText: '上一页',
+//        nextText: '下一页',
+        goButtonText: '跳转',
+        showNavigator: true,
+        formatNavigator: '第 <b><%= currentPage %></b> 页，共 <b><%= totalPage %></b> 页，共 <b><%= totalNumber %></b> 条记录',
+        callback: function (data, pagination) {
+            alert(JSON.stringify(pagination));
+        }
+    });
+</script>
+
+
+</html>

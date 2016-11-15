@@ -2,11 +2,10 @@
 <html>
 <head>
 
-    <title>Window</title>
-
-    <link rel="stylesheet" type="text/css" href="dhtmlx/skins/web/dhtmlx.css"/>
+    <title>Content</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="w2ui/w2ui.css" id="mainCSS"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="w2ui/libs/font-awesome/font-awesome.css"/>
     <link href="layer/skin/layer.css" rel="stylesheet"/>
-
     <style>
         html, body {
             margin: 0;
@@ -15,56 +14,94 @@
             height: 100%;
         }
 
+        #layout {
+            width: 100%;
+            height: 100%;
+        }
+
+        #grid {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 
 </head>
-<body onload="doOnLoad()" onresize="doResize()">
+<body>
+<div id="layout">
+</div>
 </body>
-<script src="js/jquery.min.js"></script>
-<script src="layer/layer.js"></script>
-<script src="dhtmlx/dhtmlx.js"></script>
-<script src="js/dx.grid2.js"></script>
+<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="w2ui/w2utils.js"></script>
+<script type="text/javascript" src="w2ui/w2grid.js"></script>
+<script type="text/javascript" src="w2ui/w2layout.js"></script>
+<script type="text/javascript" src="w2ui/w2popup.js"></script>
+<script type="text/javascript" src="w2ui/w2tabs.js"></script>
+<script type="text/javascript" src="w2ui/w2toolbar.js"></script>
+<script type="text/javascript" src="w2ui/w2sidebar.js"></script>
+<script type="text/javascript" src="w2ui/w2fields.js"></script>
+<script type="text/javascript" src="w2ui/w2form.js"></script>
+<script type="text/javascript" src="layer/layer.js"></script>
+
 <script type="text/javascript">
-    function doOnLoad() {
-        init({
-            name: "导航信息表",
-            url: "menu/page.menu",
-            idUrl: "menu/get.id",
-            addUrl: "menu/add.menu",
-            modifyUrl: "menu/modify.menu",
-            removeUrl: "menu/remove.menu"
+    $(function () {
+        w2utils.locale('w2ui/locale/zh-cn.json');
+        $('#layout').w2layout({
+            name: 'layout',
+            padding: 1,
+            panels: [
+                {type: 'main', content: '<div id="grid"></div>'}
+            ]
         });
-    }
-    function focus(dialogForm, name) {
-        var inputName = "parentText";
-        if (name == inputName) {
-            var treeWin = fDxWins.createWindow("treeWin", 300, 200, 250, 300);
-            treeWin.setText("选择父菜单");
-            treeWin.setModal(true);
-            treeWin.button("park").hide();
-            treeWin.button("minmax").hide();
-            treeWin.keepInViewport(true);
-            treeWin.denyResize();
-            var tree = treeWin.attachTree();
-            tree.setSkin("dhx_" + data.skin);
-            tree.setImagePath("dhtmlx/skins/" + data.skin + "/imgs/dhxtree_" + data.skin + "/");
-//            tree.enableRadioButtons(true);
-//            tree.enableSmartXMLParsing(true);
-            tree.loadJSON("menu/server.tree");
-            tree.attachEvent("onDblClick", function (id) {
-                dialogForm.removeItem("parentId");
-                dialogForm.addItem(null, {
-                    label: "父菜单：",
-                    name: "parentId",
-                    type: "input",
-                    value: id
-                });
-                dialogForm.hideItem("parentId");
-                dialogForm.setItemValue(inputName, tree.getSelectedItemText());
-                treeWin.close();
-            });
-        }
-    }
+        $('#grid').w2grid({
+            name: 'grid',
+            url: 'menu/page.menu',
+            header: '导航信息数据',
+            multiSearch: true,
+            recid: 'id',
+            show: {
+                header: true,
+                toolbar: true,
+                footer: true,
+                selectColumn: true,
+                skipRecords: false,
+                lineNumbers: false,
+                saveRestoreState: false,
+                toolbarAdd: true,
+                toolbarDelete: true,
+                toolbarSave: true
+            },
+            toolbar: {
+                onClick: function (target, data) {
+                    // console.log(target);
+                    // console.log(JSON.stringify(data));
+                }
+            },
+            columns: [
+                {field: 'title', caption: '名称', size: '200px', sortable: true},
+                {field: 'status', caption: '状态', size: '50px', sortable: true},
+                {field: 'createTime', caption: '创建时间', size: '200px'},
+                {field: 'updateTime', caption: '更新时间', size: '200px'},
+            ],
+            searches: [
+                {type: 'text', field: 'title', caption: '名称'},
+                {
+                    type: 'list', field: 'status', caption: '状态',
+                    options: {items: [{id: 1, text: '可用'}, {id: 0, text: '禁用'}]}
+                }
+            ],
+            onRequest: function (event) {
+                var datas = event.postData.search;
+                if (datas) {
+                    var params = [];
+                    $.each(datas, function (i, v) {
+                        params.push(v.field + '=' + v.value)
+                    });
+                    var t = new Date().getMilliseconds();
+                    event.url = event.url + '?t=' + t + '&' + params.join('&');
+                }
+            }
+        });
+    });
 </script>
 
 

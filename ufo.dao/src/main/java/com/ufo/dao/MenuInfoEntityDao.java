@@ -65,5 +65,13 @@ public interface MenuInfoEntityDao {
     })
     List<MenuInfoEntity> selectPage(MenuInfoEntity entity);
 
+    @Select({
+            "select",
+            "count(1)",
+            "from ufo_menu_info",
+            "limit 0, 1000"
+    })
+    int selectPageCount(MenuInfoEntity entity);
+
 
 }

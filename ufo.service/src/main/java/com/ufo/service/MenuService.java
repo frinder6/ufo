@@ -1,5 +1,6 @@
 package com.ufo.service;
 
+import com.ufo.entity.GridResult;
 import com.ufo.entity.MenuInfoEntity;
 import com.ufo.vo.MenuInfoVO;
 import com.ufo.vo.MenuTreeInfoVO;
@@ -15,7 +16,7 @@ public interface MenuService {
 
     List<MenuTreeInfoVO> selectTree(Long pid);
 
-    List<MenuInfoEntity> selectPage(MenuInfoEntity entity);
+    GridResult selectPage(MenuInfoEntity entity);
 
     MenuInfoEntity findById(Long id);
 
