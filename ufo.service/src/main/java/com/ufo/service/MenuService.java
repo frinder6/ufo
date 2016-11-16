@@ -16,6 +16,8 @@ public interface MenuService {
 
     List<MenuTreeInfoVO> selectTree(Long pid);
 
+    int selectPageCount(MenuInfoEntity entity);
+
     GridResult selectPage(MenuInfoEntity entity);
 
     MenuInfoEntity findById(Long id);

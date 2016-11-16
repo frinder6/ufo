@@ -43,7 +43,8 @@
         showNavigator: true,
         formatNavigator: '第 <b><%= currentPage %></b> 页，共 <b><%= totalPage %></b> 页，共 <b><%= totalNumber %></b> 条记录',
         callback: function (data, pagination) {
-            alert(JSON.stringify(pagination));
+            console.log(data);
+            console.log(pagination);
         }
     });
 </script>

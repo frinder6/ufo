@@ -36,11 +36,17 @@ public class MenuServiceImpl implements MenuService {
     }
 
 
+    public int selectPageCount(MenuInfoEntity entity) {
+        return menuInfoEntityDao.selectPageCount(entity);
+    }
+
+
     @Override
     public GridResult selectPage(MenuInfoEntity entity) {
         GridResult result = new GridResult();
-        result.setTotal(menuInfoEntityDao.selectPageCount(entity));
-        result.setRecords(menuInfoEntityDao.selectPage(entity));
+        List<MenuInfoEntity> list = menuInfoEntityDao.selectPage(entity);
+        result.setTotal(list.size());
+        result.setRecords(list);
         return result;
     }
 

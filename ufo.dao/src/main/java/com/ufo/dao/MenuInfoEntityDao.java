@@ -43,13 +43,7 @@ public interface MenuInfoEntityDao {
     List<MenuTreeInfoVO> selectTreeByPid(Long parentId);
 
 
-    @Select({
-            "select",
-            "id, parent_id, title, url, icon, sort, status, create_time, creater, update_time, ",
-            "updater",
-            "from ufo_menu_info",
-            "limit 0, 1000"
-    })
+    @SelectProvider(type = MenuInfoEntityDaoSqlProvider.class, method = "selectPageSql")
     @Results({
             @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
             @Result(column = "parent_id", property = "parentId", jdbcType = JdbcType.BIGINT),
@@ -63,15 +57,10 @@ public interface MenuInfoEntityDao {
             @Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "updater", property = "updater", jdbcType = JdbcType.VARCHAR)
     })
-    List<MenuInfoEntity> selectPage(MenuInfoEntity entity);
+    List<MenuInfoEntity> selectPage(MenuInfoEntity record);
 
-    @Select({
-            "select",
-            "count(1)",
-            "from ufo_menu_info",
-            "limit 0, 1000"
-    })
-    int selectPageCount(MenuInfoEntity entity);
+    @SelectProvider(type = MenuInfoEntityDaoSqlProvider.class, method = "selectPageCtSql")
+    int selectPageCount(MenuInfoEntity record);
 
 
 }

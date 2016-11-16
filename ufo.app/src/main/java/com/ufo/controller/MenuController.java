@@ -3,6 +3,7 @@ package com.ufo.controller;
 import com.ufo.entity.GridResult;
 import com.ufo.entity.MenuInfoEntity;
 import com.ufo.entity.Value;
+import com.ufo.entity.sub.MenuInfoSubEntity;
 import com.ufo.service.MenuService;
 import com.ufo.vo.MenuInfoVO;
 import com.ufo.vo.MenuTreeInfoVO;
@@ -41,9 +42,8 @@ public class MenuController {
         return treeInfoVO;
     }
 
-
     @RequestMapping("/page.menu")
-    public GridResult page(MenuInfoEntity entity) {
+    public GridResult page(MenuInfoSubEntity entity) {
         return menuService.selectPage(entity);
     }
 
