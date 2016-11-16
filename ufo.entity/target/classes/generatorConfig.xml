@@ -40,41 +40,41 @@
             <property name="trimStrings" value="true"/>
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置 -->
-        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.ufo.mapper"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ufo.mapper"
                              targetProject="D:\DEV\git\ufo.framework\ufo.dao\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 表 -->
 
-        <!--<table tableName="ufo_grid_button_info"
+        <table tableName="ufo_grid_button_info"
                domainObjectName="GridButtonInfoEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false"
-        />-->
+        />
 
-        <!--<table tableName="ufo_grid_metadata_button_info"
+        <table tableName="ufo_grid_metadata_button_info"
                domainObjectName="GridMetadataButtonInfoEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false"
-        />-->
+        />
 
-        <!--<table tableName="ufo_log_info"
+        <table tableName="ufo_log_info"
                domainObjectName="LogInfoEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false"
-        />-->
+        />
 
 
-        <!--<table tableName="ufo_menu_info"
+        <table tableName="ufo_menu_info"
                domainObjectName="MenuInfoEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"
@@ -82,7 +82,7 @@
                enableSelectByExample="false"
                selectByExampleQueryId="false">
             <property name="useActualColumnNames" value="false"/>
-        </table>-->
+        </table>
 
         <table tableName="ufo_grid_column_info"
                domainObjectName="GridColumnInfoEntity"
@@ -93,17 +93,17 @@
                selectByExampleQueryId="false"
         />
 
-       <!--<table tableName="ufo_grid_metadata_column_info"
+        <table tableName="ufo_grid_metadata_column_info"
                domainObjectName="GridMetadataColumnInfoEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false"
-        />-->
+        />
 
 
-        <!--<table tableName="ufo_queue_info"
+        <table tableName="ufo_queue_info"
                domainObjectName="QueueInfoEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"
@@ -112,10 +112,6 @@
                selectByExampleQueryId="false"
         />
 
-
-
-
-
         <table tableName="ufo_grid_extend_info"
                domainObjectName="GridExtendInfoEntity"
                enableCountByExample="false"
@@ -123,9 +119,9 @@
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false"
-        />-->
+        />
 
-        <!--<table tableName="ufo_grid_info"
+        <table tableName="ufo_grid_info"
                domainObjectName="GridInfoEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"
@@ -133,8 +129,6 @@
                enableSelectByExample="false"
                selectByExampleQueryId="false"
         />
-
-        -->
 
 
     </context>
