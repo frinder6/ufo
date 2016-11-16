@@ -1,6 +1,7 @@
 package com.ufo.dao;
 
 import com.ufo.entity.MenuInfoEntity;
+import com.ufo.entity.sub.MenuInfoSubEntity;
 import com.ufo.vo.MenuInfoVO;
 import com.ufo.vo.MenuTreeInfoVO;
 import org.apache.ibatis.annotations.*;

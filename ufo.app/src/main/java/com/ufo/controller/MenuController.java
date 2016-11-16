@@ -43,7 +43,7 @@ public class MenuController {
     }
 
     @RequestMapping("/page.menu")
-    public GridResult page(MenuInfoSubEntity entity) {
+    public GridResult page(MenuInfoEntity entity) {
         return menuService.selectPage(entity);
     }
 

@@ -57,14 +57,7 @@
             name: 'layout',
             padding: 1,
             panels: [
-                {type: 'main', content: '<div id="grid"></div>'},
-                {
-                    type: 'bottom',
-                    size: 30,
-                    resizable: false,
-                    style: 'height: 30px;line-height: 30px;position: relative;',
-                    content: '<div id="paging"></div>'
-                }
+                {type: 'main', content: '<div id="grid"></div>'}
             ]
         });
         $('#grid').w2grid({
@@ -76,7 +69,7 @@
             show: {
                 header: true,
                 toolbar: true,
-                footer: false,
+                footer: true,
                 selectColumn: true,
                 skipRecords: false,
                 lineNumbers: false,
@@ -99,59 +92,25 @@
                 }
             ],
             onRequest: function (event) {
-                var grid = w2ui['grid'];
-                if (grid) {
-                    var searchData = grid.searchData;
-                    if (searchData) {
-                        var params = [];
-                        $.each(searchData, function (i, v) {
-                            if (v.type == 'text') {
-                                params.push(v.field + '=' + v.value)
-                            }
-                        });
-                        var t = new Date().getMilliseconds();
+                console.log(event);
+                var postData = event.postData;
+                if (postData) {
+                    var searchData = postData.search;
+                    var searchLogic = postData.searchLogic;
+                    var params = [];
+                    $.each(searchData, function (i, v) {
+                        if (searchLogic == 'OR' && v.type == 'text') {
+                            params.push(v.field + '=' + v.value)
+                        }
+                        if (searchLogic == 'AND') {
+                            params.push(v.field + '=' + v.value)
+                        }
+                    });
+                    var t = new Date().getMilliseconds();
+                    if (params.length > 0){
                         event.url = event.url + '?t=' + t + '&' + params.join('&');
                     }
                 }
-            }
-        });
-
-        var data = [];
-        for (var i = 1; i <= 1000; i++) {
-            data.push(i);
-        }
-        var init = true;
-        $('#paging').pagination({
-            dataSource: data,
-            pageSize: 20,
-            showGoInput: true,
-            showGoButton: true,
-            goButtonText: '跳转',
-            showNavigator: true,
-            formatNavigator: '第 <b><%= currentPage %></b> 页，共 <b><%= totalPage %></b> 页，共 <b><%= totalNumber %></b> 条记录',
-            callback: function (data, p) {
-                if (init) {
-                    init = !init;
-                    return;
-                }
-                var grid = w2ui['grid'];
-                if (grid) {
-                    var searchData = grid.searchData;
-                    if (searchData) {
-                        var params = [];
-                        params.push("pageSize=" + p.pageSize);
-                        params.push("pageNumber=" + p.pageNumber);
-                        $.each(searchData, function (i, v) {
-                            if (v.type == 'text') {
-                                params.push(v.field + '=' + v.value)
-                            }
-                        });
-                        var t = new Date().getMilliseconds();
-                        var url = grid.url + '?t=' + t + '&' + params.join('&');
-                        grid.request('get-records', {}, url);
-                    }
-                }
-
             }
         });
     });

@@ -3,6 +3,7 @@ package com.ufo.service.impl;
 import com.ufo.dao.MenuInfoEntityDao;
 import com.ufo.entity.GridResult;
 import com.ufo.entity.MenuInfoEntity;
+import com.ufo.entity.sub.MenuInfoSubEntity;
 import com.ufo.mapper.MenuInfoEntityMapper;
 import com.ufo.service.MenuService;
 import com.ufo.vo.MenuInfoVO;
@@ -36,6 +37,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
 
+    @Override
     public int selectPageCount(MenuInfoEntity entity) {
         return menuInfoEntityDao.selectPageCount(entity);
     }
