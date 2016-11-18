@@ -7,11 +7,17 @@ public class GridExtendInfoEntity {
 
     private Long gridId;
 
-    private String imagePath;
+    private String header;
 
-    private String skin;
+    private String recid;
 
-    private String pagingSkin;
+    private Integer limit;
+
+    private Integer recordHeight;
+
+    private String toolbar;
+
+    private Integer total;
 
     private Byte status;
 
@@ -39,28 +45,52 @@ public class GridExtendInfoEntity {
         this.gridId = gridId;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getHeader() {
+        return header;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath == null ? null : imagePath.trim();
+    public void setHeader(String header) {
+        this.header = header == null ? null : header.trim();
     }
 
-    public String getSkin() {
-        return skin;
+    public String getRecid() {
+        return recid;
     }
 
-    public void setSkin(String skin) {
-        this.skin = skin == null ? null : skin.trim();
+    public void setRecid(String recid) {
+        this.recid = recid == null ? null : recid.trim();
     }
 
-    public String getPagingSkin() {
-        return pagingSkin;
+    public Integer getLimit() {
+        return limit;
     }
 
-    public void setPagingSkin(String pagingSkin) {
-        this.pagingSkin = pagingSkin == null ? null : pagingSkin.trim();
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
+    public Integer getRecordHeight() {
+        return recordHeight;
+    }
+
+    public void setRecordHeight(Integer recordHeight) {
+        this.recordHeight = recordHeight;
+    }
+
+    public String getToolbar() {
+        return toolbar;
+    }
+
+    public void setToolbar(String toolbar) {
+        this.toolbar = toolbar == null ? null : toolbar.trim();
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
     public Byte getStatus() {
@@ -117,9 +147,12 @@ public class GridExtendInfoEntity {
         GridExtendInfoEntity other = (GridExtendInfoEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getGridId() == null ? other.getGridId() == null : this.getGridId().equals(other.getGridId()))
-            && (this.getImagePath() == null ? other.getImagePath() == null : this.getImagePath().equals(other.getImagePath()))
-            && (this.getSkin() == null ? other.getSkin() == null : this.getSkin().equals(other.getSkin()))
-            && (this.getPagingSkin() == null ? other.getPagingSkin() == null : this.getPagingSkin().equals(other.getPagingSkin()))
+            && (this.getHeader() == null ? other.getHeader() == null : this.getHeader().equals(other.getHeader()))
+            && (this.getRecid() == null ? other.getRecid() == null : this.getRecid().equals(other.getRecid()))
+            && (this.getLimit() == null ? other.getLimit() == null : this.getLimit().equals(other.getLimit()))
+            && (this.getRecordHeight() == null ? other.getRecordHeight() == null : this.getRecordHeight().equals(other.getRecordHeight()))
+            && (this.getToolbar() == null ? other.getToolbar() == null : this.getToolbar().equals(other.getToolbar()))
+            && (this.getTotal() == null ? other.getTotal() == null : this.getTotal().equals(other.getTotal()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -133,9 +166,12 @@ public class GridExtendInfoEntity {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGridId() == null) ? 0 : getGridId().hashCode());
-        result = prime * result + ((getImagePath() == null) ? 0 : getImagePath().hashCode());
-        result = prime * result + ((getSkin() == null) ? 0 : getSkin().hashCode());
-        result = prime * result + ((getPagingSkin() == null) ? 0 : getPagingSkin().hashCode());
+        result = prime * result + ((getHeader() == null) ? 0 : getHeader().hashCode());
+        result = prime * result + ((getRecid() == null) ? 0 : getRecid().hashCode());
+        result = prime * result + ((getLimit() == null) ? 0 : getLimit().hashCode());
+        result = prime * result + ((getRecordHeight() == null) ? 0 : getRecordHeight().hashCode());
+        result = prime * result + ((getToolbar() == null) ? 0 : getToolbar().hashCode());
+        result = prime * result + ((getTotal() == null) ? 0 : getTotal().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
@@ -152,9 +188,12 @@ public class GridExtendInfoEntity {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", gridId=").append(gridId);
-        sb.append(", imagePath=").append(imagePath);
-        sb.append(", skin=").append(skin);
-        sb.append(", pagingSkin=").append(pagingSkin);
+        sb.append(", header=").append(header);
+        sb.append(", recid=").append(recid);
+        sb.append(", limit=").append(limit);
+        sb.append(", recordHeight=").append(recordHeight);
+        sb.append(", toolbar=").append(toolbar);
+        sb.append(", total=").append(total);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);

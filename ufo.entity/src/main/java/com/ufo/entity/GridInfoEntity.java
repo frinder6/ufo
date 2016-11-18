@@ -5,7 +5,7 @@ import java.util.Date;
 public class GridInfoEntity {
     private Long id;
 
-    private String gridName;
+    private String name;
 
     private Byte status;
 
@@ -25,12 +25,12 @@ public class GridInfoEntity {
         this.id = id;
     }
 
-    public String getGridName() {
-        return gridName;
+    public String getName() {
+        return name;
     }
 
-    public void setGridName(String gridName) {
-        this.gridName = gridName == null ? null : gridName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public Byte getStatus() {
@@ -86,7 +86,7 @@ public class GridInfoEntity {
         }
         GridInfoEntity other = (GridInfoEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getGridName() == null ? other.getGridName() == null : this.getGridName().equals(other.getGridName()))
+            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -99,7 +99,7 @@ public class GridInfoEntity {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getGridName() == null) ? 0 : getGridName().hashCode());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
@@ -115,7 +115,7 @@ public class GridInfoEntity {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", gridName=").append(gridName);
+        sb.append(", name=").append(name);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);

@@ -7,15 +7,17 @@ public class GridButtonInfoEntity {
 
     private Long gridId;
 
-    private String text;
+    private String code;
 
-    private String title;
+    private String caption;
+
+    private String hint;
 
     private String img;
 
     private String type;
 
-    private String action;
+    private Byte disabled;
 
     private Byte enable;
 
@@ -43,20 +45,28 @@ public class GridButtonInfoEntity {
         this.gridId = gridId;
     }
 
-    public String getText() {
-        return text;
+    public String getCode() {
+        return code;
     }
 
-    public void setText(String text) {
-        this.text = text == null ? null : text.trim();
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
     }
 
-    public String getTitle() {
-        return title;
+    public String getCaption() {
+        return caption;
     }
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+    public void setCaption(String caption) {
+        this.caption = caption == null ? null : caption.trim();
+    }
+
+    public String getHint() {
+        return hint;
+    }
+
+    public void setHint(String hint) {
+        this.hint = hint == null ? null : hint.trim();
     }
 
     public String getImg() {
@@ -75,12 +85,12 @@ public class GridButtonInfoEntity {
         this.type = type == null ? null : type.trim();
     }
 
-    public String getAction() {
-        return action;
+    public Byte getDisabled() {
+        return disabled;
     }
 
-    public void setAction(String action) {
-        this.action = action == null ? null : action.trim();
+    public void setDisabled(Byte disabled) {
+        this.disabled = disabled;
     }
 
     public Byte getEnable() {
@@ -137,11 +147,12 @@ public class GridButtonInfoEntity {
         GridButtonInfoEntity other = (GridButtonInfoEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getGridId() == null ? other.getGridId() == null : this.getGridId().equals(other.getGridId()))
-            && (this.getText() == null ? other.getText() == null : this.getText().equals(other.getText()))
-            && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
+            && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
+            && (this.getCaption() == null ? other.getCaption() == null : this.getCaption().equals(other.getCaption()))
+            && (this.getHint() == null ? other.getHint() == null : this.getHint().equals(other.getHint()))
             && (this.getImg() == null ? other.getImg() == null : this.getImg().equals(other.getImg()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
-            && (this.getAction() == null ? other.getAction() == null : this.getAction().equals(other.getAction()))
+            && (this.getDisabled() == null ? other.getDisabled() == null : this.getDisabled().equals(other.getDisabled()))
             && (this.getEnable() == null ? other.getEnable() == null : this.getEnable().equals(other.getEnable()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -155,11 +166,12 @@ public class GridButtonInfoEntity {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGridId() == null) ? 0 : getGridId().hashCode());
-        result = prime * result + ((getText() == null) ? 0 : getText().hashCode());
-        result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
+        result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
+        result = prime * result + ((getCaption() == null) ? 0 : getCaption().hashCode());
+        result = prime * result + ((getHint() == null) ? 0 : getHint().hashCode());
         result = prime * result + ((getImg() == null) ? 0 : getImg().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
-        result = prime * result + ((getAction() == null) ? 0 : getAction().hashCode());
+        result = prime * result + ((getDisabled() == null) ? 0 : getDisabled().hashCode());
         result = prime * result + ((getEnable() == null) ? 0 : getEnable().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
@@ -176,11 +188,12 @@ public class GridButtonInfoEntity {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", gridId=").append(gridId);
-        sb.append(", text=").append(text);
-        sb.append(", title=").append(title);
+        sb.append(", code=").append(code);
+        sb.append(", caption=").append(caption);
+        sb.append(", hint=").append(hint);
         sb.append(", img=").append(img);
         sb.append(", type=").append(type);
-        sb.append(", action=").append(action);
+        sb.append(", disabled=").append(disabled);
         sb.append(", enable=").append(enable);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);

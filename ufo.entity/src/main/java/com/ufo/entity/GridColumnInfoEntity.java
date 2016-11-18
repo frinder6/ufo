@@ -9,23 +9,41 @@ public class GridColumnInfoEntity {
 
     private Long dataId;
 
-    private String title;
+    private String caption;
 
     private String name;
 
+    private String field;
+
+    private String size;
+
+    private Byte hidden;
+
+    private Byte sortable;
+
+    private String style;
+
+    private String render;
+
+    private String attr;
+
+    private String editable;
+
     private String type;
+
+    private String options;
 
     private String value;
 
-    private String validate;
+    private String text;
 
     private Byte required;
 
-    private Byte isSearch;
+    private Byte searchable;
 
-    private Byte isInsert;
+    private Byte insertable;
 
-    private Byte isModify;
+    private Byte modifyable;
 
     private Byte status;
 
@@ -61,12 +79,12 @@ public class GridColumnInfoEntity {
         this.dataId = dataId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getCaption() {
+        return caption;
     }
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+    public void setCaption(String caption) {
+        this.caption = caption == null ? null : caption.trim();
     }
 
     public String getName() {
@@ -77,12 +95,84 @@ public class GridColumnInfoEntity {
         this.name = name == null ? null : name.trim();
     }
 
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field == null ? null : field.trim();
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size == null ? null : size.trim();
+    }
+
+    public Byte getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(Byte hidden) {
+        this.hidden = hidden;
+    }
+
+    public Byte getSortable() {
+        return sortable;
+    }
+
+    public void setSortable(Byte sortable) {
+        this.sortable = sortable;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style == null ? null : style.trim();
+    }
+
+    public String getRender() {
+        return render;
+    }
+
+    public void setRender(String render) {
+        this.render = render == null ? null : render.trim();
+    }
+
+    public String getAttr() {
+        return attr;
+    }
+
+    public void setAttr(String attr) {
+        this.attr = attr == null ? null : attr.trim();
+    }
+
+    public String getEditable() {
+        return editable;
+    }
+
+    public void setEditable(String editable) {
+        this.editable = editable == null ? null : editable.trim();
+    }
+
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
+    }
+
+    public String getOptions() {
+        return options;
+    }
+
+    public void setOptions(String options) {
+        this.options = options == null ? null : options.trim();
     }
 
     public String getValue() {
@@ -93,12 +183,12 @@ public class GridColumnInfoEntity {
         this.value = value == null ? null : value.trim();
     }
 
-    public String getValidate() {
-        return validate;
+    public String getText() {
+        return text;
     }
 
-    public void setValidate(String validate) {
-        this.validate = validate == null ? null : validate.trim();
+    public void setText(String text) {
+        this.text = text == null ? null : text.trim();
     }
 
     public Byte getRequired() {
@@ -109,28 +199,28 @@ public class GridColumnInfoEntity {
         this.required = required;
     }
 
-    public Byte getIsSearch() {
-        return isSearch;
+    public Byte getSearchable() {
+        return searchable;
     }
 
-    public void setIsSearch(Byte isSearch) {
-        this.isSearch = isSearch;
+    public void setSearchable(Byte searchable) {
+        this.searchable = searchable;
     }
 
-    public Byte getIsInsert() {
-        return isInsert;
+    public Byte getInsertable() {
+        return insertable;
     }
 
-    public void setIsInsert(Byte isInsert) {
-        this.isInsert = isInsert;
+    public void setInsertable(Byte insertable) {
+        this.insertable = insertable;
     }
 
-    public Byte getIsModify() {
-        return isModify;
+    public Byte getModifyable() {
+        return modifyable;
     }
 
-    public void setIsModify(Byte isModify) {
-        this.isModify = isModify;
+    public void setModifyable(Byte modifyable) {
+        this.modifyable = modifyable;
     }
 
     public Byte getStatus() {
@@ -188,15 +278,24 @@ public class GridColumnInfoEntity {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getGridId() == null ? other.getGridId() == null : this.getGridId().equals(other.getGridId()))
             && (this.getDataId() == null ? other.getDataId() == null : this.getDataId().equals(other.getDataId()))
-            && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
+            && (this.getCaption() == null ? other.getCaption() == null : this.getCaption().equals(other.getCaption()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getField() == null ? other.getField() == null : this.getField().equals(other.getField()))
+            && (this.getSize() == null ? other.getSize() == null : this.getSize().equals(other.getSize()))
+            && (this.getHidden() == null ? other.getHidden() == null : this.getHidden().equals(other.getHidden()))
+            && (this.getSortable() == null ? other.getSortable() == null : this.getSortable().equals(other.getSortable()))
+            && (this.getStyle() == null ? other.getStyle() == null : this.getStyle().equals(other.getStyle()))
+            && (this.getRender() == null ? other.getRender() == null : this.getRender().equals(other.getRender()))
+            && (this.getAttr() == null ? other.getAttr() == null : this.getAttr().equals(other.getAttr()))
+            && (this.getEditable() == null ? other.getEditable() == null : this.getEditable().equals(other.getEditable()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
+            && (this.getOptions() == null ? other.getOptions() == null : this.getOptions().equals(other.getOptions()))
             && (this.getValue() == null ? other.getValue() == null : this.getValue().equals(other.getValue()))
-            && (this.getValidate() == null ? other.getValidate() == null : this.getValidate().equals(other.getValidate()))
+            && (this.getText() == null ? other.getText() == null : this.getText().equals(other.getText()))
             && (this.getRequired() == null ? other.getRequired() == null : this.getRequired().equals(other.getRequired()))
-            && (this.getIsSearch() == null ? other.getIsSearch() == null : this.getIsSearch().equals(other.getIsSearch()))
-            && (this.getIsInsert() == null ? other.getIsInsert() == null : this.getIsInsert().equals(other.getIsInsert()))
-            && (this.getIsModify() == null ? other.getIsModify() == null : this.getIsModify().equals(other.getIsModify()))
+            && (this.getSearchable() == null ? other.getSearchable() == null : this.getSearchable().equals(other.getSearchable()))
+            && (this.getInsertable() == null ? other.getInsertable() == null : this.getInsertable().equals(other.getInsertable()))
+            && (this.getModifyable() == null ? other.getModifyable() == null : this.getModifyable().equals(other.getModifyable()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -211,15 +310,24 @@ public class GridColumnInfoEntity {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGridId() == null) ? 0 : getGridId().hashCode());
         result = prime * result + ((getDataId() == null) ? 0 : getDataId().hashCode());
-        result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
+        result = prime * result + ((getCaption() == null) ? 0 : getCaption().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getField() == null) ? 0 : getField().hashCode());
+        result = prime * result + ((getSize() == null) ? 0 : getSize().hashCode());
+        result = prime * result + ((getHidden() == null) ? 0 : getHidden().hashCode());
+        result = prime * result + ((getSortable() == null) ? 0 : getSortable().hashCode());
+        result = prime * result + ((getStyle() == null) ? 0 : getStyle().hashCode());
+        result = prime * result + ((getRender() == null) ? 0 : getRender().hashCode());
+        result = prime * result + ((getAttr() == null) ? 0 : getAttr().hashCode());
+        result = prime * result + ((getEditable() == null) ? 0 : getEditable().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
+        result = prime * result + ((getOptions() == null) ? 0 : getOptions().hashCode());
         result = prime * result + ((getValue() == null) ? 0 : getValue().hashCode());
-        result = prime * result + ((getValidate() == null) ? 0 : getValidate().hashCode());
+        result = prime * result + ((getText() == null) ? 0 : getText().hashCode());
         result = prime * result + ((getRequired() == null) ? 0 : getRequired().hashCode());
-        result = prime * result + ((getIsSearch() == null) ? 0 : getIsSearch().hashCode());
-        result = prime * result + ((getIsInsert() == null) ? 0 : getIsInsert().hashCode());
-        result = prime * result + ((getIsModify() == null) ? 0 : getIsModify().hashCode());
+        result = prime * result + ((getSearchable() == null) ? 0 : getSearchable().hashCode());
+        result = prime * result + ((getInsertable() == null) ? 0 : getInsertable().hashCode());
+        result = prime * result + ((getModifyable() == null) ? 0 : getModifyable().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
@@ -237,15 +345,24 @@ public class GridColumnInfoEntity {
         sb.append(", id=").append(id);
         sb.append(", gridId=").append(gridId);
         sb.append(", dataId=").append(dataId);
-        sb.append(", title=").append(title);
+        sb.append(", caption=").append(caption);
         sb.append(", name=").append(name);
+        sb.append(", field=").append(field);
+        sb.append(", size=").append(size);
+        sb.append(", hidden=").append(hidden);
+        sb.append(", sortable=").append(sortable);
+        sb.append(", style=").append(style);
+        sb.append(", render=").append(render);
+        sb.append(", attr=").append(attr);
+        sb.append(", editable=").append(editable);
         sb.append(", type=").append(type);
+        sb.append(", options=").append(options);
         sb.append(", value=").append(value);
-        sb.append(", validate=").append(validate);
+        sb.append(", text=").append(text);
         sb.append(", required=").append(required);
-        sb.append(", isSearch=").append(isSearch);
-        sb.append(", isInsert=").append(isInsert);
-        sb.append(", isModify=").append(isModify);
+        sb.append(", searchable=").append(searchable);
+        sb.append(", insertable=").append(insertable);
+        sb.append(", modifyable=").append(modifyable);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);

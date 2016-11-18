@@ -17,8 +17,6 @@ public class LogInfoEntity {
 
     private String method;
 
-    private String methodParams;
-
     private Byte status;
 
     private Date createTime;
@@ -85,14 +83,6 @@ public class LogInfoEntity {
         this.method = method == null ? null : method.trim();
     }
 
-    public String getMethodParams() {
-        return methodParams;
-    }
-
-    public void setMethodParams(String methodParams) {
-        this.methodParams = methodParams == null ? null : methodParams.trim();
-    }
-
     public Byte getStatus() {
         return status;
     }
@@ -152,7 +142,6 @@ public class LogInfoEntity {
             && (this.getRequestParams() == null ? other.getRequestParams() == null : this.getRequestParams().equals(other.getRequestParams()))
             && (this.getClassName() == null ? other.getClassName() == null : this.getClassName().equals(other.getClassName()))
             && (this.getMethod() == null ? other.getMethod() == null : this.getMethod().equals(other.getMethod()))
-            && (this.getMethodParams() == null ? other.getMethodParams() == null : this.getMethodParams().equals(other.getMethodParams()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -171,7 +160,6 @@ public class LogInfoEntity {
         result = prime * result + ((getRequestParams() == null) ? 0 : getRequestParams().hashCode());
         result = prime * result + ((getClassName() == null) ? 0 : getClassName().hashCode());
         result = prime * result + ((getMethod() == null) ? 0 : getMethod().hashCode());
-        result = prime * result + ((getMethodParams() == null) ? 0 : getMethodParams().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
@@ -193,7 +181,6 @@ public class LogInfoEntity {
         sb.append(", requestParams=").append(requestParams);
         sb.append(", className=").append(className);
         sb.append(", method=").append(method);
-        sb.append(", methodParams=").append(methodParams);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);
