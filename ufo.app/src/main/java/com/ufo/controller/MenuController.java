@@ -1,11 +1,8 @@
 package com.ufo.controller;
 
-import com.ufo.entity.GridResult;
-import com.ufo.entity.MenuInfoEntity;
-import com.ufo.entity.Value;
+import com.ufo.entity.*;
 import com.ufo.entity.sub.MenuInfoSubEntity;
 import com.ufo.service.MenuService;
-import com.ufo.vo.MenuInfoVO;
 import com.ufo.vo.MenuTreeInfoVO;
 import com.util.MenuUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -24,12 +22,15 @@ import java.util.List;
 public class MenuController {
 
     @Autowired
+    protected HttpServletRequest request;
+
+    @Autowired
     private MenuService menuService;
 
 
     @RequestMapping("/server.menu")
     public Value menu() {
-        List<MenuInfoVO> menuInfoVOs = menuService.selectMenu(1L);
+        List<MenuInfoSubEntity> menuInfoVOs = menuService.selectMenu(1L);
         return MenuUtil.MENU_UTIL.menu(menuInfoVOs);
     }
 
@@ -43,7 +44,9 @@ public class MenuController {
     }
 
     @RequestMapping("/page.menu")
-    public GridResult page(MenuInfoEntity entity) {
+    public GridResult page() {
+        M2uiSearchRequest searchRequest = RequestFactory.getSearchRequest(request);
+        MenuInfoSubEntity entity = searchRequest.convert2Object(MenuInfoSubEntity.class);
         return menuService.selectPage(entity);
     }
 
@@ -54,10 +57,12 @@ public class MenuController {
 
 
     @RequestMapping("/add.menu")
-    public Value insert(MenuInfoEntity entity) {
+    public Response insert() {
+        M2uiAddRequest addRequest = RequestFactory.getAddRequest(request);
+        MenuInfoEntity entity = addRequest.convert2Object(MenuInfoEntity.class);
         entity.setCreateTime(new Date());
-        menuService.insert(entity);
-        return new Value("添加成功！");
+        // menuService.insert(entity);
+        return new Response(Response.SUCCESS, "添加成功！");
     }
 
     @RequestMapping("/update.menu")
@@ -71,6 +76,5 @@ public class MenuController {
         menuService.delete(id);
         return new Value("删除成功！");
     }
-
 
 }

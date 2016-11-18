@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufo.mapper.impl.MenuInfoEntityMapperImpl">
+
+    <resultMap id="BaseResultMap" extends="com.ufo.mapper.MenuInfoEntityMapper.BaseResultMap"
+               type="com.ufo.entity.MenuInfoEntity">
+    </resultMap>
+
+    <!-- 加载菜单的级联查询返回结果 -->
+    <resultMap id="MenuResultMap" extends="com.ufo.mapper.MenuInfoEntityMapper.BaseResultMap"
+               type="com.ufo.entity.sub.MenuInfoSubEntity">
+        <collection property="children" column="id" select="selectByPid" javaType="ArrayList"
+                    ofType="com.ufo.entity.sub.MenuInfoSubEntity"/>
+    </resultMap>
+
+    <!-- 加载菜单树的级联查询返回结果 -->
+    <resultMap id="TreeResultMap" type="com.ufo.vo.MenuTreeInfoVO">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="title" property="text" jdbcType="VARCHAR"/>
+        <collection property="item" column="id" select="selectTreeByPid" javaType="ArrayList"
+                    ofType="com.ufo.vo.MenuTreeInfoVO"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <include refid="com.ufo.mapper.MenuInfoEntityMapper.Base_Column_List"/>
+    </sql>
+
+    <sql id="Base_Where_Clause">
+        <if test="parentId != null">
+            AND parent_id = #{parentId,jdbcType=BIGINT}
+        </if>
+        <if test="title != null">
+            AND title LIKE #{title,jdbcType=VARCHAR}"%"
+        </if>
+        <if test="url != null">
+            AND url LIKE #{url,jdbcType=VARCHAR}"%"
+        </if>
+        <if test="icon != null">
+            AND icon LIKE #{icon,jdbcType=VARCHAR}"%"
+        </if>
+        <if test="sort != null">
+            AND sort = #{sort,jdbcType=TINYINT}
+        </if>
+        <if test="status != null">
+            AND status = #{status,jdbcType=TINYINT}
+        </if>
+        <if test="createTime != null">
+            AND create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="creater != null">
+            AND creater = #{creater,jdbcType=VARCHAR}
+        </if>
+        <if test="updateTime != null">
+            AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updater != null">
+            AND updater = #{updater,jdbcType=VARCHAR}
+        </if>
+    </sql>
+
+    <!-- 级联查询菜单 -->
+    <select id="selectByPid" resultMap="MenuResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ufo_menu_info
+        WHERE status = 1
+        AND parent_id = #{parentId,jdbcType=BIGINT}
+        ORDER BY sort
+    </select>
+
+    <!-- 级联查询菜单树 -->
+    <select id="selectTreeByPid" resultMap="TreeResultMap">
+        SELECT
+        id, title
+        FROM ufo_menu_info
+        WHERE status = 1
+        AND parent_id = #{parentId,jdbcType=BIGINT}
+        ORDER BY sort
+    </select>
+
+
+    <!-- 分页查询 -->
+    <select id="selectPage" resultMap="BaseResultMap" parameterType="com.ufo.entity.sub.MenuInfoSubEntity">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ufo_menu_info
+        WHERE 1 = 1
+        <include refid="Base_Where_Clause"/>
+        ORDER BY ${field} ${direction}
+        LIMIT #{pageFrom}, #{pageSize}
+    </select>
+    <select id="selectPageCount" parameterType="com.ufo.entity.sub.MenuInfoSubEntity">
+        SELECT
+        COUNT(1)
+        FROM ufo_menu_info
+        WHERE 1 = 1
+        <include refid="Base_Where_Clause"/>
+    </select>
+
+
+</mapper>

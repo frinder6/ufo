@@ -3,7 +3,6 @@ package com.ufo.service;
 import com.ufo.entity.GridResult;
 import com.ufo.entity.MenuInfoEntity;
 import com.ufo.entity.sub.MenuInfoSubEntity;
-import com.ufo.vo.MenuInfoVO;
 import com.ufo.vo.MenuTreeInfoVO;
 
 import java.util.List;
@@ -13,13 +12,13 @@ import java.util.List;
  */
 public interface MenuService {
 
-    List<MenuInfoVO> selectMenu(Long pid);
+    List<MenuInfoSubEntity> selectMenu(Long pid);
 
     List<MenuTreeInfoVO> selectTree(Long pid);
 
     int selectPageCount(MenuInfoEntity entity);
 
-    GridResult selectPage(MenuInfoEntity entity);
+    GridResult selectPage(MenuInfoSubEntity entity);
 
     MenuInfoEntity findById(Long id);
 

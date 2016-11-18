@@ -25,9 +25,8 @@
             height: 100%;
         }
 
-        #paging {
-            position: absolute;
-            left: 3px;
+        #tb_grid_toolbar_item_w2ui-search {
+            display: none;
         }
     </style>
 
@@ -55,7 +54,7 @@
         w2utils.locale('w2ui/locale/zh-cn.json');
         $('#layout').w2layout({
             name: 'layout',
-            padding: 1,
+            padding: 0,
             panels: [
                 {type: 'main', content: '<div id="grid"></div>'}
             ]
@@ -88,31 +87,136 @@
                 {type: 'text', field: 'title', caption: '名称'},
                 {
                     type: 'list', field: 'status', caption: '状态',
-                    options: {items: [{id: 1, text: '可用'}, {id: 0, text: '禁用'}]}
+                    options: {items: [{id: 1, text: '可用'}, {id: '0', text: '禁用'}]}
                 }
             ],
+            postData: function () {
+                return {test: 111, name: 222};
+            },
             onRequest: function (event) {
+                console.log(event.postData);
+            },
+            onSearch: function (event) {
+                console.log(w2ui['grid'].getSearchData('title'));
+//                console.log(w2ui['grid'].postData);
+//                // var postData = event.postData;
+//                var postData = {};
+//                var fields = w2ui['grid'].searches;
+//                $.each(fields, function (i, v) {
+//                    var key = v['field'];
+//                    postData[key] = w2ui['grid'].getSearchData(key);
+//                });
+//                console.log(postData);
+//                $.extend(w2ui['grid'].postData, postData);
+//                console.log(w2ui['grid'].postData);
+//                if (postData) {
+//                    var searchData = postData.search;
+//                    var searchLogic = postData.searchLogic;
+//                    var sortData = postData.sort;
+//                    var params = [];
+//                    if (searchData) {
+//                        $.each(searchData, function (i, v) {
+//                            if (searchLogic == 'OR' && v.type == 'text') {
+//                                params.push(v.field + '=' + v.value);
+//                            }
+//                            if (searchLogic == 'AND') {
+//                                params.push(v.field + '=' + v.value);
+//                            }
+//                        });
+//                    }
+//                    if (sortData) {
+//                        $.each(sortData, function (i, v) {
+//                            for (var k in v) {
+//                                params.push(k + '=' + v[k])
+//                            }
+//                        });
+//                    }
+//                    var t = new Date().getMilliseconds();
+//                    console.log(params);
+//                    if (params.length > 0) {
+//                        event.url = event.url + '?t=' + t + '&' + params.join('&');
+//                    }
+//                }
+            },
+            onAdd: function (event) {
                 console.log(event);
-                var postData = event.postData;
-                if (postData) {
-                    var searchData = postData.search;
-                    var searchLogic = postData.searchLogic;
-                    var params = [];
-                    $.each(searchData, function (i, v) {
-                        if (searchLogic == 'OR' && v.type == 'text') {
-                            params.push(v.field + '=' + v.value)
-                        }
-                        if (searchLogic == 'AND') {
-                            params.push(v.field + '=' + v.value)
-                        }
-                    });
-                    var t = new Date().getMilliseconds();
-                    if (params.length > 0){
-                        event.url = event.url + '?t=' + t + '&' + params.join('&');
-                    }
-                }
+                add();
             }
         });
+
+        var add = function () {
+            if (!w2ui.amenu) {
+                $('#form').w2form({
+                    name: 'amenu',
+                    url: 'menu/add.menu',
+                    formHTML: '\
+                        <div class="w2ui-page page-0"> \
+                            <div class="w2ui-field"> \
+                                <label>菜单名称：</label> \
+                                <div> \
+                                   <input name="title" type="text" maxlength="100" style="width: 250px;height: 30px;line-height: 30px;"/> \
+                                </div> \
+                            </div> \
+                            <div class="w2ui-field"> \
+                                <label>父菜单：</label> \
+                                <div> \
+                                    <input name="parentId" type="text" maxlength="100" style="width: 250px;height: 30px;line-height: 30px;"/> \
+                                </div> \
+                            </div> \
+                            <div class="w2ui-field"> \
+                                <label>状态：</label> \
+                                <div> \
+                                    <input name="status" type="text" style="width: 250px"/> \
+                                </div> \
+                            </div> \
+                        </div> \
+                        <div class="w2ui-buttons"> \
+                            <button class="w2ui-popup-btn w2ui-btn" name="reset">重置</button> \
+                            <button class="w2ui-popup-btn w2ui-btn" name="save">保存</button> \
+                        </div> \
+                    ',
+                    fields: [
+                        {name: 'title', type: 'text', required: true},
+                        {name: 'parentId', type: 'int', required: true},
+                        {
+                            name: 'status', type: 'list', required: true,
+                            options: {items: [{id: 1, text: '可用'}, {id: '0', text: '禁用'}]}
+                        }
+                    ],
+                    actions: {
+                        'save': function () {
+                            this.save();
+                        },
+                        'reset': function () {
+                            this.clear();
+                        }
+                    }
+                });
+            }
+            w2popup.open({
+                title: '新增菜单',
+                body: '<div id="form" style="width: 100%; height: 100%;"></div>',
+                width: 500,
+                height: 300,
+                overflow: 'hidden',
+                modal: true,
+                showClose: true,
+                showMax: false,
+                onOpen: function (event) {
+                    event.onComplete = function () {
+                        $('#w2ui-popup #form').w2render('amenu');
+                    }
+                },
+                onClose: function (event) {
+                    console.log('close');
+                    console.log(event);
+                },
+                onKeydown: function (event) {
+                    console.log('keydown');
+                    console.log(event);
+                }
+            });
+        };
     });
 </script>
 

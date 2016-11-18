@@ -1,11 +1,11 @@
 package com.ufo.service.impl;
 
-import com.ufo.dao.MenuInfoEntityDao;
 import com.ufo.entity.GridResult;
 import com.ufo.entity.MenuInfoEntity;
+import com.ufo.entity.sub.MenuInfoSubEntity;
 import com.ufo.mapper.MenuInfoEntityMapper;
+import com.ufo.mapper.impl.MenuInfoEntityMapperImpl;
 import com.ufo.service.MenuService;
-import com.ufo.vo.MenuInfoVO;
 import com.ufo.vo.MenuTreeInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,33 +19,33 @@ import java.util.List;
 public class MenuServiceImpl implements MenuService {
 
     @Autowired
-    private MenuInfoEntityDao menuInfoEntityDao;
+    private MenuInfoEntityMapperImpl menuInfoEntityMapperImpl;
 
     @Autowired
     private MenuInfoEntityMapper menuInfoEntityMapper;
 
 
     @Override
-    public List<MenuInfoVO> selectMenu(Long pid) {
-        return menuInfoEntityDao.selectByPid(pid);
+    public List<MenuInfoSubEntity> selectMenu(Long pid) {
+        return menuInfoEntityMapperImpl.selectByPid(pid);
     }
 
     @Override
     public List<MenuTreeInfoVO> selectTree(Long pid) {
-        return menuInfoEntityDao.selectTreeByPid(pid);
+        return menuInfoEntityMapperImpl.selectTreeByPid(pid);
     }
 
 
     @Override
     public int selectPageCount(MenuInfoEntity entity) {
-        return menuInfoEntityDao.selectPageCount(entity);
+        return menuInfoEntityMapperImpl.selectPageCount(entity);
     }
 
 
     @Override
-    public GridResult selectPage(MenuInfoEntity entity) {
+    public GridResult selectPage(MenuInfoSubEntity entity) {
         GridResult result = new GridResult();
-        List<MenuInfoEntity> list = menuInfoEntityDao.selectPage(entity);
+        List<MenuInfoEntity> list = menuInfoEntityMapperImpl.selectPage(entity);
         result.setTotal(list.size());
         result.setRecords(list);
         return result;

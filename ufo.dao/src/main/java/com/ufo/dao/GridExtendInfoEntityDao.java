@@ -10,7 +10,6 @@ import org.apache.ibatis.type.JdbcType;
 /**
  * Created by frinder6 on 2016/11/4.
  */
-@Mapper
 public interface GridExtendInfoEntityDao {
 
     @Select({

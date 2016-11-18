@@ -1,6 +1,7 @@
 package com.ufo.dao;
 
 import com.alibaba.fastjson.JSON;
+import com.ufo.mapper.impl.MenuInfoEntityMapperImpl;
 import com.ufo.service.GridService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,11 +17,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class MenuInfoEntityDaoTest {
 
     @Autowired
-    private MenuInfoEntityDao menuInfoEntityDao;
+    private MenuInfoEntityMapperImpl menuInfoEntityMapperImpl;
 
     @Test
     public void test() {
-        System.out.println(JSON.toJSONString(menuInfoEntityDao.selectByPid(0L)));
+        System.out.println(JSON.toJSONString(menuInfoEntityMapperImpl.selectByPid(0L)));
     }
 
 }

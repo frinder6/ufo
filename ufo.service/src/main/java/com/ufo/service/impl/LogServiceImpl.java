@@ -49,7 +49,10 @@ public class LogServiceImpl implements LogService {
         } catch (Exception e) {
             entity.setResult(String.valueOf(result));
         }
-        logInfoEntityMapper.insertSelective(entity);
+        try {
+            logInfoEntityMapper.insertSelective(entity);
+        } catch (Exception e) {
+        }
         return result;
     }
 

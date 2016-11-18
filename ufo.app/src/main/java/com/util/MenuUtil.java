@@ -1,7 +1,7 @@
 package com.util;
 
 import com.ufo.entity.Value;
-import com.ufo.vo.MenuInfoVO;
+import com.ufo.entity.sub.MenuInfoSubEntity;
 
 import java.util.List;
 
@@ -18,13 +18,13 @@ public class MenuUtil {
     /**
      * 获取菜单
      *
-     * @param menuInfoVOs
+     * @param menuInfoSubEntities
      * @return
      */
-    public Value menu(List<MenuInfoVO> menuInfoVOs) {
+    public Value menu(List<MenuInfoSubEntity> menuInfoSubEntities) {
         StringBuilder menuStr = new StringBuilder("<ul>");
-        for (MenuInfoVO vo : menuInfoVOs) {
-            menuStr.append(menuNode(vo));
+        for (MenuInfoSubEntity entity : menuInfoSubEntities) {
+            menuStr.append(menuNode(entity));
         }
         menuStr.append("</ul>");
         Value value = new Value();
@@ -34,22 +34,22 @@ public class MenuUtil {
 
 
     /**
-     * @param vo
+     * @param entity
      * @return
      */
-    private String menuNode(MenuInfoVO vo) {
+    private String menuNode(MenuInfoSubEntity entity) {
         StringBuilder menuStr = new StringBuilder();
         String pli = "<li><span>%s - %s</span><ul>";
         String sli = "</ul></li>";
         String li = "<li><a href=\"%s\">%s - %s</a></li>";
-        if (null != vo.getChildren() && !vo.getChildren().isEmpty()) {
-            menuStr.append(String.format(pli, vo.getId(), vo.getTitle()));
-            for (MenuInfoVO svo : vo.getChildren()) {
-                menuStr.append(menuNode(svo));
+        if (null != entity.getChildren() && !entity.getChildren().isEmpty()) {
+            menuStr.append(String.format(pli, entity.getId(), entity.getTitle()));
+            for (MenuInfoSubEntity subEntity : entity.getChildren()) {
+                menuStr.append(menuNode(subEntity));
             }
             menuStr.append(sli);
         } else {
-            menuStr.append(String.format(li, vo.getUrl(), vo.getId(), vo.getTitle()));
+            menuStr.append(String.format(li, entity.getUrl(), entity.getId(), entity.getTitle()));
         }
         return menuStr.toString();
     }

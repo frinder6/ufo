@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * Created by frinder6 on 2016/11/12.
  */
-@Mapper
 public interface ColumnsDao {
 
     @Select({

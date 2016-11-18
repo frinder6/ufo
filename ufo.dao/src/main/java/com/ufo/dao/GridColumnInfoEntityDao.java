@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by frinder6 on 2016/11/4.
  */
-@Mapper
 public interface GridColumnInfoEntityDao {
 
     @Select({
