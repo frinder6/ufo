@@ -6,17 +6,17 @@ import lombok.Data;
  * Created by frinder6 on 2016/11/17.
  */
 @Data
-public class Response {
+public class W2uiResponse {
 
     public static final String SUCCESS = "success";
 
     public static final String ERROR = "error";
 
-    public Response(String status) {
+    public W2uiResponse(String status) {
         this.status = status;
     }
 
-    public Response(String status, String message) {
+    public W2uiResponse(String status, String message) {
         this.status = status;
         this.message = message;
     }

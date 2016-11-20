@@ -41,7 +41,7 @@ public class LogServiceImpl implements LogService {
         try {
             result = point.proceed();
         } catch (Throwable throwable) {
-            entity.setStatus((byte) 0);
+            entity.setStatus(false);
             entity.setError(throwable.getMessage());
         }
         try {

@@ -1,482 +1,195 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ufo.mapper.GridExtendInfoEntityMapper">
-  <resultMap id="BaseResultMap" type="com.ufo.entity.GridExtendInfoEntity">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="grid_id" jdbcType="BIGINT" property="gridId" />
-    <result column="header" jdbcType="VARCHAR" property="header" />
-    <result column="recid" jdbcType="VARCHAR" property="recid" />
-    <result column="limit" jdbcType="INTEGER" property="limit" />
-    <result column="record_height" jdbcType="INTEGER" property="recordHeight" />
-    <result column="toolbar" jdbcType="VARCHAR" property="toolbar" />
-    <result column="total" jdbcType="INTEGER" property="total" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="creater" jdbcType="VARCHAR" property="creater" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="updater" jdbcType="VARCHAR" property="updater" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufo.mapper.GridExtendInfoEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.ufo.entity.GridExtendInfoEntity" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="grid_id" property="gridId" jdbcType="BIGINT" />
+    <result column="header" property="header" jdbcType="VARCHAR" />
+    <result column="recid" property="recid" jdbcType="VARCHAR" />
+    <result column="limit" property="limit" jdbcType="INTEGER" />
+    <result column="record_height" property="recordHeight" jdbcType="INTEGER" />
+    <result column="save" property="save" jdbcType="VARCHAR" />
+    <result column="remove" property="remove" jdbcType="VARCHAR" />
+    <result column="get" property="get" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, grid_id, header, recid, limit, record_height, toolbar, total, status, create_time, 
-    creater, update_time, updater
+  <sql id="Base_Column_List" >
+    id, grid_id, `header`, recid, `limit`, record_height, `save`, remove, `get`, `status`, 
+    create_time, creater, update_time, updater
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from ufo_grid_extend_info
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from ufo_grid_extend_info
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.ufo.entity.GridExtendInfoEntity">
-    insert into ufo_grid_extend_info (id, grid_id, header, 
-      recid, limit, record_height, 
-      toolbar, total, status, 
-      create_time, creater, update_time, 
-      updater)
+  <insert id="insert" parameterType="com.ufo.entity.GridExtendInfoEntity" >
+    insert into ufo_grid_extend_info (id, grid_id, `header`, 
+      recid, `limit`, record_height, 
+      `save`, remove, `get`, 
+      `status`, create_time, creater, 
+      update_time, updater)
     values (#{id,jdbcType=BIGINT}, #{gridId,jdbcType=BIGINT}, #{header,jdbcType=VARCHAR}, 
       #{recid,jdbcType=VARCHAR}, #{limit,jdbcType=INTEGER}, #{recordHeight,jdbcType=INTEGER}, 
-      #{toolbar,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=VARCHAR})
+      #{save,jdbcType=VARCHAR}, #{remove,jdbcType=VARCHAR}, #{get,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.ufo.entity.GridExtendInfoEntity">
+  <insert id="insertSelective" parameterType="com.ufo.entity.GridExtendInfoEntity" >
     insert into ufo_grid_extend_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="gridId != null">
+      <if test="gridId != null" >
         grid_id,
       </if>
-      <if test="header != null">
-        header,
+      <if test="header != null" >
+        `header`,
       </if>
-      <if test="recid != null">
+      <if test="recid != null" >
         recid,
       </if>
-      <if test="limit != null">
-        limit,
+      <if test="limit != null" >
+        `limit`,
       </if>
-      <if test="recordHeight != null">
+      <if test="recordHeight != null" >
         record_height,
       </if>
-      <if test="toolbar != null">
-        toolbar,
+      <if test="save != null" >
+        `save`,
       </if>
-      <if test="total != null">
-        total,
+      <if test="remove != null" >
+        remove,
       </if>
-      <if test="status != null">
-        status,
+      <if test="get != null" >
+        `get`,
       </if>
-      <if test="createTime != null">
+      <if test="status != null" >
+        `status`,
+      </if>
+      <if test="createTime != null" >
         create_time,
       </if>
-      <if test="creater != null">
+      <if test="creater != null" >
         creater,
       </if>
-      <if test="updateTime != null">
+      <if test="updateTime != null" >
         update_time,
       </if>
-      <if test="updater != null">
+      <if test="updater != null" >
         updater,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="gridId != null">
+      <if test="gridId != null" >
         #{gridId,jdbcType=BIGINT},
       </if>
-      <if test="header != null">
+      <if test="header != null" >
         #{header,jdbcType=VARCHAR},
       </if>
-      <if test="recid != null">
+      <if test="recid != null" >
         #{recid,jdbcType=VARCHAR},
       </if>
-      <if test="limit != null">
+      <if test="limit != null" >
         #{limit,jdbcType=INTEGER},
       </if>
-      <if test="recordHeight != null">
+      <if test="recordHeight != null" >
         #{recordHeight,jdbcType=INTEGER},
       </if>
-      <if test="toolbar != null">
-        #{toolbar,jdbcType=VARCHAR},
+      <if test="save != null" >
+        #{save,jdbcType=VARCHAR},
       </if>
-      <if test="total != null">
-        #{total,jdbcType=INTEGER},
+      <if test="remove != null" >
+        #{remove,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
+      <if test="get != null" >
+        #{get,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="creater != null">
+      <if test="creater != null" >
         #{creater,jdbcType=VARCHAR},
       </if>
-      <if test="updateTime != null">
+      <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updater != null">
+      <if test="updater != null" >
         #{updater,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ufo.entity.GridExtendInfoEntity">
+  <update id="updateByPrimaryKeySelective" parameterType="com.ufo.entity.GridExtendInfoEntity" >
     update ufo_grid_extend_info
-    <set>
-      <if test="gridId != null">
+    <set >
+      <if test="gridId != null" >
         grid_id = #{gridId,jdbcType=BIGINT},
       </if>
-      <if test="header != null">
-        header = #{header,jdbcType=VARCHAR},
+      <if test="header != null" >
+        `header` = #{header,jdbcType=VARCHAR},
       </if>
-      <if test="recid != null">
+      <if test="recid != null" >
         recid = #{recid,jdbcType=VARCHAR},
       </if>
-      <if test="limit != null">
-        limit = #{limit,jdbcType=INTEGER},
+      <if test="limit != null" >
+        `limit` = #{limit,jdbcType=INTEGER},
       </if>
-      <if test="recordHeight != null">
+      <if test="recordHeight != null" >
         record_height = #{recordHeight,jdbcType=INTEGER},
       </if>
-      <if test="toolbar != null">
-        toolbar = #{toolbar,jdbcType=VARCHAR},
+      <if test="save != null" >
+        `save` = #{save,jdbcType=VARCHAR},
       </if>
-      <if test="total != null">
-        total = #{total,jdbcType=INTEGER},
+      <if test="remove != null" >
+        remove = #{remove,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+      <if test="get != null" >
+        `get` = #{get,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
+      <if test="status != null" >
+        `status` = #{status,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="creater != null">
+      <if test="creater != null" >
         creater = #{creater,jdbcType=VARCHAR},
       </if>
-      <if test="updateTime != null">
+      <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updater != null">
+      <if test="updater != null" >
         updater = #{updater,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ufo.entity.GridExtendInfoEntity">
+  <update id="updateByPrimaryKey" parameterType="com.ufo.entity.GridExtendInfoEntity" >
     update ufo_grid_extend_info
     set grid_id = #{gridId,jdbcType=BIGINT},
-      header = #{header,jdbcType=VARCHAR},
+      `header` = #{header,jdbcType=VARCHAR},
       recid = #{recid,jdbcType=VARCHAR},
-      limit = #{limit,jdbcType=INTEGER},
+      `limit` = #{limit,jdbcType=INTEGER},
       record_height = #{recordHeight,jdbcType=INTEGER},
-      toolbar = #{toolbar,jdbcType=VARCHAR},
-      total = #{total,jdbcType=INTEGER},
-      status = #{status,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      creater = #{creater,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      updater = #{updater,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <resultMap id="BaseResultMap" type="com.ufo.entity.GridExtendInfoEntity">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="grid_id" jdbcType="BIGINT" property="gridId" />
-    <result column="image_path" jdbcType="VARCHAR" property="imagePath" />
-    <result column="skin" jdbcType="VARCHAR" property="skin" />
-    <result column="paging_skin" jdbcType="VARCHAR" property="pagingSkin" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="creater" jdbcType="VARCHAR" property="creater" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="updater" jdbcType="VARCHAR" property="updater" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, grid_id, image_path, skin, paging_skin, status, create_time, creater, update_time, 
-    updater
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from ufo_grid_extend_info
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from ufo_grid_extend_info
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.ufo.entity.GridExtendInfoEntity">
-    insert into ufo_grid_extend_info (id, grid_id, image_path, 
-      skin, paging_skin, status, 
-      create_time, creater, update_time, 
-      updater)
-    values (#{id,jdbcType=BIGINT}, #{gridId,jdbcType=BIGINT}, #{imagePath,jdbcType=VARCHAR}, 
-      #{skin,jdbcType=VARCHAR}, #{pagingSkin,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.ufo.entity.GridExtendInfoEntity">
-    insert into ufo_grid_extend_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="gridId != null">
-        grid_id,
-      </if>
-      <if test="imagePath != null">
-        image_path,
-      </if>
-      <if test="skin != null">
-        skin,
-      </if>
-      <if test="pagingSkin != null">
-        paging_skin,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="creater != null">
-        creater,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="updater != null">
-        updater,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="gridId != null">
-        #{gridId,jdbcType=BIGINT},
-      </if>
-      <if test="imagePath != null">
-        #{imagePath,jdbcType=VARCHAR},
-      </if>
-      <if test="skin != null">
-        #{skin,jdbcType=VARCHAR},
-      </if>
-      <if test="pagingSkin != null">
-        #{pagingSkin,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="creater != null">
-        #{creater,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updater != null">
-        #{updater,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ufo.entity.GridExtendInfoEntity">
-    update ufo_grid_extend_info
-    <set>
-      <if test="gridId != null">
-        grid_id = #{gridId,jdbcType=BIGINT},
-      </if>
-      <if test="imagePath != null">
-        image_path = #{imagePath,jdbcType=VARCHAR},
-      </if>
-      <if test="skin != null">
-        skin = #{skin,jdbcType=VARCHAR},
-      </if>
-      <if test="pagingSkin != null">
-        paging_skin = #{pagingSkin,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="creater != null">
-        creater = #{creater,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updater != null">
-        updater = #{updater,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.ufo.entity.GridExtendInfoEntity">
-    update ufo_grid_extend_info
-    set grid_id = #{gridId,jdbcType=BIGINT},
-      image_path = #{imagePath,jdbcType=VARCHAR},
-      skin = #{skin,jdbcType=VARCHAR},
-      paging_skin = #{pagingSkin,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      creater = #{creater,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      updater = #{updater,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <resultMap id="BaseResultMap" type="com.ufo.entity.GridExtendInfoEntity">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="grid_id" jdbcType="BIGINT" property="gridId" />
-    <result column="image_path" jdbcType="VARCHAR" property="imagePath" />
-    <result column="skin" jdbcType="VARCHAR" property="skin" />
-    <result column="paging_skin" jdbcType="VARCHAR" property="pagingSkin" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="creater" jdbcType="VARCHAR" property="creater" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="updater" jdbcType="VARCHAR" property="updater" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, grid_id, image_path, skin, paging_skin, status, create_time, creater, update_time, 
-    updater
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from ufo_grid_extend_info
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from ufo_grid_extend_info
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.ufo.entity.GridExtendInfoEntity">
-    insert into ufo_grid_extend_info (id, grid_id, image_path, 
-      skin, paging_skin, status, 
-      create_time, creater, update_time, 
-      updater)
-    values (#{id,jdbcType=BIGINT}, #{gridId,jdbcType=BIGINT}, #{imagePath,jdbcType=VARCHAR}, 
-      #{skin,jdbcType=VARCHAR}, #{pagingSkin,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.ufo.entity.GridExtendInfoEntity">
-    insert into ufo_grid_extend_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="gridId != null">
-        grid_id,
-      </if>
-      <if test="imagePath != null">
-        image_path,
-      </if>
-      <if test="skin != null">
-        skin,
-      </if>
-      <if test="pagingSkin != null">
-        paging_skin,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="creater != null">
-        creater,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="updater != null">
-        updater,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="gridId != null">
-        #{gridId,jdbcType=BIGINT},
-      </if>
-      <if test="imagePath != null">
-        #{imagePath,jdbcType=VARCHAR},
-      </if>
-      <if test="skin != null">
-        #{skin,jdbcType=VARCHAR},
-      </if>
-      <if test="pagingSkin != null">
-        #{pagingSkin,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="creater != null">
-        #{creater,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updater != null">
-        #{updater,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ufo.entity.GridExtendInfoEntity">
-    update ufo_grid_extend_info
-    <set>
-      <if test="gridId != null">
-        grid_id = #{gridId,jdbcType=BIGINT},
-      </if>
-      <if test="imagePath != null">
-        image_path = #{imagePath,jdbcType=VARCHAR},
-      </if>
-      <if test="skin != null">
-        skin = #{skin,jdbcType=VARCHAR},
-      </if>
-      <if test="pagingSkin != null">
-        paging_skin = #{pagingSkin,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="creater != null">
-        creater = #{creater,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updater != null">
-        updater = #{updater,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.ufo.entity.GridExtendInfoEntity">
-    update ufo_grid_extend_info
-    set grid_id = #{gridId,jdbcType=BIGINT},
-      image_path = #{imagePath,jdbcType=VARCHAR},
-      skin = #{skin,jdbcType=VARCHAR},
-      paging_skin = #{pagingSkin,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
+      `save` = #{save,jdbcType=VARCHAR},
+      remove = #{remove,jdbcType=VARCHAR},
+      `get` = #{get,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       creater = #{creater,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=TIMESTAMP},

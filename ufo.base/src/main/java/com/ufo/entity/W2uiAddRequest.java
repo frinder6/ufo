@@ -10,7 +10,7 @@ import java.util.Set;
  * Created by frinder6 on 2016/11/18.
  */
 @Data
-public class M2uiAddRequest {
+public class W2uiAddRequest {
 
     private String cmd;
     private long recid;

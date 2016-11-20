@@ -17,9 +17,9 @@ public class GridColumnInfoEntity {
 
     private String size;
 
-    private Byte hidden;
+    private Boolean hidden;
 
-    private Byte sortable;
+    private Boolean sortable;
 
     private String style;
 
@@ -37,15 +37,15 @@ public class GridColumnInfoEntity {
 
     private String text;
 
-    private Byte required;
+    private Boolean required;
 
-    private Byte searchable;
+    private Boolean searchable;
 
-    private Byte insertable;
+    private Boolean insertable;
 
-    private Byte modifyable;
+    private Boolean modifyable;
 
-    private Byte status;
+    private Boolean status;
 
     private Date createTime;
 
@@ -111,19 +111,19 @@ public class GridColumnInfoEntity {
         this.size = size == null ? null : size.trim();
     }
 
-    public Byte getHidden() {
+    public Boolean getHidden() {
         return hidden;
     }
 
-    public void setHidden(Byte hidden) {
+    public void setHidden(Boolean hidden) {
         this.hidden = hidden;
     }
 
-    public Byte getSortable() {
+    public Boolean getSortable() {
         return sortable;
     }
 
-    public void setSortable(Byte sortable) {
+    public void setSortable(Boolean sortable) {
         this.sortable = sortable;
     }
 
@@ -191,43 +191,43 @@ public class GridColumnInfoEntity {
         this.text = text == null ? null : text.trim();
     }
 
-    public Byte getRequired() {
+    public Boolean getRequired() {
         return required;
     }
 
-    public void setRequired(Byte required) {
+    public void setRequired(Boolean required) {
         this.required = required;
     }
 
-    public Byte getSearchable() {
+    public Boolean getSearchable() {
         return searchable;
     }
 
-    public void setSearchable(Byte searchable) {
+    public void setSearchable(Boolean searchable) {
         this.searchable = searchable;
     }
 
-    public Byte getInsertable() {
+    public Boolean getInsertable() {
         return insertable;
     }
 
-    public void setInsertable(Byte insertable) {
+    public void setInsertable(Boolean insertable) {
         this.insertable = insertable;
     }
 
-    public Byte getModifyable() {
+    public Boolean getModifyable() {
         return modifyable;
     }
 
-    public void setModifyable(Byte modifyable) {
+    public void setModifyable(Boolean modifyable) {
         this.modifyable = modifyable;
     }
 
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

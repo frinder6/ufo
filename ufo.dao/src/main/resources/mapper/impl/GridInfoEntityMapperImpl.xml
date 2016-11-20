@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ufo.mapper.impl.GridInfoEntityMapperImpl">
+    <resultMap id="BaseResultMap" extends="com.ufo.mapper.GridInfoEntityMapper.BaseResultMap"
+               type="com.ufo.entity.GridInfoEntity">
+    </resultMap>
+    <sql id="Base_Column_List">
+        <include refid="com.ufo.mapper.GridInfoEntityMapper.Base_Column_List"/>
+    </sql>
+    <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ufo_grid_info
+        where name = #{name,jdbcType=BIGINT}
+    </select>
+    <select id="selectValidList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ufo_grid_info
+        where status = 1
+    </select>
+
+</mapper>

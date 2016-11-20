@@ -7,7 +7,7 @@ public class GridInfoEntity {
 
     private String name;
 
-    private Byte status;
+    private Boolean status;
 
     private Date createTime;
 
@@ -33,11 +33,11 @@ public class GridInfoEntity {
         this.name = name == null ? null : name.trim();
     }
 
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

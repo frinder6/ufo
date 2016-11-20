@@ -1,23 +1,21 @@
 package com.ufo.service.impl;
 
-import com.google.common.base.CaseFormat;
-import com.google.common.base.Joiner;
 import com.ufo.dao.ColumnsDao;
-import com.ufo.dao.GridColumnInfoEntityDao;
-import com.ufo.dao.GridExtendInfoEntityDao;
-import com.ufo.dao.GridInfoEntityDao;
-import com.ufo.entity.DxGridTemplate;
 import com.ufo.entity.GridColumnInfoEntity;
 import com.ufo.entity.GridExtendInfoEntity;
 import com.ufo.entity.GridInfoEntity;
+import com.ufo.entity.W2uiGridTemplate;
+import com.ufo.mapper.impl.GridColumnInfoEntityMapperImpl;
+import com.ufo.mapper.impl.GridExtendInfoEntityMapperImpl;
+import com.ufo.mapper.impl.GridInfoEntityMapperImpl;
 import com.ufo.service.GridService;
 import com.ufo.vo.ColumnsVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by frinder6 on 2016/11/3.
@@ -25,14 +23,15 @@ import java.util.List;
 @Service("gridService")
 public class GridServiceImpl implements GridService {
 
-    @Autowired
-    private GridColumnInfoEntityDao gridColumnInfoEntityDao;
 
     @Autowired
-    private GridInfoEntityDao gridInfoEntityDao;
+    private GridColumnInfoEntityMapperImpl gridColumnInfoEntityMapperImpl;
 
     @Autowired
-    private GridExtendInfoEntityDao gridExtendInfoEntityDao;
+    private GridInfoEntityMapperImpl gridInfoEntityMapperImpl;
+
+    @Autowired
+    private GridExtendInfoEntityMapperImpl gridExtendInfoEntityMapperImpl;
 
     @Autowired
     private ColumnsDao columnsDao;
@@ -40,7 +39,7 @@ public class GridServiceImpl implements GridService {
 
     @Override
     public List<GridInfoEntity> selectPage(GridInfoEntity record) {
-        return gridInfoEntityDao.selectPage(record);
+        return null;
     }
 
 
@@ -49,9 +48,10 @@ public class GridServiceImpl implements GridService {
         return columnsDao.selectByTableName(tableName);
     }
 
+
     @Override
-    public DxGridTemplate selectGrid(String gridName) {
-        GridInfoEntity gridInfoEntity = gridInfoEntityDao.selectByName(gridName);
+    public W2uiGridTemplate selectGrid(String gridName) {
+        GridInfoEntity gridInfoEntity = gridInfoEntityMapperImpl.selectByName(gridName);
         if (null != gridInfoEntity) {
             return null;
         } else {
@@ -59,6 +59,31 @@ public class GridServiceImpl implements GridService {
         }
     }
 
+
+    @Override
+    public void loadValidGridList(Map<String, W2uiGridTemplate> map) throws Exception {
+        List<GridInfoEntity> gridInfoEntityList = gridInfoEntityMapperImpl.selectValidList();
+        long gridId;
+        GridExtendInfoEntity extendInfoEntity;
+        List<GridColumnInfoEntity> columnInfoEntityList;
+        W2uiGridTemplate gridTemplate;
+        W2uiGridTemplate.Column column;
+        for (GridInfoEntity entity : gridInfoEntityList) {
+            gridTemplate = new W2uiGridTemplate();
+            gridTemplate.setName(entity.getName());
+            gridId = entity.getId();
+            extendInfoEntity = gridExtendInfoEntityMapperImpl.selectByGridId(gridId);
+            BeanUtils.copyProperties(extendInfoEntity, gridTemplate);
+            BeanUtils.copyProperties(extendInfoEntity, gridTemplate.getUrl());
+            columnInfoEntityList = gridColumnInfoEntityMapperImpl.selectByGridId(gridId);
+            for (GridColumnInfoEntity columnInfoEntity : columnInfoEntityList) {
+                column = new W2uiGridTemplate.Column();
+                BeanUtils.copyProperties(columnInfoEntity, column);
+                gridTemplate.getColumns().add(column);
+            }
+            map.put(entity.getName(), gridTemplate);
+        }
+    }
 
 
 }

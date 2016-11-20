@@ -17,7 +17,7 @@ public class LogInfoEntity {
 
     private String method;
 
-    private Byte status;
+    private Boolean status;
 
     private Date createTime;
 
@@ -83,11 +83,11 @@ public class LogInfoEntity {
         this.method = method == null ? null : method.trim();
     }
 
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

@@ -13,7 +13,7 @@ public class QueueInfoEntity {
 
     private String exchangeType;
 
-    private Byte status;
+    private Boolean status;
 
     private Date createTime;
 
@@ -63,11 +63,11 @@ public class QueueInfoEntity {
         this.exchangeType = exchangeType == null ? null : exchangeType.trim();
     }
 
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

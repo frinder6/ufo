@@ -25,7 +25,7 @@
             height: 100%;
         }
 
-        #tb_grid_toolbar_item_w2ui-search {
+        .w2ui-toolbar-search {
             display: none;
         }
     </style>
@@ -59,89 +59,90 @@
                 {type: 'main', content: '<div id="grid"></div>'}
             ]
         });
-        $('#grid').w2grid({
-            name: 'grid',
-            url: 'menu/page.menu',
-            header: '导航信息数据',
-            multiSearch: true,
-            recid: 'id',
-           // msgDelete: '确认删除？',
-            show: {
-                header: true,
-                toolbar: true,
-                footer: true,
-                selectColumn: true,
-                toolbarAdd: true,
-                toolbarDelete: true,
-                toolbarSave: true,
-                toolbarEdit: true
-            },
-            columns: [
-                {field: 'title', caption: '名称', size: '200px', sortable: true},
-                {field: 'status', caption: '状态', size: '50px', sortable: true},
-                {field: 'createTime', caption: '创建时间', size: '200px'},
-                {field: 'updateTime', caption: '更新时间', size: '200px'},
-            ],
-            searches: [
-                {type: 'text', field: 'title', caption: '名称'},
-                {
-                    type: 'list', field: 'status', caption: '状态',
-                    options: {items: [{id: 1, text: '可用'}, {id: '0', text: '禁用'}]}
-                }
-            ],
-            onAdd: function (event) {
+        $.getJSON('grid/grid.options', {gridName: 'menu-info'}, function (data) {
+            $.each(data.columns, function (i, v) {
+                v.render = eval('(' + v.render + ')');
+            });
+            data.onAdd = function (e) {
                 add();
-            }
+            };
+            $('#grid').w2grid(data);
         });
+        /*$('#grid').w2grid({
+         name: 'grid',
+         url: 'menu/page.menu',
+         header: '导航信息数据',
+         multiSearch: true,
+         recid: 'id',
+         // msgDelete: '确认删除？',
+         show: {
+         header: true,
+         toolbar: true,
+         footer: true,
+         selectColumn: true,
+         toolbarAdd: true,
+         toolbarDelete: true,
+         toolbarSave: true,
+         toolbarEdit: true
+         },
+         columns: [
+         {field: 'title', caption: '名称', size: '200px', sortable: true, searchable: true},
+         {
+         field: 'status',
+         caption: '状态',
+         size: '50px',
+         sortable: true
+         },
+         {field: 'createTime', caption: '创建时间', size: '200px'},
+         {field: 'updateTime', caption: '更新时间', size: '200px'},
+         ],
+         searches: [
+         // {type: 'text', field: 'title', caption: '名称'},
+         {
+         type: 'list', field: 'status', caption: '状态',
+         options: {items: [{id: 1, text: '可用'}, {id: '0', text: '禁用'}]}
+         }
+         ],
+         onAdd: function (event) {
+         add();
+         }
+         });*/
 
         var add = function () {
             if (!w2ui.amenu) {
                 $('#form').w2form({
                     name: 'amenu',
                     url: 'menu/add.menu',
-                    formHTML: '\
-                        <div class="w2ui-page page-0"> \
-                            <div class="w2ui-field"> \
-                                <label>菜单名称：</label> \
-                                <div> \
-                                   <input name="title" type="text" maxlength="100" style="width: 250px;height: 30px;line-height: 30px;"/> \
-                                </div> \
-                            </div> \
-                            <div class="w2ui-field"> \
-                                <label>父菜单：</label> \
-                                <div> \
-                                    <input name="parentId" type="text" maxlength="100" style="width: 250px;height: 30px;line-height: 30px;"/> \
-                                </div> \
-                            </div> \
-                            <div class="w2ui-field"> \
-                                <label>状态：</label> \
-                                <div> \
-                                    <input name="status" type="text" style="width: 250px;height: 30px;line-height: 30px;"/> \
-                                </div> \
-                            </div> \
-                        </div> \
-                        <div class="w2ui-buttons"> \
-                            <button class="w2ui-popup-btn w2ui-btn" name="reset">重置</button> \
-                            <button class="w2ui-popup-btn w2ui-btn" name="save">保存</button> \
-                        </div> \
-                    ',
                     fields: [
-                        {name: 'title', type: 'text', required: true},
-                        {name: 'parentId', type: 'int', required: true},
                         {
-                            name: 'status', type: 'list', required: true,
+                            name: 'title',
+                            type: 'text',
+                            required: true,
+                            html: {caption: '菜单名称：', attr: 'style="width: 250px;"'}
+                        },
+                        {
+                            name: 'parentId',
+                            type: 'int',
+                            required: true,
+                            html: {caption: '菜单名称：', attr: 'style="width: 250px;"'}
+                        },
+                        {
+                            name: 'status',
+                            type: 'list',
+                            required: true,
+                            html: {caption: '菜单名称：', attr: 'style="width: 250px;"'},
                             options: {items: [{id: 1, text: '可用'}, {id: '0', text: '禁用'}]}
                         }
                     ],
                     actions: {
-                        'save': function () {
+                        '重置': function () {
+                            this.clear();
+                        },
+                        '保存': function () {
                             this.save({}, function (data) {
                                 w2popup.close();
                                 layer.msg(data.message);
                             });
-                        },
-                        'reset': function () {
-                            this.clear();
                         }
                     }
                 });

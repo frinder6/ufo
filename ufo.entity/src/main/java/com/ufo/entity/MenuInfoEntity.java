@@ -15,7 +15,7 @@ public class MenuInfoEntity {
 
     private Byte sort;
 
-    private Byte status;
+    private Boolean status;
 
     private Date createTime;
 
@@ -73,11 +73,11 @@ public class MenuInfoEntity {
         this.sort = sort;
     }
 
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

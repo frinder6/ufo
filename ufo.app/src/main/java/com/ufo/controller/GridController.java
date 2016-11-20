@@ -1,8 +1,10 @@
 package com.ufo.controller;
 
 import com.ufo.entity.DxGridResult;
-import com.ufo.entity.DxGridTemplate;
 import com.ufo.entity.GridInfoEntity;
+import com.ufo.entity.W2uiGridTemplate;
+import com.ufo.entity.W2uiResponse;
+import com.ufo.init.W2uiGridTemplateLoader;
 import com.ufo.service.GridService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +21,16 @@ public class GridController {
     @Autowired
     private GridService gridService;
 
-    @RequestMapping("/dx.grid.options")
-    public DxGridTemplate dxGridTemplate(@RequestParam("gridName") String gridName) {
-        return gridService.selectGrid(gridName);
+    @RequestMapping("/grid.options")
+    public W2uiGridTemplate dxGridTemplate(@RequestParam("gridName") String gridName) {
+        return W2uiGridTemplateLoader.GRIDS.get(gridName);
+    }
+
+    @RequestMapping("/flush")
+    public W2uiResponse flush() throws Exception {
+        W2uiGridTemplateLoader.GRIDS.clear();
+        gridService.loadValidGridList(W2uiGridTemplateLoader.GRIDS);
+        return new W2uiResponse(W2uiResponse.SUCCESS, "刷新成功！");
     }
 
 

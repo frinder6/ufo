@@ -2,6 +2,7 @@ package com.ufo.entity;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.base.CaseFormat;
 import lombok.Data;
 import org.springframework.util.CollectionUtils;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by frinder6 on 2016/11/18.
  */
 @Data
-public class M2uiSearchRequest {
+public class W2uiSearchRequest {
 
     private String cmd;
     private int limit;
@@ -47,18 +48,27 @@ public class M2uiSearchRequest {
     public <T> T convert2Object(Class<T> target) {
         JSONObject jsonObject = new JSONObject();
         List<Search> searchs = this.getSearch();
+        String field;
         if (!CollectionUtils.isEmpty(searchs)) {
             for (Search s : searchs) {
-                jsonObject.put(s.getField(), s.getValue());
+                field = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, s.getField());
+                jsonObject.put(field, s.getValue());
             }
         }
         List<Sort> sorts = this.getSort();
         if (!CollectionUtils.isEmpty(sorts)) {
             for (Sort s : sorts) {
-                jsonObject.put(s.getField(), s.getDirection());
+                field = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, s.getField());
+                jsonObject.put("field", field);
+                jsonObject.put("direction", s.getDirection());
             }
         }
         return JSON.toJavaObject(jsonObject, target);
+    }
+
+    public static void main(String[] args) {
+        String str = "updateTime";
+        System.out.println(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, str));
     }
 
 

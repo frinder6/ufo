@@ -4,9 +4,13 @@
 <generatorConfiguration>
     <classPathEntry location="D:/LEARN/d3jar/mysql-connector-java-5.1.18-bin.jar"/>
     <context id="mysql" targetRuntime="MyBatis3">
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
 
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
 
         <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
             <property name="searchString" value="Example$"/>
@@ -45,6 +49,8 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 表 -->
+
+
 
         <table tableName="ufo_grid_button_info"
                domainObjectName="GridButtonInfoEntity"

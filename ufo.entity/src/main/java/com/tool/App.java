@@ -21,7 +21,8 @@ public class App {
         try {
             List<String> warnings = new ArrayList<>();
             boolean overwrite = true;
-            InputStream configFile = Thread.currentThread().getContextClassLoader().getResourceAsStream("generatorConfig.xml");
+            InputStream configFile = Thread.currentThread().getContextClassLoader().
+                    getResourceAsStream("generatorConfig.xml");
             ConfigurationParser cp = new ConfigurationParser(warnings);
             Configuration config = cp.parseConfiguration(configFile);
             DefaultShellCallback callback = new DefaultShellCallback(overwrite);

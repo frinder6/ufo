@@ -44,8 +44,8 @@ public class MenuController {
     }
 
     @RequestMapping("/page.menu")
-    public GridResult page() {
-        M2uiSearchRequest searchRequest = RequestFactory.getSearchRequest(request);
+    public W2uiGridResult page() {
+        W2uiSearchRequest searchRequest = W2uiRequestFactory.getSearchRequest(request);
         MenuInfoSubEntity entity = searchRequest.convert2Object(MenuInfoSubEntity.class);
         return menuService.selectPage(entity);
     }
@@ -57,12 +57,12 @@ public class MenuController {
 
 
     @RequestMapping("/add.menu")
-    public Response insert() {
-        M2uiAddRequest addRequest = RequestFactory.getAddRequest(request);
+    public W2uiResponse insert() {
+        W2uiAddRequest addRequest = W2uiRequestFactory.getAddRequest(request);
         MenuInfoEntity entity = addRequest.convert2Object(MenuInfoEntity.class);
         entity.setCreateTime(new Date());
         // menuService.insert(entity);
-        return new Response(Response.SUCCESS, "添加成功！");
+        return new W2uiResponse(W2uiResponse.SUCCESS, "添加成功！");
     }
 
     @RequestMapping("/update.menu")

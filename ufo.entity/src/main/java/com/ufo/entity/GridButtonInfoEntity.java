@@ -17,9 +17,9 @@ public class GridButtonInfoEntity {
 
     private String type;
 
-    private Byte disabled;
+    private Boolean disabled;
 
-    private Byte enable;
+    private Boolean status;
 
     private Date createTime;
 
@@ -85,20 +85,20 @@ public class GridButtonInfoEntity {
         this.type = type == null ? null : type.trim();
     }
 
-    public Byte getDisabled() {
+    public Boolean getDisabled() {
         return disabled;
     }
 
-    public void setDisabled(Byte disabled) {
+    public void setDisabled(Boolean disabled) {
         this.disabled = disabled;
     }
 
-    public Byte getEnable() {
-        return enable;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setEnable(Byte enable) {
-        this.enable = enable;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {
@@ -153,7 +153,7 @@ public class GridButtonInfoEntity {
             && (this.getImg() == null ? other.getImg() == null : this.getImg().equals(other.getImg()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
             && (this.getDisabled() == null ? other.getDisabled() == null : this.getDisabled().equals(other.getDisabled()))
-            && (this.getEnable() == null ? other.getEnable() == null : this.getEnable().equals(other.getEnable()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
@@ -172,7 +172,7 @@ public class GridButtonInfoEntity {
         result = prime * result + ((getImg() == null) ? 0 : getImg().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         result = prime * result + ((getDisabled() == null) ? 0 : getDisabled().hashCode());
-        result = prime * result + ((getEnable() == null) ? 0 : getEnable().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
@@ -194,7 +194,7 @@ public class GridButtonInfoEntity {
         sb.append(", img=").append(img);
         sb.append(", type=").append(type);
         sb.append(", disabled=").append(disabled);
-        sb.append(", enable=").append(enable);
+        sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);
         sb.append(", updateTime=").append(updateTime);

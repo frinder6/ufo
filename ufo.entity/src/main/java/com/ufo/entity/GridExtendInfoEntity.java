@@ -15,11 +15,13 @@ public class GridExtendInfoEntity {
 
     private Integer recordHeight;
 
-    private String toolbar;
+    private String save;
 
-    private Integer total;
+    private String remove;
 
-    private Byte status;
+    private String get;
+
+    private Boolean status;
 
     private Date createTime;
 
@@ -77,27 +79,35 @@ public class GridExtendInfoEntity {
         this.recordHeight = recordHeight;
     }
 
-    public String getToolbar() {
-        return toolbar;
+    public String getSave() {
+        return save;
     }
 
-    public void setToolbar(String toolbar) {
-        this.toolbar = toolbar == null ? null : toolbar.trim();
+    public void setSave(String save) {
+        this.save = save == null ? null : save.trim();
     }
 
-    public Integer getTotal() {
-        return total;
+    public String getRemove() {
+        return remove;
     }
 
-    public void setTotal(Integer total) {
-        this.total = total;
+    public void setRemove(String remove) {
+        this.remove = remove == null ? null : remove.trim();
     }
 
-    public Byte getStatus() {
+    public String getGet() {
+        return get;
+    }
+
+    public void setGet(String get) {
+        this.get = get == null ? null : get.trim();
+    }
+
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
@@ -151,8 +161,9 @@ public class GridExtendInfoEntity {
             && (this.getRecid() == null ? other.getRecid() == null : this.getRecid().equals(other.getRecid()))
             && (this.getLimit() == null ? other.getLimit() == null : this.getLimit().equals(other.getLimit()))
             && (this.getRecordHeight() == null ? other.getRecordHeight() == null : this.getRecordHeight().equals(other.getRecordHeight()))
-            && (this.getToolbar() == null ? other.getToolbar() == null : this.getToolbar().equals(other.getToolbar()))
-            && (this.getTotal() == null ? other.getTotal() == null : this.getTotal().equals(other.getTotal()))
+            && (this.getSave() == null ? other.getSave() == null : this.getSave().equals(other.getSave()))
+            && (this.getRemove() == null ? other.getRemove() == null : this.getRemove().equals(other.getRemove()))
+            && (this.getGet() == null ? other.getGet() == null : this.getGet().equals(other.getGet()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -170,8 +181,9 @@ public class GridExtendInfoEntity {
         result = prime * result + ((getRecid() == null) ? 0 : getRecid().hashCode());
         result = prime * result + ((getLimit() == null) ? 0 : getLimit().hashCode());
         result = prime * result + ((getRecordHeight() == null) ? 0 : getRecordHeight().hashCode());
-        result = prime * result + ((getToolbar() == null) ? 0 : getToolbar().hashCode());
-        result = prime * result + ((getTotal() == null) ? 0 : getTotal().hashCode());
+        result = prime * result + ((getSave() == null) ? 0 : getSave().hashCode());
+        result = prime * result + ((getRemove() == null) ? 0 : getRemove().hashCode());
+        result = prime * result + ((getGet() == null) ? 0 : getGet().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
@@ -192,8 +204,9 @@ public class GridExtendInfoEntity {
         sb.append(", recid=").append(recid);
         sb.append(", limit=").append(limit);
         sb.append(", recordHeight=").append(recordHeight);
-        sb.append(", toolbar=").append(toolbar);
-        sb.append(", total=").append(total);
+        sb.append(", save=").append(save);
+        sb.append(", remove=").append(remove);
+        sb.append(", get=").append(get);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);
