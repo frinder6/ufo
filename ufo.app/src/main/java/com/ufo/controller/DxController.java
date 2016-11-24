@@ -1,10 +1,8 @@
 package com.ufo.controller;
 
-import com.ufo.entity.DxGridResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,14 +28,6 @@ public class DxController {
         }
     }};
 
-
-    @RequestMapping("/dx.load")
-    public DxGridResult dx() {
-        DxGridResult entity = new DxGridResult();
-        List<Serializable> subList = DATA.subList(0, 1000);
-        entity.setData(subList);
-        return entity;
-    }
 
 
 }

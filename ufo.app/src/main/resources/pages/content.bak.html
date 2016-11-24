@@ -3,8 +3,8 @@
 <head>
 
     <title>Content</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="w2ui/w2ui.css" id="mainCSS"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="w2ui/libs/font-awesome/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="easyui/themes/black/easyui.css">
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
     <link href="layer/skin/layer.css" rel="stylesheet"/>
     <style>
         html, body {
@@ -14,94 +14,53 @@
             height: 100%;
         }
 
-        #layout {
-            width: 100%;
-            height: 100%;
-        }
-
-        #grid {
-            width: 100%;
-            height: 100%;
-        }
     </style>
 
 </head>
 <body>
-<div id="layout">
+
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',fit:true">
+        <table id="grid"></table>
+    </div>
 </div>
+
+
 </body>
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="w2ui/w2utils.js"></script>
-<script type="text/javascript" src="w2ui/w2grid.js"></script>
-<script type="text/javascript" src="w2ui/w2layout.js"></script>
-<script type="text/javascript" src="w2ui/w2popup.js"></script>
-<script type="text/javascript" src="w2ui/w2tabs.js"></script>
-<script type="text/javascript" src="w2ui/w2toolbar.js"></script>
-<script type="text/javascript" src="w2ui/w2sidebar.js"></script>
-<script type="text/javascript" src="w2ui/w2fields.js"></script>
-<script type="text/javascript" src="w2ui/w2form.js"></script>
-<script type="text/javascript" src="layer/layer.js"></script>
+<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
 
 <script type="text/javascript">
-    $(function () {
-        w2utils.locale('w2ui/locale/zh-cn.json');
-        $('#layout').w2layout({
-            name: 'layout',
-            padding: 1,
-            panels: [
-                {type: 'main', content: '<div id="grid"></div>'}
-            ]
-        });
-        $('#grid').w2grid({
-            name: 'grid',
-            url: 'menu/page.menu',
-            header: '导航信息数据',
-            multiSearch: true,
-            recid: 'id',
-            show: {
-                header: true,
-                toolbar: true,
-                footer: true,
-                selectColumn: true,
-                skipRecords: false,
-                lineNumbers: false,
-                saveRestoreState: false,
-                toolbarAdd: true,
-                toolbarDelete: true,
-                toolbarSave: true
-            },
-            toolbar: {
-                onClick: function (target, data) {
-                    // console.log(target);
-                    // console.log(JSON.stringify(data));
-                }
-            },
-            columns: [
-                {field: 'title', caption: '名称', size: '200px', sortable: true},
-                {field: 'status', caption: '状态', size: '50px', sortable: true},
-                {field: 'createTime', caption: '创建时间', size: '200px'},
-                {field: 'updateTime', caption: '更新时间', size: '200px'},
-            ],
-            searches: [
-                {type: 'text', field: 'title', caption: '名称'},
-                {
-                    type: 'list', field: 'status', caption: '状态',
-                    options: {items: [{id: 1, text: '可用'}, {id: 0, text: '禁用'}]}
-                }
-            ],
-            onRequest: function (event) {
-                var datas = event.postData.search;
-                if (datas) {
-                    var params = [];
-                    $.each(datas, function (i, v) {
-                        params.push(v.field + '=' + v.value)
-                    });
-                    var t = new Date().getMilliseconds();
-                    event.url = event.url + '?t=' + t + '&' + params.join('&');
-                }
+    $.getJSON('grid/grid.options', {gridName: 'menu-info'}, function (data) {
+        console.log(data);
+        $.each(data.columns[0], function (i, v) {
+            if (v.formatter) {
+                v.formatter = eval('(' + v.formatter + ')');
             }
         });
+        console.log(data);
+        $('#grid').datagrid(data);
     });
+
+
+    //    $('#grid').datagrid({
+    //        url: 'menu/page.menu',
+    //        pagination: true,
+    //        fitColumns: true,
+    //        resizeHandle: 'both',
+    //        singleSelect: false,
+    //        fit: true,
+    //        pageSize: 20,
+    //        columns: [[
+    //            {field: 'status', title: '状态', width: 50, sortable: true},
+    //            {field: 'createTime', title: '创建时间', width: 150, align: 'center', sortable: true},
+    //            {field: 'updateTime', title: '修改时间', width: 150, align: 'center', sortable: true}
+    //        ]],
+    //        frozenColumns: [[
+    //            //{field: 'ck', width: 30, checkbox: true},
+    //            {field: 'title', title: '名称', width: 100, sortable: true}
+    //        ]]
+    //    });
 </script>
 
 

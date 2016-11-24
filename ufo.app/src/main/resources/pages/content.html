@@ -3,9 +3,8 @@
 <head>
 
     <title>Content</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="w2ui/w2ui.css" id="mainCSS"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="w2ui/libs/font-awesome/font-awesome.css"/>
-    <link href="page/pagination.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="easyui/themes/black/easyui.css">
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
     <link href="layer/skin/layer.css" rel="stylesheet"/>
     <style>
         html, body {
@@ -15,163 +14,107 @@
             height: 100%;
         }
 
-        #layout {
-            width: 100%;
-            height: 100%;
-        }
-
-        #grid {
-            width: 100%;
-            height: 100%;
-        }
-
-        .w2ui-toolbar-search {
-            display: none;
-        }
     </style>
 
 </head>
 <body>
-<div id="layout">
+
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',fit:true">
+        <table id="grid"></table>
+    </div>
 </div>
+
+
+<div id="tooltip" style="width:100%;max-width:400px;padding:10px;display: none;"></div>
+
 </body>
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="w2ui/w2utils.js"></script>
-<script type="text/javascript" src="w2ui/w2grid.js"></script>
-<script type="text/javascript" src="w2ui/w2layout.js"></script>
-<script type="text/javascript" src="w2ui/w2popup.js"></script>
-<script type="text/javascript" src="w2ui/w2tabs.js"></script>
-<script type="text/javascript" src="w2ui/w2toolbar.js"></script>
-<script type="text/javascript" src="w2ui/w2sidebar.js"></script>
-<script type="text/javascript" src="w2ui/w2fields.js"></script>
-<script type="text/javascript" src="w2ui/w2form.js"></script>
-<script type="text/javascript" src="page/prettify.min.js"></script>
-<script type="text/javascript" src="page/pagination.js"></script>
+<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="layer/layer.js"></script>
 
 <script type="text/javascript">
-    $(function () {
-        w2utils.locale('w2ui/locale/zh-cn.json');
-        $('#layout').w2layout({
-            name: 'layout',
-            padding: 0,
-            panels: [
-                {type: 'main', content: '<div id="grid"></div>'}
-            ]
+    $.getJSON('grid/grid.options', {gridName: 'menu-info'}, function (data) {
+        console.log(data);
+        $.each(data.columns[0], function (i, v) {
+            if (v.formatter) {
+                v.formatter = eval('(' + v.formatter + ')');
+            }
         });
-        $.getJSON('grid/grid.options', {gridName: 'menu-info'}, function (data) {
-            $.each(data.columns, function (i, v) {
-                v.render = eval('(' + v.render + ')');
-            });
-            data.onAdd = function (e) {
-                add();
-            };
-            $('#grid').w2grid(data);
+        $.each(data.toolbar, function (i, v) {
+            if (v.handler) {
+                v.handler = eval('(' + v.handler + ')');
+            }
         });
-        /*$('#grid').w2grid({
-         name: 'grid',
-         url: 'menu/page.menu',
-         header: '导航信息数据',
-         multiSearch: true,
-         recid: 'id',
-         // msgDelete: '确认删除？',
-         show: {
-         header: true,
-         toolbar: true,
-         footer: true,
-         selectColumn: true,
-         toolbarAdd: true,
-         toolbarDelete: true,
-         toolbarSave: true,
-         toolbarEdit: true
-         },
-         columns: [
-         {field: 'title', caption: '名称', size: '200px', sortable: true, searchable: true},
-         {
-         field: 'status',
-         caption: '状态',
-         size: '50px',
-         sortable: true
-         },
-         {field: 'createTime', caption: '创建时间', size: '200px'},
-         {field: 'updateTime', caption: '更新时间', size: '200px'},
-         ],
-         searches: [
-         // {type: 'text', field: 'title', caption: '名称'},
-         {
-         type: 'list', field: 'status', caption: '状态',
-         options: {items: [{id: 1, text: '可用'}, {id: '0', text: '禁用'}]}
-         }
-         ],
-         onAdd: function (event) {
-         add();
-         }
-         });*/
+        console.log(data);
+        $('#grid').datagrid(data);
+    });
 
-        var add = function () {
-            if (!w2ui.amenu) {
-                $('#form').w2form({
-                    name: 'amenu',
-                    url: 'menu/add.menu',
-                    fields: [
-                        {
-                            name: 'title',
-                            type: 'text',
-                            required: true,
-                            html: {caption: '菜单名称：', attr: 'style="width: 250px;"'}
-                        },
-                        {
-                            name: 'parentId',
-                            type: 'int',
-                            required: true,
-                            html: {caption: '菜单名称：', attr: 'style="width: 250px;"'}
-                        },
-                        {
-                            name: 'status',
-                            type: 'list',
-                            required: true,
-                            html: {caption: '菜单名称：', attr: 'style="width: 250px;"'},
-                            options: {items: [{id: 1, text: '可用'}, {id: '0', text: '禁用'}]}
-                        }
-                    ],
-                    actions: {
-                        '重置': function () {
-                            this.clear();
-                        },
-                        '保存': function () {
-                            this.save({}, function (data) {
-                                w2popup.close();
-                                layer.msg(data.message);
-                            });
-                        }
-                    }
+    var search = function () {
+        $(this).tooltip({
+            hideEvent: 'none',
+            // position: 'right',
+            content: function () {
+                var e = $('#tooltip');
+                return e;
+            },
+            showEvent: 'mouseenter',
+            onUpdate: function (content) {
+                content.panel({
+                    width: 400,
+                    title: 'Login',
+                    content: '\
+                        <form id="ff" method="post">\
+                            <div style="margin-bottom:20px">\
+                                <input class="easyui-textbox" name="name" style="width:100%" data-options="label:\'Name:\',required:true">\
+                                </div>\
+                                <div style="margin-bottom:20px">\
+                                <input class="easyui-textbox" name="email" style="width:100%" data-options="label:\'Email:\',required:true,validType:\'email\'">\
+                                </div>\
+                                <div style="margin-bottom:20px">\
+                                <input class="easyui-textbox" name="subject" style="width:100%" data-options="label:\'Subject:\',required:true">\
+                                </div>\
+                                <div style="margin-bottom:20px">\
+                                <input class="easyui-textbox" name="message" style="width:100%;height:60px" data-options="label:\'Message:\',multiline:true">\
+                            </div>\
+                        </form>\
+                        <div style="text-align:center;padding:5px 0">\
+                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">Submit</a>\
+                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">Clear</a>\
+                        </div>\
+                    '
+                });
+            },
+            onShow: function () {
+                var t = $(this);
+                t.tooltip('tip').unbind().bind('mouseenter', function () {
+                    t.tooltip('show');
+                }).bind('mouseleave', function () {
+                    t.tooltip('hide');
                 });
             }
-            w2popup.open({
-                title: '新增菜单',
-                body: '<div id="form" style="width: 100%; height: 100%;"></div>',
-                width: 500,
-                height: 300,
-                overflow: 'hidden',
-                modal: true,
-                showClose: true,
-                showMax: false,
-                onOpen: function (event) {
-                    event.onComplete = function () {
-                        $('#w2ui-popup #form').w2render('amenu');
-                    }
-                },
-                onClose: function (event) {
-                    console.log('close');
-                    console.log(event);
-                },
-                onKeydown: function (event) {
-                    console.log('keydown');
-                    console.log(event);
-                }
-            });
-        };
-    });
+        });
+    };
+
+
+    //    $('#grid').datagrid({
+    //        url: 'menu/page.menu',
+    //        pagination: true,
+    //        fitColumns: true,
+    //        resizeHandle: 'both',
+    //        singleSelect: false,
+    //        fit: true,
+    //        pageSize: 20,
+    //        columns: [[
+    //            {field: 'status', title: '状态', width: 50, sortable: true},
+    //            {field: 'createTime', title: '创建时间', width: 150, align: 'center', sortable: true},
+    //            {field: 'updateTime', title: '修改时间', width: 150, align: 'center', sortable: true}
+    //        ]],
+    //        frozenColumns: [[
+    //            //{field: 'ck', width: 30, checkbox: true},
+    //            {field: 'title', title: '名称', width: 100, sortable: true}
+    //        ]]
+    //    });
 </script>
 
 

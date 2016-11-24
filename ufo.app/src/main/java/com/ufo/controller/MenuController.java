@@ -1,11 +1,13 @@
 package com.ufo.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.ufo.entity.*;
 import com.ufo.entity.sub.MenuInfoSubEntity;
 import com.ufo.service.MenuService;
 import com.ufo.vo.MenuTreeInfoVO;
 import com.util.MenuUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,10 +46,9 @@ public class MenuController {
     }
 
     @RequestMapping("/page.menu")
-    public W2uiGridResult page() {
-        W2uiSearchRequest searchRequest = W2uiRequestFactory.getSearchRequest(request);
-        MenuInfoSubEntity entity = searchRequest.convert2Object(MenuInfoSubEntity.class);
-        return menuService.selectPage(entity);
+    public EasyuiGridResult page(MenuInfoEntity entity) {
+        Page page = Page.getInstance(request);
+        return menuService.selectPage(page, entity);
     }
 
     @RequestMapping("/get.id")
@@ -57,12 +58,12 @@ public class MenuController {
 
 
     @RequestMapping("/add.menu")
-    public W2uiResponse insert() {
+    public EasyuiResponse insert() {
         W2uiAddRequest addRequest = W2uiRequestFactory.getAddRequest(request);
         MenuInfoEntity entity = addRequest.convert2Object(MenuInfoEntity.class);
         entity.setCreateTime(new Date());
         // menuService.insert(entity);
-        return new W2uiResponse(W2uiResponse.SUCCESS, "添加成功！");
+        return new EasyuiResponse(EasyuiResponse.SUCCESS, "添加成功！");
     }
 
     @RequestMapping("/update.menu")
