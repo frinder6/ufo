@@ -11,13 +11,6 @@ import java.util.List;
 @Data
 public class MenuInfoSubEntity extends MenuInfoEntity {
 
-    private int pageSize = 1000;
-    private int pageNumber = 1;
-    private int pageFrom = 0;
-    private String field = "id";
-    private String direction = "ASC";
-
-
     private List<MenuInfoSubEntity> children;
 
 }

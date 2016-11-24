@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufo.mapper.impl.GridButtonInfoEntityMapperImpl">
+    <resultMap id="BaseResultMap" extends="com.ufo.mapper.GridButtonInfoEntityMapper.BaseResultMap"
+               type="com.ufo.entity.GridButtonInfoEntity">
+    </resultMap>
+    <sql id="Base_Column_List">
+        <include refid="com.ufo.mapper.GridButtonInfoEntityMapper.Base_Column_List"/>
+    </sql>
+    <select id="selectByGridId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ufo_grid_button_info
+        where grid_id = #{gridId,jdbcType=BIGINT}
+    </select>
+
+</mapper>

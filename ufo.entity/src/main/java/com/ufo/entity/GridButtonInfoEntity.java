@@ -7,17 +7,23 @@ public class GridButtonInfoEntity {
 
     private Long gridId;
 
-    private String code;
+    private String text;
 
-    private String caption;
+    private String iconCls;
 
-    private String hint;
-
-    private String img;
-
-    private String type;
+    private Boolean plain;
 
     private Boolean disabled;
+
+    private String size;
+
+    private String iconAlign;
+
+    private Integer width;
+
+    private Integer height;
+
+    private String handler;
 
     private Boolean status;
 
@@ -45,44 +51,28 @@ public class GridButtonInfoEntity {
         this.gridId = gridId;
     }
 
-    public String getCode() {
-        return code;
+    public String getText() {
+        return text;
     }
 
-    public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
+    public void setText(String text) {
+        this.text = text == null ? null : text.trim();
     }
 
-    public String getCaption() {
-        return caption;
+    public String getIconCls() {
+        return iconCls;
     }
 
-    public void setCaption(String caption) {
-        this.caption = caption == null ? null : caption.trim();
+    public void setIconCls(String iconCls) {
+        this.iconCls = iconCls == null ? null : iconCls.trim();
     }
 
-    public String getHint() {
-        return hint;
+    public Boolean getPlain() {
+        return plain;
     }
 
-    public void setHint(String hint) {
-        this.hint = hint == null ? null : hint.trim();
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img == null ? null : img.trim();
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+    public void setPlain(Boolean plain) {
+        this.plain = plain;
     }
 
     public Boolean getDisabled() {
@@ -91,6 +81,46 @@ public class GridButtonInfoEntity {
 
     public void setDisabled(Boolean disabled) {
         this.disabled = disabled;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size == null ? null : size.trim();
+    }
+
+    public String getIconAlign() {
+        return iconAlign;
+    }
+
+    public void setIconAlign(String iconAlign) {
+        this.iconAlign = iconAlign == null ? null : iconAlign.trim();
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public String getHandler() {
+        return handler;
+    }
+
+    public void setHandler(String handler) {
+        this.handler = handler == null ? null : handler.trim();
     }
 
     public Boolean getStatus() {
@@ -147,12 +177,15 @@ public class GridButtonInfoEntity {
         GridButtonInfoEntity other = (GridButtonInfoEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getGridId() == null ? other.getGridId() == null : this.getGridId().equals(other.getGridId()))
-            && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
-            && (this.getCaption() == null ? other.getCaption() == null : this.getCaption().equals(other.getCaption()))
-            && (this.getHint() == null ? other.getHint() == null : this.getHint().equals(other.getHint()))
-            && (this.getImg() == null ? other.getImg() == null : this.getImg().equals(other.getImg()))
-            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
+            && (this.getText() == null ? other.getText() == null : this.getText().equals(other.getText()))
+            && (this.getIconCls() == null ? other.getIconCls() == null : this.getIconCls().equals(other.getIconCls()))
+            && (this.getPlain() == null ? other.getPlain() == null : this.getPlain().equals(other.getPlain()))
             && (this.getDisabled() == null ? other.getDisabled() == null : this.getDisabled().equals(other.getDisabled()))
+            && (this.getSize() == null ? other.getSize() == null : this.getSize().equals(other.getSize()))
+            && (this.getIconAlign() == null ? other.getIconAlign() == null : this.getIconAlign().equals(other.getIconAlign()))
+            && (this.getWidth() == null ? other.getWidth() == null : this.getWidth().equals(other.getWidth()))
+            && (this.getHeight() == null ? other.getHeight() == null : this.getHeight().equals(other.getHeight()))
+            && (this.getHandler() == null ? other.getHandler() == null : this.getHandler().equals(other.getHandler()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -166,12 +199,15 @@ public class GridButtonInfoEntity {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGridId() == null) ? 0 : getGridId().hashCode());
-        result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
-        result = prime * result + ((getCaption() == null) ? 0 : getCaption().hashCode());
-        result = prime * result + ((getHint() == null) ? 0 : getHint().hashCode());
-        result = prime * result + ((getImg() == null) ? 0 : getImg().hashCode());
-        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
+        result = prime * result + ((getText() == null) ? 0 : getText().hashCode());
+        result = prime * result + ((getIconCls() == null) ? 0 : getIconCls().hashCode());
+        result = prime * result + ((getPlain() == null) ? 0 : getPlain().hashCode());
         result = prime * result + ((getDisabled() == null) ? 0 : getDisabled().hashCode());
+        result = prime * result + ((getSize() == null) ? 0 : getSize().hashCode());
+        result = prime * result + ((getIconAlign() == null) ? 0 : getIconAlign().hashCode());
+        result = prime * result + ((getWidth() == null) ? 0 : getWidth().hashCode());
+        result = prime * result + ((getHeight() == null) ? 0 : getHeight().hashCode());
+        result = prime * result + ((getHandler() == null) ? 0 : getHandler().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
@@ -188,12 +224,15 @@ public class GridButtonInfoEntity {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", gridId=").append(gridId);
-        sb.append(", code=").append(code);
-        sb.append(", caption=").append(caption);
-        sb.append(", hint=").append(hint);
-        sb.append(", img=").append(img);
-        sb.append(", type=").append(type);
+        sb.append(", text=").append(text);
+        sb.append(", iconCls=").append(iconCls);
+        sb.append(", plain=").append(plain);
         sb.append(", disabled=").append(disabled);
+        sb.append(", size=").append(size);
+        sb.append(", iconAlign=").append(iconAlign);
+        sb.append(", width=").append(width);
+        sb.append(", height=").append(height);
+        sb.append(", handler=").append(handler);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);

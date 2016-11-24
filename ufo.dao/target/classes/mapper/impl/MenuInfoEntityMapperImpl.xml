@@ -26,35 +26,35 @@
     </sql>
 
     <sql id="Base_Where_Clause">
-        <if test="parentId != null">
-            AND parent_id = #{parentId,jdbcType=BIGINT}
+        <if test="e.parentId != null">
+            AND parent_id = #{e.parentId,jdbcType=BIGINT}
         </if>
-        <if test="title != null">
-            AND title LIKE #{title,jdbcType=VARCHAR}"%"
+        <if test="e.title != null">
+            AND title LIKE #{e.title,jdbcType=VARCHAR}"%"
         </if>
-        <if test="url != null">
-            AND url LIKE #{url,jdbcType=VARCHAR}"%"
+        <if test="e.url != null">
+            AND url LIKE #{e.url,jdbcType=VARCHAR}"%"
         </if>
-        <if test="icon != null">
-            AND icon LIKE #{icon,jdbcType=VARCHAR}"%"
+        <if test="e.icon != null">
+            AND icon LIKE #{e.icon,jdbcType=VARCHAR}"%"
         </if>
-        <if test="sort != null">
-            AND sort = #{sort,jdbcType=TINYINT}
+        <if test="e.orderby != null">
+            AND orderby = #{e.orderby,jdbcType=TINYINT}
         </if>
-        <if test="status != null">
-            AND status = #{status,jdbcType=TINYINT}
+        <if test="e.status != null">
+            AND status = #{e.status,jdbcType=TINYINT}
         </if>
-        <if test="createTime != null">
-            AND create_time = #{createTime,jdbcType=TIMESTAMP}
+        <if test="e.createTime != null">
+            AND create_time = #{e.createTime,jdbcType=TIMESTAMP}
         </if>
-        <if test="creater != null">
-            AND creater = #{creater,jdbcType=VARCHAR}
+        <if test="e.creater != null">
+            AND creater = #{e.creater,jdbcType=VARCHAR}
         </if>
-        <if test="updateTime != null">
-            AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+        <if test="e.updateTime != null">
+            AND update_time = #{e.updateTime,jdbcType=TIMESTAMP}
         </if>
-        <if test="updater != null">
-            AND updater = #{updater,jdbcType=VARCHAR}
+        <if test="e.updater != null">
+            AND updater = #{e.updater,jdbcType=VARCHAR}
         </if>
     </sql>
 
@@ -65,7 +65,7 @@
         FROM ufo_menu_info
         WHERE status = 1
         AND parent_id = #{parentId,jdbcType=BIGINT}
-        ORDER BY sort
+        ORDER BY orderby
     </select>
 
     <!-- 级联查询菜单树 -->
@@ -75,21 +75,21 @@
         FROM ufo_menu_info
         WHERE status = 1
         AND parent_id = #{parentId,jdbcType=BIGINT}
-        ORDER BY sort
+        ORDER BY orderby
     </select>
 
 
     <!-- 分页查询 -->
-    <select id="selectPage" resultMap="BaseResultMap" parameterType="com.ufo.entity.sub.MenuInfoSubEntity">
+    <select id="selectPage" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM ufo_menu_info
         WHERE 1 = 1
         <include refid="Base_Where_Clause"/>
-        ORDER BY ${field} ${direction}
-        LIMIT #{pageFrom}, #{pageSize}
+        ORDER BY ${p.sort} ${p.order}
+        LIMIT #{p.pageFrom}, #{p.pageSize}
     </select>
-    <select id="selectPageCount" parameterType="com.ufo.entity.sub.MenuInfoSubEntity">
+    <select id="selectPageCount" resultType="java.lang.Integer">
         SELECT
         COUNT(1)
         FROM ufo_menu_info

@@ -7,19 +7,25 @@ public class GridExtendInfoEntity {
 
     private Long gridId;
 
-    private String header;
+    private String url;
 
-    private String recid;
+    private Boolean fitColumns;
 
-    private Integer limit;
+    private Boolean stripe;
 
-    private Integer recordHeight;
+    private Boolean nowrap;
 
-    private String save;
+    private Boolean pagination;
 
-    private String remove;
+    private Boolean rownumbers;
 
-    private String get;
+    private Boolean singleselect;
+
+    private Boolean multiSort;
+
+    private String pagePosition;
+
+    private Integer pageSize;
 
     private Boolean status;
 
@@ -47,60 +53,84 @@ public class GridExtendInfoEntity {
         this.gridId = gridId;
     }
 
-    public String getHeader() {
-        return header;
+    public String getUrl() {
+        return url;
     }
 
-    public void setHeader(String header) {
-        this.header = header == null ? null : header.trim();
+    public void setUrl(String url) {
+        this.url = url == null ? null : url.trim();
     }
 
-    public String getRecid() {
-        return recid;
+    public Boolean getFitColumns() {
+        return fitColumns;
     }
 
-    public void setRecid(String recid) {
-        this.recid = recid == null ? null : recid.trim();
+    public void setFitColumns(Boolean fitColumns) {
+        this.fitColumns = fitColumns;
     }
 
-    public Integer getLimit() {
-        return limit;
+    public Boolean getStripe() {
+        return stripe;
     }
 
-    public void setLimit(Integer limit) {
-        this.limit = limit;
+    public void setStripe(Boolean stripe) {
+        this.stripe = stripe;
     }
 
-    public Integer getRecordHeight() {
-        return recordHeight;
+    public Boolean getNowrap() {
+        return nowrap;
     }
 
-    public void setRecordHeight(Integer recordHeight) {
-        this.recordHeight = recordHeight;
+    public void setNowrap(Boolean nowrap) {
+        this.nowrap = nowrap;
     }
 
-    public String getSave() {
-        return save;
+    public Boolean getPagination() {
+        return pagination;
     }
 
-    public void setSave(String save) {
-        this.save = save == null ? null : save.trim();
+    public void setPagination(Boolean pagination) {
+        this.pagination = pagination;
     }
 
-    public String getRemove() {
-        return remove;
+    public Boolean getRownumbers() {
+        return rownumbers;
     }
 
-    public void setRemove(String remove) {
-        this.remove = remove == null ? null : remove.trim();
+    public void setRownumbers(Boolean rownumbers) {
+        this.rownumbers = rownumbers;
     }
 
-    public String getGet() {
-        return get;
+    public Boolean getSingleselect() {
+        return singleselect;
     }
 
-    public void setGet(String get) {
-        this.get = get == null ? null : get.trim();
+    public void setSingleselect(Boolean singleselect) {
+        this.singleselect = singleselect;
+    }
+
+    public Boolean getMultiSort() {
+        return multiSort;
+    }
+
+    public void setMultiSort(Boolean multiSort) {
+        this.multiSort = multiSort;
+    }
+
+    public String getPagePosition() {
+        return pagePosition;
+    }
+
+    public void setPagePosition(String pagePosition) {
+        this.pagePosition = pagePosition == null ? null : pagePosition.trim();
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
     public Boolean getStatus() {
@@ -157,13 +187,16 @@ public class GridExtendInfoEntity {
         GridExtendInfoEntity other = (GridExtendInfoEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getGridId() == null ? other.getGridId() == null : this.getGridId().equals(other.getGridId()))
-            && (this.getHeader() == null ? other.getHeader() == null : this.getHeader().equals(other.getHeader()))
-            && (this.getRecid() == null ? other.getRecid() == null : this.getRecid().equals(other.getRecid()))
-            && (this.getLimit() == null ? other.getLimit() == null : this.getLimit().equals(other.getLimit()))
-            && (this.getRecordHeight() == null ? other.getRecordHeight() == null : this.getRecordHeight().equals(other.getRecordHeight()))
-            && (this.getSave() == null ? other.getSave() == null : this.getSave().equals(other.getSave()))
-            && (this.getRemove() == null ? other.getRemove() == null : this.getRemove().equals(other.getRemove()))
-            && (this.getGet() == null ? other.getGet() == null : this.getGet().equals(other.getGet()))
+            && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
+            && (this.getFitColumns() == null ? other.getFitColumns() == null : this.getFitColumns().equals(other.getFitColumns()))
+            && (this.getStripe() == null ? other.getStripe() == null : this.getStripe().equals(other.getStripe()))
+            && (this.getNowrap() == null ? other.getNowrap() == null : this.getNowrap().equals(other.getNowrap()))
+            && (this.getPagination() == null ? other.getPagination() == null : this.getPagination().equals(other.getPagination()))
+            && (this.getRownumbers() == null ? other.getRownumbers() == null : this.getRownumbers().equals(other.getRownumbers()))
+            && (this.getSingleselect() == null ? other.getSingleselect() == null : this.getSingleselect().equals(other.getSingleselect()))
+            && (this.getMultiSort() == null ? other.getMultiSort() == null : this.getMultiSort().equals(other.getMultiSort()))
+            && (this.getPagePosition() == null ? other.getPagePosition() == null : this.getPagePosition().equals(other.getPagePosition()))
+            && (this.getPageSize() == null ? other.getPageSize() == null : this.getPageSize().equals(other.getPageSize()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -177,13 +210,16 @@ public class GridExtendInfoEntity {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGridId() == null) ? 0 : getGridId().hashCode());
-        result = prime * result + ((getHeader() == null) ? 0 : getHeader().hashCode());
-        result = prime * result + ((getRecid() == null) ? 0 : getRecid().hashCode());
-        result = prime * result + ((getLimit() == null) ? 0 : getLimit().hashCode());
-        result = prime * result + ((getRecordHeight() == null) ? 0 : getRecordHeight().hashCode());
-        result = prime * result + ((getSave() == null) ? 0 : getSave().hashCode());
-        result = prime * result + ((getRemove() == null) ? 0 : getRemove().hashCode());
-        result = prime * result + ((getGet() == null) ? 0 : getGet().hashCode());
+        result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
+        result = prime * result + ((getFitColumns() == null) ? 0 : getFitColumns().hashCode());
+        result = prime * result + ((getStripe() == null) ? 0 : getStripe().hashCode());
+        result = prime * result + ((getNowrap() == null) ? 0 : getNowrap().hashCode());
+        result = prime * result + ((getPagination() == null) ? 0 : getPagination().hashCode());
+        result = prime * result + ((getRownumbers() == null) ? 0 : getRownumbers().hashCode());
+        result = prime * result + ((getSingleselect() == null) ? 0 : getSingleselect().hashCode());
+        result = prime * result + ((getMultiSort() == null) ? 0 : getMultiSort().hashCode());
+        result = prime * result + ((getPagePosition() == null) ? 0 : getPagePosition().hashCode());
+        result = prime * result + ((getPageSize() == null) ? 0 : getPageSize().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
@@ -200,13 +236,16 @@ public class GridExtendInfoEntity {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", gridId=").append(gridId);
-        sb.append(", header=").append(header);
-        sb.append(", recid=").append(recid);
-        sb.append(", limit=").append(limit);
-        sb.append(", recordHeight=").append(recordHeight);
-        sb.append(", save=").append(save);
-        sb.append(", remove=").append(remove);
-        sb.append(", get=").append(get);
+        sb.append(", url=").append(url);
+        sb.append(", fitColumns=").append(fitColumns);
+        sb.append(", stripe=").append(stripe);
+        sb.append(", nowrap=").append(nowrap);
+        sb.append(", pagination=").append(pagination);
+        sb.append(", rownumbers=").append(rownumbers);
+        sb.append(", singleselect=").append(singleselect);
+        sb.append(", multiSort=").append(multiSort);
+        sb.append(", pagePosition=").append(pagePosition);
+        sb.append(", pageSize=").append(pageSize);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);

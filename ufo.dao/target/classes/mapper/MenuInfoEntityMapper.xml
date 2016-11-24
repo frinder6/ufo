@@ -7,7 +7,7 @@
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="icon" property="icon" jdbcType="VARCHAR" />
-    <result column="sort" property="sort" jdbcType="TINYINT" />
+    <result column="orderby" property="orderby" jdbcType="TINYINT" />
     <result column="status" property="status" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="creater" property="creater" jdbcType="VARCHAR" />
@@ -15,7 +15,7 @@
     <result column="updater" property="updater" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, parent_id, title, url, icon, sort, `status`, create_time, creater, update_time, 
+    id, parent_id, title, url, icon, orderby, `status`, create_time, creater, update_time, 
     updater
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -30,13 +30,13 @@
   </delete>
   <insert id="insert" parameterType="com.ufo.entity.MenuInfoEntity" >
     insert into ufo_menu_info (id, parent_id, title, 
-      url, icon, sort, `status`, 
-      create_time, creater, update_time, 
-      updater)
+      url, icon, orderby, 
+      `status`, create_time, creater, 
+      update_time, updater)
     values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{sort,jdbcType=TINYINT}, #{status,jdbcType=BIT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=VARCHAR})
+      #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{orderby,jdbcType=TINYINT}, 
+      #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ufo.entity.MenuInfoEntity" >
     insert into ufo_menu_info
@@ -56,8 +56,8 @@
       <if test="icon != null" >
         icon,
       </if>
-      <if test="sort != null" >
-        sort,
+      <if test="orderby != null" >
+        orderby,
       </if>
       <if test="status != null" >
         `status`,
@@ -91,8 +91,8 @@
       <if test="icon != null" >
         #{icon,jdbcType=VARCHAR},
       </if>
-      <if test="sort != null" >
-        #{sort,jdbcType=TINYINT},
+      <if test="orderby != null" >
+        #{orderby,jdbcType=TINYINT},
       </if>
       <if test="status != null" >
         #{status,jdbcType=BIT},
@@ -126,8 +126,8 @@
       <if test="icon != null" >
         icon = #{icon,jdbcType=VARCHAR},
       </if>
-      <if test="sort != null" >
-        sort = #{sort,jdbcType=TINYINT},
+      <if test="orderby != null" >
+        orderby = #{orderby,jdbcType=TINYINT},
       </if>
       <if test="status != null" >
         `status` = #{status,jdbcType=BIT},
@@ -153,7 +153,7 @@
       title = #{title,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=TINYINT},
+      orderby = #{orderby,jdbcType=TINYINT},
       `status` = #{status,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       creater = #{creater,jdbcType=VARCHAR},

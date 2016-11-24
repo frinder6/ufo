@@ -1,7 +1,8 @@
 package com.ufo.init;
 
 import com.alibaba.fastjson.JSON;
-import com.ufo.entity.W2uiGridTemplate;
+import com.ufo.entity.EasyuiFormTemplate;
+import com.ufo.entity.EasyuiGridTemplate;
 import com.ufo.service.impl.GridServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,8 @@ public class W2uiGridTemplateLoader {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    public static final Map<String, W2uiGridTemplate> GRIDS = new ConcurrentHashMap<>();
+    public static final Map<String, EasyuiGridTemplate> GRIDS = new ConcurrentHashMap<>();
+    public static final Map<String, EasyuiFormTemplate> FROMS = new ConcurrentHashMap<>();
 
     @Autowired
     private GridServiceImpl gridService;
@@ -28,7 +30,9 @@ public class W2uiGridTemplateLoader {
     @PostConstruct
     public void load() throws Exception {
         gridService.loadValidGridList(GRIDS);
+        gridService.loadValidFormList(FROMS);
         logger.info(JSON.toJSONString(GRIDS));
+        logger.info(JSON.toJSONString(FROMS));
     }
 
 }

@@ -4,12 +4,15 @@
   <resultMap id="BaseResultMap" type="com.ufo.entity.GridButtonInfoEntity" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="grid_id" property="gridId" jdbcType="BIGINT" />
-    <result column="code" property="code" jdbcType="VARCHAR" />
-    <result column="caption" property="caption" jdbcType="VARCHAR" />
-    <result column="hint" property="hint" jdbcType="VARCHAR" />
-    <result column="img" property="img" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="text" property="text" jdbcType="VARCHAR" />
+    <result column="icon_cls" property="iconCls" jdbcType="VARCHAR" />
+    <result column="plain" property="plain" jdbcType="BIT" />
     <result column="disabled" property="disabled" jdbcType="BIT" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
+    <result column="icon_align" property="iconAlign" jdbcType="VARCHAR" />
+    <result column="width" property="width" jdbcType="INTEGER" />
+    <result column="height" property="height" jdbcType="INTEGER" />
+    <result column="handler" property="handler" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="creater" property="creater" jdbcType="VARCHAR" />
@@ -17,8 +20,8 @@
     <result column="updater" property="updater" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, grid_id, code, caption, hint, img, `type`, disabled, `status`, create_time, creater, 
-    update_time, updater
+    id, grid_id, `text`, icon_cls, plain, disabled, `size`, icon_align, width, height, 
+    `handler`, `status`, create_time, creater, update_time, updater
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -31,14 +34,16 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.ufo.entity.GridButtonInfoEntity" >
-    insert into ufo_grid_button_info (id, grid_id, code, 
-      caption, hint, img, 
-      `type`, disabled, `status`, create_time, 
+    insert into ufo_grid_button_info (id, grid_id, `text`, 
+      icon_cls, plain, disabled, `size`, 
+      icon_align, width, height, 
+      `handler`, `status`, create_time, 
       creater, update_time, updater
       )
-    values (#{id,jdbcType=BIGINT}, #{gridId,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, 
-      #{caption,jdbcType=VARCHAR}, #{hint,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{disabled,jdbcType=BIT}, #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=BIGINT}, #{gridId,jdbcType=BIGINT}, #{text,jdbcType=VARCHAR}, 
+      #{iconCls,jdbcType=VARCHAR}, #{plain,jdbcType=BIT}, #{disabled,jdbcType=BIT}, #{size,jdbcType=VARCHAR}, 
+      #{iconAlign,jdbcType=VARCHAR}, #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, 
+      #{handler,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}
       )
   </insert>
@@ -51,23 +56,32 @@
       <if test="gridId != null" >
         grid_id,
       </if>
-      <if test="code != null" >
-        code,
+      <if test="text != null" >
+        `text`,
       </if>
-      <if test="caption != null" >
-        caption,
+      <if test="iconCls != null" >
+        icon_cls,
       </if>
-      <if test="hint != null" >
-        hint,
-      </if>
-      <if test="img != null" >
-        img,
-      </if>
-      <if test="type != null" >
-        `type`,
+      <if test="plain != null" >
+        plain,
       </if>
       <if test="disabled != null" >
         disabled,
+      </if>
+      <if test="size != null" >
+        `size`,
+      </if>
+      <if test="iconAlign != null" >
+        icon_align,
+      </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="handler != null" >
+        `handler`,
       </if>
       <if test="status != null" >
         `status`,
@@ -92,23 +106,32 @@
       <if test="gridId != null" >
         #{gridId,jdbcType=BIGINT},
       </if>
-      <if test="code != null" >
-        #{code,jdbcType=VARCHAR},
+      <if test="text != null" >
+        #{text,jdbcType=VARCHAR},
       </if>
-      <if test="caption != null" >
-        #{caption,jdbcType=VARCHAR},
+      <if test="iconCls != null" >
+        #{iconCls,jdbcType=VARCHAR},
       </if>
-      <if test="hint != null" >
-        #{hint,jdbcType=VARCHAR},
-      </if>
-      <if test="img != null" >
-        #{img,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
+      <if test="plain != null" >
+        #{plain,jdbcType=BIT},
       </if>
       <if test="disabled != null" >
         #{disabled,jdbcType=BIT},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="iconAlign != null" >
+        #{iconAlign,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="handler != null" >
+        #{handler,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=BIT},
@@ -133,23 +156,32 @@
       <if test="gridId != null" >
         grid_id = #{gridId,jdbcType=BIGINT},
       </if>
-      <if test="code != null" >
-        code = #{code,jdbcType=VARCHAR},
+      <if test="text != null" >
+        `text` = #{text,jdbcType=VARCHAR},
       </if>
-      <if test="caption != null" >
-        caption = #{caption,jdbcType=VARCHAR},
+      <if test="iconCls != null" >
+        icon_cls = #{iconCls,jdbcType=VARCHAR},
       </if>
-      <if test="hint != null" >
-        hint = #{hint,jdbcType=VARCHAR},
-      </if>
-      <if test="img != null" >
-        img = #{img,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        `type` = #{type,jdbcType=VARCHAR},
+      <if test="plain != null" >
+        plain = #{plain,jdbcType=BIT},
       </if>
       <if test="disabled != null" >
         disabled = #{disabled,jdbcType=BIT},
+      </if>
+      <if test="size != null" >
+        `size` = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="iconAlign != null" >
+        icon_align = #{iconAlign,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="handler != null" >
+        `handler` = #{handler,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         `status` = #{status,jdbcType=BIT},
@@ -172,12 +204,15 @@
   <update id="updateByPrimaryKey" parameterType="com.ufo.entity.GridButtonInfoEntity" >
     update ufo_grid_button_info
     set grid_id = #{gridId,jdbcType=BIGINT},
-      code = #{code,jdbcType=VARCHAR},
-      caption = #{caption,jdbcType=VARCHAR},
-      hint = #{hint,jdbcType=VARCHAR},
-      img = #{img,jdbcType=VARCHAR},
-      `type` = #{type,jdbcType=VARCHAR},
+      `text` = #{text,jdbcType=VARCHAR},
+      icon_cls = #{iconCls,jdbcType=VARCHAR},
+      plain = #{plain,jdbcType=BIT},
       disabled = #{disabled,jdbcType=BIT},
+      `size` = #{size,jdbcType=VARCHAR},
+      icon_align = #{iconAlign,jdbcType=VARCHAR},
+      width = #{width,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      `handler` = #{handler,jdbcType=VARCHAR},
       `status` = #{status,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       creater = #{creater,jdbcType=VARCHAR},

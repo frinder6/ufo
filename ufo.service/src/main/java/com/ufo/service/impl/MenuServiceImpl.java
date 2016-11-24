@@ -1,7 +1,8 @@
 package com.ufo.service.impl;
 
-import com.ufo.entity.W2uiGridResult;
 import com.ufo.entity.MenuInfoEntity;
+import com.ufo.entity.EasyuiGridResult;
+import com.ufo.entity.Page;
 import com.ufo.entity.sub.MenuInfoSubEntity;
 import com.ufo.mapper.MenuInfoEntityMapper;
 import com.ufo.mapper.impl.MenuInfoEntityMapperImpl;
@@ -43,11 +44,12 @@ public class MenuServiceImpl implements MenuService {
 
 
     @Override
-    public W2uiGridResult selectPage(MenuInfoSubEntity entity) {
-        W2uiGridResult result = new W2uiGridResult();
-        List<MenuInfoEntity> list = menuInfoEntityMapperImpl.selectPage(entity);
-        result.setTotal(list.size());
-        result.setRecords(list);
+    public EasyuiGridResult selectPage(Page page, MenuInfoEntity entity) {
+        EasyuiGridResult result = new EasyuiGridResult();
+        int count = menuInfoEntityMapperImpl.selectPageCount(entity);
+        List<MenuInfoEntity> list = menuInfoEntityMapperImpl.selectPage(page, entity);
+        result.setTotal(count);
+        result.setRows(list);
         return result;
     }
 

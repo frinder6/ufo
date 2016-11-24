@@ -9,33 +9,47 @@ public class GridColumnInfoEntity {
 
     private Long dataId;
 
-    private String caption;
-
-    private String name;
+    private String title;
 
     private String field;
 
-    private String size;
+    private Integer width;
 
-    private Boolean hidden;
+    private Integer rowspan;
+
+    private Integer colspan;
+
+    private String halign;
+
+    private String align;
 
     private Boolean sortable;
 
-    private String style;
+    private String order;
 
-    private String render;
+    private Boolean resizable;
 
-    private String attr;
+    private Boolean fixed;
 
-    private String editable;
+    private Boolean hidden;
+
+    private Boolean checkbox;
+
+    private Boolean frozen;
+
+    private String formatter;
+
+    private String styler;
+
+    private String sorter;
+
+    private String editor;
 
     private String type;
 
-    private String options;
-
     private String value;
 
-    private String text;
+    private String validType;
 
     private Boolean required;
 
@@ -79,20 +93,12 @@ public class GridColumnInfoEntity {
         this.dataId = dataId;
     }
 
-    public String getCaption() {
-        return caption;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCaption(String caption) {
-        this.caption = caption == null ? null : caption.trim();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 
     public String getField() {
@@ -103,20 +109,44 @@ public class GridColumnInfoEntity {
         this.field = field == null ? null : field.trim();
     }
 
-    public String getSize() {
-        return size;
+    public Integer getWidth() {
+        return width;
     }
 
-    public void setSize(String size) {
-        this.size = size == null ? null : size.trim();
+    public void setWidth(Integer width) {
+        this.width = width;
     }
 
-    public Boolean getHidden() {
-        return hidden;
+    public Integer getRowspan() {
+        return rowspan;
     }
 
-    public void setHidden(Boolean hidden) {
-        this.hidden = hidden;
+    public void setRowspan(Integer rowspan) {
+        this.rowspan = rowspan;
+    }
+
+    public Integer getColspan() {
+        return colspan;
+    }
+
+    public void setColspan(Integer colspan) {
+        this.colspan = colspan;
+    }
+
+    public String getHalign() {
+        return halign;
+    }
+
+    public void setHalign(String halign) {
+        this.halign = halign == null ? null : halign.trim();
+    }
+
+    public String getAlign() {
+        return align;
+    }
+
+    public void setAlign(String align) {
+        this.align = align == null ? null : align.trim();
     }
 
     public Boolean getSortable() {
@@ -127,36 +157,84 @@ public class GridColumnInfoEntity {
         this.sortable = sortable;
     }
 
-    public String getStyle() {
-        return style;
+    public String getOrder() {
+        return order;
     }
 
-    public void setStyle(String style) {
-        this.style = style == null ? null : style.trim();
+    public void setOrder(String order) {
+        this.order = order == null ? null : order.trim();
     }
 
-    public String getRender() {
-        return render;
+    public Boolean getResizable() {
+        return resizable;
     }
 
-    public void setRender(String render) {
-        this.render = render == null ? null : render.trim();
+    public void setResizable(Boolean resizable) {
+        this.resizable = resizable;
     }
 
-    public String getAttr() {
-        return attr;
+    public Boolean getFixed() {
+        return fixed;
     }
 
-    public void setAttr(String attr) {
-        this.attr = attr == null ? null : attr.trim();
+    public void setFixed(Boolean fixed) {
+        this.fixed = fixed;
     }
 
-    public String getEditable() {
-        return editable;
+    public Boolean getHidden() {
+        return hidden;
     }
 
-    public void setEditable(String editable) {
-        this.editable = editable == null ? null : editable.trim();
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public Boolean getCheckbox() {
+        return checkbox;
+    }
+
+    public void setCheckbox(Boolean checkbox) {
+        this.checkbox = checkbox;
+    }
+
+    public Boolean getFrozen() {
+        return frozen;
+    }
+
+    public void setFrozen(Boolean frozen) {
+        this.frozen = frozen;
+    }
+
+    public String getFormatter() {
+        return formatter;
+    }
+
+    public void setFormatter(String formatter) {
+        this.formatter = formatter == null ? null : formatter.trim();
+    }
+
+    public String getStyler() {
+        return styler;
+    }
+
+    public void setStyler(String styler) {
+        this.styler = styler == null ? null : styler.trim();
+    }
+
+    public String getSorter() {
+        return sorter;
+    }
+
+    public void setSorter(String sorter) {
+        this.sorter = sorter == null ? null : sorter.trim();
+    }
+
+    public String getEditor() {
+        return editor;
+    }
+
+    public void setEditor(String editor) {
+        this.editor = editor == null ? null : editor.trim();
     }
 
     public String getType() {
@@ -167,14 +245,6 @@ public class GridColumnInfoEntity {
         this.type = type == null ? null : type.trim();
     }
 
-    public String getOptions() {
-        return options;
-    }
-
-    public void setOptions(String options) {
-        this.options = options == null ? null : options.trim();
-    }
-
     public String getValue() {
         return value;
     }
@@ -183,12 +253,12 @@ public class GridColumnInfoEntity {
         this.value = value == null ? null : value.trim();
     }
 
-    public String getText() {
-        return text;
+    public String getValidType() {
+        return validType;
     }
 
-    public void setText(String text) {
-        this.text = text == null ? null : text.trim();
+    public void setValidType(String validType) {
+        this.validType = validType == null ? null : validType.trim();
     }
 
     public Boolean getRequired() {
@@ -278,20 +348,27 @@ public class GridColumnInfoEntity {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getGridId() == null ? other.getGridId() == null : this.getGridId().equals(other.getGridId()))
             && (this.getDataId() == null ? other.getDataId() == null : this.getDataId().equals(other.getDataId()))
-            && (this.getCaption() == null ? other.getCaption() == null : this.getCaption().equals(other.getCaption()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getField() == null ? other.getField() == null : this.getField().equals(other.getField()))
-            && (this.getSize() == null ? other.getSize() == null : this.getSize().equals(other.getSize()))
-            && (this.getHidden() == null ? other.getHidden() == null : this.getHidden().equals(other.getHidden()))
+            && (this.getWidth() == null ? other.getWidth() == null : this.getWidth().equals(other.getWidth()))
+            && (this.getRowspan() == null ? other.getRowspan() == null : this.getRowspan().equals(other.getRowspan()))
+            && (this.getColspan() == null ? other.getColspan() == null : this.getColspan().equals(other.getColspan()))
+            && (this.getHalign() == null ? other.getHalign() == null : this.getHalign().equals(other.getHalign()))
+            && (this.getAlign() == null ? other.getAlign() == null : this.getAlign().equals(other.getAlign()))
             && (this.getSortable() == null ? other.getSortable() == null : this.getSortable().equals(other.getSortable()))
-            && (this.getStyle() == null ? other.getStyle() == null : this.getStyle().equals(other.getStyle()))
-            && (this.getRender() == null ? other.getRender() == null : this.getRender().equals(other.getRender()))
-            && (this.getAttr() == null ? other.getAttr() == null : this.getAttr().equals(other.getAttr()))
-            && (this.getEditable() == null ? other.getEditable() == null : this.getEditable().equals(other.getEditable()))
+            && (this.getOrder() == null ? other.getOrder() == null : this.getOrder().equals(other.getOrder()))
+            && (this.getResizable() == null ? other.getResizable() == null : this.getResizable().equals(other.getResizable()))
+            && (this.getFixed() == null ? other.getFixed() == null : this.getFixed().equals(other.getFixed()))
+            && (this.getHidden() == null ? other.getHidden() == null : this.getHidden().equals(other.getHidden()))
+            && (this.getCheckbox() == null ? other.getCheckbox() == null : this.getCheckbox().equals(other.getCheckbox()))
+            && (this.getFrozen() == null ? other.getFrozen() == null : this.getFrozen().equals(other.getFrozen()))
+            && (this.getFormatter() == null ? other.getFormatter() == null : this.getFormatter().equals(other.getFormatter()))
+            && (this.getStyler() == null ? other.getStyler() == null : this.getStyler().equals(other.getStyler()))
+            && (this.getSorter() == null ? other.getSorter() == null : this.getSorter().equals(other.getSorter()))
+            && (this.getEditor() == null ? other.getEditor() == null : this.getEditor().equals(other.getEditor()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
-            && (this.getOptions() == null ? other.getOptions() == null : this.getOptions().equals(other.getOptions()))
             && (this.getValue() == null ? other.getValue() == null : this.getValue().equals(other.getValue()))
-            && (this.getText() == null ? other.getText() == null : this.getText().equals(other.getText()))
+            && (this.getValidType() == null ? other.getValidType() == null : this.getValidType().equals(other.getValidType()))
             && (this.getRequired() == null ? other.getRequired() == null : this.getRequired().equals(other.getRequired()))
             && (this.getSearchable() == null ? other.getSearchable() == null : this.getSearchable().equals(other.getSearchable()))
             && (this.getInsertable() == null ? other.getInsertable() == null : this.getInsertable().equals(other.getInsertable()))
@@ -310,20 +387,27 @@ public class GridColumnInfoEntity {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGridId() == null) ? 0 : getGridId().hashCode());
         result = prime * result + ((getDataId() == null) ? 0 : getDataId().hashCode());
-        result = prime * result + ((getCaption() == null) ? 0 : getCaption().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         result = prime * result + ((getField() == null) ? 0 : getField().hashCode());
-        result = prime * result + ((getSize() == null) ? 0 : getSize().hashCode());
-        result = prime * result + ((getHidden() == null) ? 0 : getHidden().hashCode());
+        result = prime * result + ((getWidth() == null) ? 0 : getWidth().hashCode());
+        result = prime * result + ((getRowspan() == null) ? 0 : getRowspan().hashCode());
+        result = prime * result + ((getColspan() == null) ? 0 : getColspan().hashCode());
+        result = prime * result + ((getHalign() == null) ? 0 : getHalign().hashCode());
+        result = prime * result + ((getAlign() == null) ? 0 : getAlign().hashCode());
         result = prime * result + ((getSortable() == null) ? 0 : getSortable().hashCode());
-        result = prime * result + ((getStyle() == null) ? 0 : getStyle().hashCode());
-        result = prime * result + ((getRender() == null) ? 0 : getRender().hashCode());
-        result = prime * result + ((getAttr() == null) ? 0 : getAttr().hashCode());
-        result = prime * result + ((getEditable() == null) ? 0 : getEditable().hashCode());
+        result = prime * result + ((getOrder() == null) ? 0 : getOrder().hashCode());
+        result = prime * result + ((getResizable() == null) ? 0 : getResizable().hashCode());
+        result = prime * result + ((getFixed() == null) ? 0 : getFixed().hashCode());
+        result = prime * result + ((getHidden() == null) ? 0 : getHidden().hashCode());
+        result = prime * result + ((getCheckbox() == null) ? 0 : getCheckbox().hashCode());
+        result = prime * result + ((getFrozen() == null) ? 0 : getFrozen().hashCode());
+        result = prime * result + ((getFormatter() == null) ? 0 : getFormatter().hashCode());
+        result = prime * result + ((getStyler() == null) ? 0 : getStyler().hashCode());
+        result = prime * result + ((getSorter() == null) ? 0 : getSorter().hashCode());
+        result = prime * result + ((getEditor() == null) ? 0 : getEditor().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
-        result = prime * result + ((getOptions() == null) ? 0 : getOptions().hashCode());
         result = prime * result + ((getValue() == null) ? 0 : getValue().hashCode());
-        result = prime * result + ((getText() == null) ? 0 : getText().hashCode());
+        result = prime * result + ((getValidType() == null) ? 0 : getValidType().hashCode());
         result = prime * result + ((getRequired() == null) ? 0 : getRequired().hashCode());
         result = prime * result + ((getSearchable() == null) ? 0 : getSearchable().hashCode());
         result = prime * result + ((getInsertable() == null) ? 0 : getInsertable().hashCode());
@@ -345,20 +429,27 @@ public class GridColumnInfoEntity {
         sb.append(", id=").append(id);
         sb.append(", gridId=").append(gridId);
         sb.append(", dataId=").append(dataId);
-        sb.append(", caption=").append(caption);
-        sb.append(", name=").append(name);
+        sb.append(", title=").append(title);
         sb.append(", field=").append(field);
-        sb.append(", size=").append(size);
-        sb.append(", hidden=").append(hidden);
+        sb.append(", width=").append(width);
+        sb.append(", rowspan=").append(rowspan);
+        sb.append(", colspan=").append(colspan);
+        sb.append(", halign=").append(halign);
+        sb.append(", align=").append(align);
         sb.append(", sortable=").append(sortable);
-        sb.append(", style=").append(style);
-        sb.append(", render=").append(render);
-        sb.append(", attr=").append(attr);
-        sb.append(", editable=").append(editable);
+        sb.append(", order=").append(order);
+        sb.append(", resizable=").append(resizable);
+        sb.append(", fixed=").append(fixed);
+        sb.append(", hidden=").append(hidden);
+        sb.append(", checkbox=").append(checkbox);
+        sb.append(", frozen=").append(frozen);
+        sb.append(", formatter=").append(formatter);
+        sb.append(", styler=").append(styler);
+        sb.append(", sorter=").append(sorter);
+        sb.append(", editor=").append(editor);
         sb.append(", type=").append(type);
-        sb.append(", options=").append(options);
         sb.append(", value=").append(value);
-        sb.append(", text=").append(text);
+        sb.append(", validType=").append(validType);
         sb.append(", required=").append(required);
         sb.append(", searchable=").append(searchable);
         sb.append(", insertable=").append(insertable);

@@ -13,7 +13,7 @@ public class MenuInfoEntity {
 
     private String icon;
 
-    private Byte sort;
+    private Byte orderby;
 
     private Boolean status;
 
@@ -65,12 +65,12 @@ public class MenuInfoEntity {
         this.icon = icon == null ? null : icon.trim();
     }
 
-    public Byte getSort() {
-        return sort;
+    public Byte getOrderby() {
+        return orderby;
     }
 
-    public void setSort(Byte sort) {
-        this.sort = sort;
+    public void setOrderby(Byte orderby) {
+        this.orderby = orderby;
     }
 
     public Boolean getStatus() {
@@ -130,7 +130,7 @@ public class MenuInfoEntity {
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
-            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
+            && (this.getOrderby() == null ? other.getOrderby() == null : this.getOrderby().equals(other.getOrderby()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -147,7 +147,7 @@ public class MenuInfoEntity {
         result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getIcon() == null) ? 0 : getIcon().hashCode());
-        result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
+        result = prime * result + ((getOrderby() == null) ? 0 : getOrderby().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
@@ -167,7 +167,7 @@ public class MenuInfoEntity {
         sb.append(", title=").append(title);
         sb.append(", url=").append(url);
         sb.append(", icon=").append(icon);
-        sb.append(", sort=").append(sort);
+        sb.append(", orderby=").append(orderby);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", creater=").append(creater);

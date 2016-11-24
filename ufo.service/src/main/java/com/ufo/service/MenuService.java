@@ -1,7 +1,8 @@
 package com.ufo.service;
 
-import com.ufo.entity.W2uiGridResult;
 import com.ufo.entity.MenuInfoEntity;
+import com.ufo.entity.EasyuiGridResult;
+import com.ufo.entity.Page;
 import com.ufo.entity.sub.MenuInfoSubEntity;
 import com.ufo.vo.MenuTreeInfoVO;
 
@@ -18,7 +19,7 @@ public interface MenuService {
 
     int selectPageCount(MenuInfoEntity entity);
 
-    W2uiGridResult selectPage(MenuInfoSubEntity entity);
+    EasyuiGridResult selectPage(Page page, MenuInfoEntity entity);
 
     MenuInfoEntity findById(Long id);
 

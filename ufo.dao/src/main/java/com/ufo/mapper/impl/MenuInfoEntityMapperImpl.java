@@ -1,8 +1,10 @@
 package com.ufo.mapper.impl;
 
 import com.ufo.entity.MenuInfoEntity;
+import com.ufo.entity.Page;
 import com.ufo.entity.sub.MenuInfoSubEntity;
 import com.ufo.vo.MenuTreeInfoVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,8 +17,8 @@ public interface MenuInfoEntityMapperImpl {
 
     List<MenuTreeInfoVO> selectTreeByPid(Long parentId);
 
-    List<MenuInfoEntity> selectPage(MenuInfoSubEntity entity);
+    List<MenuInfoEntity> selectPage(@Param("p") Page page, @Param("e") MenuInfoEntity entity);
 
-    int selectPageCount(MenuInfoEntity entity);
+    int selectPageCount(@Param("e") MenuInfoEntity entity);
 
 }

@@ -1,7 +1,8 @@
 package com.ufo.service;
 
+import com.ufo.entity.EasyuiFormTemplate;
 import com.ufo.entity.GridInfoEntity;
-import com.ufo.entity.W2uiGridTemplate;
+import com.ufo.entity.EasyuiGridTemplate;
 import com.ufo.vo.ColumnsVO;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,12 +14,14 @@ import java.util.Map;
  */
 public interface GridService {
 
-    W2uiGridTemplate selectGrid(String gridName) throws NullPointerException;
+    EasyuiGridTemplate selectGrid(String gridName) throws NullPointerException;
 
     List<ColumnsVO> selectColumns(String tableName);
 
     List<GridInfoEntity> selectPage(GridInfoEntity record);
 
-    void loadValidGridList(Map<String, W2uiGridTemplate> map) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, Exception;
+    void loadValidGridList(Map<String, EasyuiGridTemplate> map) throws Exception;
+
+    void loadValidFormList(Map<String, EasyuiFormTemplate> map) throws Exception;
 
 }
