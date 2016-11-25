@@ -7,6 +7,7 @@
     <result column="data_id" property="dataId" jdbcType="BIGINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="field" property="field" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="width" property="width" jdbcType="INTEGER" />
     <result column="rowspan" property="rowspan" jdbcType="INTEGER" />
     <result column="colspan" property="colspan" jdbcType="INTEGER" />
@@ -37,10 +38,10 @@
     <result column="updater" property="updater" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, grid_id, data_id, title, field, width, rowspan, colspan, halign, align, sortable, 
-    `order`, resizable, fixed, hidden, checkbox, frozen, formatter, styler, sorter, editor, 
-    `type`, `value`, valid_type, required, searchable, insertable, modifyable, `status`, 
-    create_time, creater, update_time, updater
+    id, grid_id, data_id, title, field, url, width, rowspan, colspan, halign, align, 
+    sortable, `order`, resizable, fixed, hidden, checkbox, frozen, formatter, styler, 
+    sorter, editor, `type`, `value`, valid_type, required, searchable, insertable, modifyable, 
+    `status`, create_time, creater, update_time, updater
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -54,27 +55,29 @@
   </delete>
   <insert id="insert" parameterType="com.ufo.entity.GridColumnInfoEntity" >
     insert into ufo_grid_column_info (id, grid_id, data_id, 
-      title, field, width, 
-      rowspan, colspan, halign, 
-      align, sortable, `order`, 
-      resizable, fixed, hidden, checkbox, 
-      frozen, formatter, styler, 
-      sorter, editor, `type`, 
-      `value`, valid_type, required, 
-      searchable, insertable, modifyable, 
-      `status`, create_time, creater, 
-      update_time, updater)
+      title, field, url, 
+      width, rowspan, colspan, 
+      halign, align, sortable, 
+      `order`, resizable, fixed, hidden, 
+      checkbox, frozen, formatter, 
+      styler, sorter, editor, 
+      `type`, `value`, valid_type, 
+      required, searchable, insertable, 
+      modifyable, `status`, create_time, 
+      creater, update_time, updater
+      )
     values (#{id,jdbcType=BIGINT}, #{gridId,jdbcType=BIGINT}, #{dataId,jdbcType=BIGINT}, 
-      #{title,jdbcType=VARCHAR}, #{field,jdbcType=VARCHAR}, #{width,jdbcType=INTEGER}, 
-      #{rowspan,jdbcType=INTEGER}, #{colspan,jdbcType=INTEGER}, #{halign,jdbcType=VARCHAR}, 
-      #{align,jdbcType=VARCHAR}, #{sortable,jdbcType=BIT}, #{order,jdbcType=VARCHAR}, 
-      #{resizable,jdbcType=BIT}, #{fixed,jdbcType=BIT}, #{hidden,jdbcType=BIT}, #{checkbox,jdbcType=BIT}, 
-      #{frozen,jdbcType=BIT}, #{formatter,jdbcType=VARCHAR}, #{styler,jdbcType=VARCHAR}, 
-      #{sorter,jdbcType=VARCHAR}, #{editor,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{value,jdbcType=VARCHAR}, #{validType,jdbcType=VARCHAR}, #{required,jdbcType=BIT}, 
-      #{searchable,jdbcType=BIT}, #{insertable,jdbcType=BIT}, #{modifyable,jdbcType=BIT}, 
-      #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR})
+      #{title,jdbcType=VARCHAR}, #{field,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{width,jdbcType=INTEGER}, #{rowspan,jdbcType=INTEGER}, #{colspan,jdbcType=INTEGER}, 
+      #{halign,jdbcType=VARCHAR}, #{align,jdbcType=VARCHAR}, #{sortable,jdbcType=BIT}, 
+      #{order,jdbcType=VARCHAR}, #{resizable,jdbcType=BIT}, #{fixed,jdbcType=BIT}, #{hidden,jdbcType=BIT}, 
+      #{checkbox,jdbcType=BIT}, #{frozen,jdbcType=BIT}, #{formatter,jdbcType=VARCHAR}, 
+      #{styler,jdbcType=VARCHAR}, #{sorter,jdbcType=VARCHAR}, #{editor,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{validType,jdbcType=VARCHAR}, 
+      #{required,jdbcType=BIT}, #{searchable,jdbcType=BIT}, #{insertable,jdbcType=BIT}, 
+      #{modifyable,jdbcType=BIT}, #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ufo.entity.GridColumnInfoEntity" >
     insert into ufo_grid_column_info
@@ -93,6 +96,9 @@
       </if>
       <if test="field != null" >
         field,
+      </if>
+      <if test="url != null" >
+        url,
       </if>
       <if test="width != null" >
         width,
@@ -195,6 +201,9 @@
       <if test="field != null" >
         #{field,jdbcType=VARCHAR},
       </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
       <if test="width != null" >
         #{width,jdbcType=INTEGER},
       </if>
@@ -296,6 +305,9 @@
       <if test="field != null" >
         field = #{field,jdbcType=VARCHAR},
       </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
       <if test="width != null" >
         width = #{width,jdbcType=INTEGER},
       </if>
@@ -389,6 +401,7 @@
       data_id = #{dataId,jdbcType=BIGINT},
       title = #{title,jdbcType=VARCHAR},
       field = #{field,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
       width = #{width,jdbcType=INTEGER},
       rowspan = #{rowspan,jdbcType=INTEGER},
       colspan = #{colspan,jdbcType=INTEGER},

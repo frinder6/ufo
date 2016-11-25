@@ -14,6 +14,14 @@
             height: 100%;
         }
 
+        .hide {
+            width: 100%;
+            max-width: 500px;
+            min-height: 200px;
+            padding: 10px;
+            display: none;
+        }
+
     </style>
 
 </head>
@@ -26,34 +34,160 @@
 </div>
 
 
-<div id="tooltip" style="width:100%;max-width:400px;padding:10px;display: none;"></div>
+<div id="tooltip" class="hide"></div>
+<div id="dialog" class="hide"></div>
 
 </body>
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="layer/layer.js"></script>
 
 <script type="text/javascript">
-    $.getJSON('grid/grid.options', {gridName: 'menu-info'}, function (data) {
-        console.log(data);
-        $.each(data.columns[0], function (i, v) {
-            if (v.formatter) {
-                v.formatter = eval('(' + v.formatter + ')');
-            }
+
+    /**
+     * 加载方法
+     */
+    var load = function (params) {
+        $.getJSON(params.url, {gridName: params.gridName}, function (data) {
+            console.log(data);
+            $.each(data.columns[0], function (i, v) {
+                if (v.formatter) {
+                    v.formatter = eval('(' + v.formatter + ')');
+                }
+            });
+            $.each(data.toolbar, function (i, v) {
+                if (v.handler) {
+                    v.handler = eval('(' + v.handler + ')');
+                }
+            });
+            data.queryParams = {title: 'test'};
+            console.log(data);
+            $('#grid').datagrid(data);
         });
-        $.each(data.toolbar, function (i, v) {
-            if (v.handler) {
-                v.handler = eval('(' + v.handler + ')');
-            }
-        });
-        console.log(data);
-        $('#grid').datagrid(data);
+    };
+
+    load({
+        url: 'grid/grid.options',
+        gridName: 'menu-info'
     });
 
+
+    /**
+     * 删除方法
+     */
+    var remove = function () {
+        var row = $('#grid').datagrid('getSelected');
+        if (row) {
+            $.messager.confirm('删除操作确认', '确认删除选中记录？', function (r) {
+                if (r) {
+                    $.getJSON('menu/remove.menu', {id: row.id}, function (data) {
+                        $('#grid').datagrid('reload');
+                        if (data.status) {
+                            layer.msg(data.message);
+                            row = null;
+                        } else {
+                            layer.msg('系统去开ufo了，请稍后重试！');
+                        }
+                    });
+                }
+            });
+        } else {
+            layer.msg('请选择需要删除的记录！');
+        }
+    };
+
+
+    /**
+     * 更新方法
+     */
+    var modify = function () {
+        var row = $('#grid').datagrid('getSelected');
+        if (row) {
+            $('#dialog').dialog({
+                title: '更新',
+                width: 400,
+                href: 'grid/grid.form?gridName=menu-info&action=modify',
+                modal: true,
+                resizable: true,
+                onLoad: function () {
+                    $('#form').form('load', row);
+                    $('#form').find('#btnOk').click(function () {
+                        $('#form').form('submit', {
+                            url: 'menu/update.menu?id=' + row.id,
+                            onSubmit: function () {
+                                return $(this).form('enableValidation').form('validate');
+                            },
+                            success: function (data) {
+                                $('#grid').datagrid('reload');
+                                $('#dialog').dialog('close');
+                                var r = JSON.parse(data);
+                                if (r.status) {
+                                    layer.msg(r.message);
+                                } else {
+                                    layer.msg('系统去开ufo了，请稍后重试！');
+                                }
+                            }
+                        });
+                    });
+                    $('#form').find('#btnCancel').click(function () {
+                        $('#form').form('clear');
+                    });
+                },
+                onClose: function () {
+                    $('#form').form('clear');
+                }
+            });
+        } else {
+            layer.msg('请选择需要更新的记录！');
+        }
+    };
+
+    /**
+     * 添加方法
+     */
+    var insert = function () {
+        $('#dialog').dialog({
+            title: '新增',
+            width: 400,
+            href: 'grid/grid.form?gridName=menu-info&action=insert',
+            modal: true,
+            resizable: true,
+            onLoad: function () {
+                $('#form').find('#btnOk').click(function () {
+                    $('#form').form('submit', {
+                        url: 'menu/add.menu',
+                        onSubmit: function () {
+                            return $(this).form('enableValidation').form('validate');
+                        },
+                        success: function (data) {
+                            $('#dialog').dialog('close');
+                            $('#grid').datagrid('reload');
+                            var r = JSON.parse(data);
+                            if (r.status) {
+                                layer.msg(r.message);
+                            } else {
+                                layer.msg('系统去开ufo了，请稍后重试！');
+                            }
+                        }
+                    });
+                });
+                $('#form').find('#btnCancel').click(function () {
+                    $('#form').form('clear');
+                });
+            },
+            onClose: function () {
+                $('#form').form('clear');
+            }
+        });
+    };
+
+    /**
+     * 查询方法
+     */
     var search = function () {
         $(this).tooltip({
             hideEvent: 'none',
-            // position: 'right',
             content: function () {
                 var e = $('#tooltip');
                 return e;
@@ -62,27 +196,24 @@
             onUpdate: function (content) {
                 content.panel({
                     width: 400,
-                    title: 'Login',
-                    content: '\
-                        <form id="ff" method="post">\
-                            <div style="margin-bottom:20px">\
-                                <input class="easyui-textbox" name="name" style="width:100%" data-options="label:\'Name:\',required:true">\
-                                </div>\
-                                <div style="margin-bottom:20px">\
-                                <input class="easyui-textbox" name="email" style="width:100%" data-options="label:\'Email:\',required:true,validType:\'email\'">\
-                                </div>\
-                                <div style="margin-bottom:20px">\
-                                <input class="easyui-textbox" name="subject" style="width:100%" data-options="label:\'Subject:\',required:true">\
-                                </div>\
-                                <div style="margin-bottom:20px">\
-                                <input class="easyui-textbox" name="message" style="width:100%;height:60px" data-options="label:\'Message:\',multiline:true">\
-                            </div>\
-                        </form>\
-                        <div style="text-align:center;padding:5px 0">\
-                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">Submit</a>\
-                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">Clear</a>\
-                        </div>\
-                    '
+                    title: '搜索栏',
+                    cache: true,
+                    href: 'grid/grid.form?gridName=menu-info&action=search',
+                    onLoad: function () {
+                        $('#form').find('#btnOk').click(function () {
+                            var formData = $('#form').serializeArray();
+                            var queryData = {};
+                            $.each(formData, function (i, v) {
+                                if (v.value != '') {
+                                    queryData[v.name] = v.value;
+                                }
+                            });
+                            $('#grid').datagrid('load', queryData);
+                        });
+                        $('#form').find('#btnCancel').click(function () {
+                            $('#form').form('clear');
+                        });
+                    }
                 });
             },
             onShow: function () {
@@ -96,25 +227,6 @@
         });
     };
 
-
-    //    $('#grid').datagrid({
-    //        url: 'menu/page.menu',
-    //        pagination: true,
-    //        fitColumns: true,
-    //        resizeHandle: 'both',
-    //        singleSelect: false,
-    //        fit: true,
-    //        pageSize: 20,
-    //        columns: [[
-    //            {field: 'status', title: '状态', width: 50, sortable: true},
-    //            {field: 'createTime', title: '创建时间', width: 150, align: 'center', sortable: true},
-    //            {field: 'updateTime', title: '修改时间', width: 150, align: 'center', sortable: true}
-    //        ]],
-    //        frozenColumns: [[
-    //            //{field: 'ck', width: 30, checkbox: true},
-    //            {field: 'title', title: '名称', width: 100, sortable: true}
-    //        ]]
-    //    });
 </script>
 
 

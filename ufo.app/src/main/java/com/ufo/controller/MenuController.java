@@ -1,13 +1,11 @@
 package com.ufo.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.ufo.entity.*;
 import com.ufo.entity.sub.MenuInfoSubEntity;
 import com.ufo.service.MenuService;
-import com.ufo.vo.MenuTreeInfoVO;
+import com.ufo.entity.EasyuiTreeTemplate;
 import com.util.MenuUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,12 +35,9 @@ public class MenuController {
     }
 
     @RequestMapping("/server.tree")
-    public MenuTreeInfoVO tree() {
-        MenuTreeInfoVO treeInfoVO = new MenuTreeInfoVO();
-        treeInfoVO.setId(0L);
-        List<MenuTreeInfoVO> treeInfoVOs = menuService.selectTree(0L);
-        treeInfoVO.setItem(treeInfoVOs);
-        return treeInfoVO;
+    public List<EasyuiTreeTemplate> tree() {
+        List<EasyuiTreeTemplate> treeTemplateList = menuService.selectTree(0L);
+        return treeTemplateList;
     }
 
     @RequestMapping("/page.menu")
@@ -58,24 +53,22 @@ public class MenuController {
 
 
     @RequestMapping("/add.menu")
-    public EasyuiResponse insert() {
-        W2uiAddRequest addRequest = W2uiRequestFactory.getAddRequest(request);
-        MenuInfoEntity entity = addRequest.convert2Object(MenuInfoEntity.class);
+    public EasyuiResponse insert(MenuInfoEntity entity) {
         entity.setCreateTime(new Date());
-        // menuService.insert(entity);
+        menuService.insert(entity);
         return new EasyuiResponse(EasyuiResponse.SUCCESS, "添加成功！");
     }
 
     @RequestMapping("/update.menu")
-    public Value modify(MenuInfoEntity entity) {
+    public EasyuiResponse modify(MenuInfoEntity entity) {
         menuService.update(entity);
-        return new Value("更新成功！");
+        return new EasyuiResponse(EasyuiResponse.SUCCESS, "更新成功！");
     }
 
     @RequestMapping("/remove.menu")
-    public Value remove(@RequestParam("id") Long id) {
+    public EasyuiResponse remove(@RequestParam("id") Long id) {
         menuService.delete(id);
-        return new Value("删除成功！");
+        return new EasyuiResponse(EasyuiResponse.SUCCESS, "更新成功！");
     }
 
 }

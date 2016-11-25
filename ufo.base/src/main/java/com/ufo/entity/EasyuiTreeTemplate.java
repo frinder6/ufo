@@ -1,4 +1,4 @@
-package com.ufo.vo;
+package com.ufo.entity;
 
 import lombok.Data;
 
@@ -8,10 +8,10 @@ import java.util.List;
  * Created by frinder6 on 2016/11/12.
  */
 @Data
-public class MenuTreeInfoVO {
+public class EasyuiTreeTemplate {
 
     private Long id;
     private String text;
-    private List<MenuTreeInfoVO> item;
+    private List<EasyuiTreeTemplate> children;
 
 }

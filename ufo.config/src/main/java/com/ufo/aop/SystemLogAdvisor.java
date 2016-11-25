@@ -72,12 +72,12 @@ public class SystemLogAdvisor {
         } catch (Exception e) {
             logger.info("request info : " + point.toLongString());
         }
-        Object result;
+        Object result = null;
         try {
             result = point.proceed();
         } catch (Throwable throwable) {
             logger.error("execute error : " + throwable.getMessage(), throwable);
-            throw new Throwable(throwable);
+            // throw new Throwable(throwable);
         }
         try {
             logger.info("response info : " + JSON.toJSONString(result));

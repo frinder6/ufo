@@ -50,8 +50,8 @@
         </javaClientGenerator>
         <!-- 表 -->
 
-        <table tableName="ufo_grid_button_info"
-               domainObjectName="GridButtonInfoEntity"
+        <table tableName="ufo_grid_column_info"
+               domainObjectName="GridColumnInfoEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -78,7 +78,7 @@
                selectByExampleQueryId="false"
         />
 
-         <table tableName="ufo_grid_column_info"
+        <table tableName="ufo_grid_column_info"
                domainObjectName="GridColumnInfoEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"

@@ -15,7 +15,7 @@
 (function($){
 	$.easyui = {
 		/**
-		 * Get the index of array item, return -1 when the item is not found.
+		 * Get the index of array children, return -1 when the children is not found.
 		 */
 		indexOfArray: function(a, o, id){
 			for(var i=0,len=a.length; i<len; i++){
@@ -28,7 +28,7 @@
 			return -1;
 		},
 		/**
-		 * Remove array item, 'o' parameter can be item object or id field name.
+		 * Remove array children, 'o' parameter can be children object or id field name.
 		 * When 'o' parameter is the id field name, the 'id' parameter is valid.
 		 */
 		removeArrayItem: function(a, o, id){
@@ -47,7 +47,7 @@
 			}
 		},
 		/**
-		 * Add un-duplicate array item, 'o' parameter is the id field name, if the 'r' object is exists, deny the action.
+		 * Add un-duplicate array children, 'o' parameter is the id field name, if the 'r' object is exists, deny the action.
 		 */
 		addArrayItem: function(a, o, r){
 			var index = this.indexOfArray(a, o, r ? r[o] : undefined);

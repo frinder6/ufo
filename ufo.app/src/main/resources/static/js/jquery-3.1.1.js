@@ -5738,7 +5738,7 @@ function domManip( collection, args, callback, ignored ) {
 			scripts = jQuery.map( getAll( fragment, "script" ), disableScript );
 			hasScripts = scripts.length;
 
-			// Use the original fragment for the last item
+			// Use the original fragment for the last children
 			// instead of the first because it can end up
 			// being emptied incorrectly in certain situations (#8070).
 			for ( ; i < l; i++ ) {
@@ -8355,11 +8355,11 @@ function buildParams( prefix, obj, traditional, add ) {
 
 	if ( jQuery.isArray( obj ) ) {
 
-		// Serialize array item.
+		// Serialize array children.
 		jQuery.each( obj, function( i, v ) {
 			if ( traditional || rbracket.test( prefix ) ) {
 
-				// Treat each array item as a scalar.
+				// Treat each array children as a scalar.
 				add( prefix, v );
 
 			} else {
@@ -8376,14 +8376,14 @@ function buildParams( prefix, obj, traditional, add ) {
 
 	} else if ( !traditional && jQuery.type( obj ) === "object" ) {
 
-		// Serialize object item.
+		// Serialize object children.
 		for ( name in obj ) {
 			buildParams( prefix + "[" + name + "]", obj[ name ], traditional, add );
 		}
 
 	} else {
 
-		// Serialize scalar item.
+		// Serialize scalar children.
 		add( prefix, obj );
 	}
 }

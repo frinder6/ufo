@@ -80,7 +80,7 @@
 	}
 
 	/**
-	 * create the menu item
+	 * create the menu children
 	 */
 	function createItem(target, div, options){
 		var item = $(div);
@@ -97,7 +97,7 @@
 			item.addClass('menu-sep');
 		}
 		if (!item.hasClass('menu-sep')){
-			item.addClass('menu-item');
+			item.addClass('menu-children');
 			item.empty().append($('<div class="menu-text"></div>').html(itemOpts.text));
 			if (itemOpts.iconCls){
 				$('<div class="menu-icon"></div>').addClass(itemOpts.iconCls).appendTo(item);
@@ -131,7 +131,7 @@
 			height: 'auto',
 			overflow: 'hidden'
 		});
-		menu.find('.menu-item').each(function(){
+		menu.find('.menu-children').each(function(){
 			$(this)._outerHeight(opts.itemHeight);
 			$(this).find('.menu-text').css({
 				height: (opts.itemHeight-2)+'px',
@@ -212,7 +212,7 @@
 	}
 	function mouseoverHandler(e){
 		var target = e.data.target;
-		var item = $(e.target).closest('.menu-item');
+		var item = $(e.target).closest('.menu-children');
 		if (item.length){
 			item.siblings().each(function(){
 				if (this.submenu){
@@ -223,7 +223,7 @@
 			// show this menu
 			item.addClass('menu-active');
 			
-			if (item.hasClass('menu-item-disabled')){
+			if (item.hasClass('menu-children-disabled')){
 				item.addClass('menu-active-disabled');
 				return;
 			}
@@ -238,7 +238,7 @@
 		}
 	}
 	function mouseoutHandler(e){
-		var item = $(e.target).closest('.menu-item');
+		var item = $(e.target).closest('.menu-children');
 		if (item.length){
 			item.removeClass('menu-active menu-active-disabled');
 			var submenu = item[0].submenu;
@@ -255,7 +255,7 @@
 	}
 	function clickHandler(e){
 		var target = e.data.target;
-		var item = $(e.target).closest('.menu-item');
+		var item = $(e.target).closest('.menu-children');
 		if (item.length){
 			var opts = $(target).data('menu').options;
 			var itemOpts = item.data('menuitem').options;
@@ -294,7 +294,7 @@
 	 * left: the left position to display
 	 * top: the top position to display
 	 * menu: the menu to display, if not defined, the 'target menu' is used
-	 * parent: the parent menu item to align to
+	 * parent: the parent menu children to align to
 	 * alignTo: the element object to align to
 	 */
 	function showMenu(target, param){
@@ -321,7 +321,7 @@
 			if (left < 0){left = 0;}
 			top = _fixTop(top, opts.alignTo);
 		} else {
-			var parent = param.parent;	// the parent menu item
+			var parent = param.parent;	// the parent menu children
 			left = parent.offset().left + parent.outerWidth() - 2;
 			if (left + menu.outerWidth() + 5 > $(window)._outerWidth() + $(document).scrollLeft()){
 				left = parent.offset().left - menu.outerWidth() + 2;
@@ -364,7 +364,7 @@
 	function hideMenu(menu){
 		if (menu && menu.length){
 			hideit(menu);
-			menu.find('div.menu-item').each(function(){
+			menu.find('div.menu-children').each(function(){
 				if (this.submenu){
 					hideMenu(this.submenu);
 				}
@@ -385,7 +385,7 @@
 		var result = null;
 		var tmp = $('<div></div>');
 		function find(menu){
-			menu.children('div.menu-item').each(function(){
+			menu.children('div.menu-children').each(function(){
 				var item = $(target).menu('getItem', this);
 				var s = tmp.empty().html(item.text).text();
 				if (text == $.trim(s)) {
@@ -402,14 +402,14 @@
 	
 	function setDisabled(target, itemEl, disabled){
 		var t = $(itemEl);
-		if (t.hasClass('menu-item')){
+		if (t.hasClass('menu-children')){
 			var opts = t.data('menuitem').options;
 			opts.disabled = disabled;
 			if (disabled){
-				t.addClass('menu-item-disabled');
+				t.addClass('menu-children-disabled');
 				t[0].onclick = null;
 			} else {
-				t.removeClass('menu-item-disabled');
+				t.removeClass('menu-children-disabled');
 				t[0].onclick = opts.onclick;
 			}
 		}
@@ -434,7 +434,7 @@
 	function removeItem(target, itemEl){
 		function removeit(el){
 			if (el.submenu){
-				el.submenu.children('div.menu-item').each(function(){
+				el.submenu.children('div.menu-children').each(function(){
 					removeit(this);
 				});
 				var shadow = el.submenu[0].shadow;
@@ -457,7 +457,7 @@
 	}
 	
 	function destroyMenu(target){
-		$(target).children('div.menu-item').each(function(){
+		$(target).children('div.menu-children').each(function(){
 			removeItem(target, this);
 		});
 		if (target.shadow) target.shadow.remove();
@@ -507,9 +507,9 @@
 			});
 		},
 		/**
-		 * set the menu item text
+		 * set the menu children text
 		 * param: {
-		 * 	target: DOM object, indicate the menu item
+		 * 	target: DOM object, indicate the menu children
 		 * 	text: string, the new text
 		 * }
 		 */
@@ -523,8 +523,8 @@
 		/**
 		 * set the menu icon class
 		 * param: {
-		 * 	target: DOM object, indicate the menu item
-		 * 	iconCls: the menu item icon class
+		 * 	target: DOM object, indicate the menu children
+		 * 	iconCls: the menu children icon class
 		 * }
 		 */
 		setIcon: function(jq, param){
@@ -538,14 +538,14 @@
 			});
 		},
 		/**
-		 * get the menu item data that contains the following property:
+		 * get the menu children data that contains the following property:
 		 * {
-		 * 	target: DOM object, the menu item
+		 * 	target: DOM object, the menu children
 		 *  id: the menu id
-		 * 	text: the menu item text
+		 * 	text: the menu children text
 		 * 	iconCls: the icon class
 		 *  href: a remote address to redirect to
-		 *  onclick: a function to be called when the item is clicked
+		 *  onclick: a function to be called when the children is clicked
 		 * }
 		 */
 		getItem: function(jq, itemEl){
@@ -558,9 +558,9 @@
 			return findItem(jq[0], text);
 		},
 		/**
-		 * append menu item, the param contains following properties:
+		 * append menu children, the param contains following properties:
 		 * parent,id,text,iconCls,href,onclick
-		 * when parent property is assigned, append menu item to it
+		 * when parent property is assigned, append menu children to it
 		 */
 		appendItem: function(jq, param){
 			return jq.each(function(){

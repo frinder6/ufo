@@ -7,7 +7,7 @@ import com.ufo.entity.sub.MenuInfoSubEntity;
 import com.ufo.mapper.MenuInfoEntityMapper;
 import com.ufo.mapper.impl.MenuInfoEntityMapperImpl;
 import com.ufo.service.MenuService;
-import com.ufo.vo.MenuTreeInfoVO;
+import com.ufo.entity.EasyuiTreeTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<MenuTreeInfoVO> selectTree(Long pid) {
+    public List<EasyuiTreeTemplate> selectTree(Long pid) {
         return menuInfoEntityMapperImpl.selectTreeByPid(pid);
     }
 

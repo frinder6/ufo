@@ -13,6 +13,8 @@ public class GridColumnInfoEntity {
 
     private String field;
 
+    private String url;
+
     private Integer width;
 
     private Integer rowspan;
@@ -107,6 +109,14 @@ public class GridColumnInfoEntity {
 
     public void setField(String field) {
         this.field = field == null ? null : field.trim();
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url == null ? null : url.trim();
     }
 
     public Integer getWidth() {
@@ -350,6 +360,7 @@ public class GridColumnInfoEntity {
             && (this.getDataId() == null ? other.getDataId() == null : this.getDataId().equals(other.getDataId()))
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getField() == null ? other.getField() == null : this.getField().equals(other.getField()))
+            && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getWidth() == null ? other.getWidth() == null : this.getWidth().equals(other.getWidth()))
             && (this.getRowspan() == null ? other.getRowspan() == null : this.getRowspan().equals(other.getRowspan()))
             && (this.getColspan() == null ? other.getColspan() == null : this.getColspan().equals(other.getColspan()))
@@ -389,6 +400,7 @@ public class GridColumnInfoEntity {
         result = prime * result + ((getDataId() == null) ? 0 : getDataId().hashCode());
         result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         result = prime * result + ((getField() == null) ? 0 : getField().hashCode());
+        result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getWidth() == null) ? 0 : getWidth().hashCode());
         result = prime * result + ((getRowspan() == null) ? 0 : getRowspan().hashCode());
         result = prime * result + ((getColspan() == null) ? 0 : getColspan().hashCode());
@@ -431,6 +443,7 @@ public class GridColumnInfoEntity {
         sb.append(", dataId=").append(dataId);
         sb.append(", title=").append(title);
         sb.append(", field=").append(field);
+        sb.append(", url=").append(url);
         sb.append(", width=").append(width);
         sb.append(", rowspan=").append(rowspan);
         sb.append(", colspan=").append(colspan);
