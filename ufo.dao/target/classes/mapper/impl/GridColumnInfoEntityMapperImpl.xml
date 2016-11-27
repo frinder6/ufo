@@ -12,6 +12,7 @@
         <include refid="Base_Column_List"/>
         from ufo_grid_column_info
         where grid_id = #{gridId,jdbcType=BIGINT}
+        ORDER BY data_id DESC
     </select>
 
 </mapper>

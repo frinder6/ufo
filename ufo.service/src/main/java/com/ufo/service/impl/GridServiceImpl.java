@@ -42,8 +42,13 @@ public class GridServiceImpl implements GridService {
 
 
     @Override
-    public List<GridInfoEntity> selectPage(GridInfoEntity record) {
-        return null;
+    public EasyuiGridResult selectPage(Page page, GridInfoEntity record) {
+        EasyuiGridResult result = new EasyuiGridResult();
+        int count = gridInfoEntityMapperImpl.selectPageCount(record);
+        List<GridInfoEntity> list = gridInfoEntityMapperImpl.selectPage(page, record);
+        result.setTotal(count);
+        result.setRows(list);
+        return result;
     }
 
 
@@ -189,16 +194,20 @@ public class GridServiceImpl implements GridService {
     private StringBuilder form(List<GridColumnInfoEntity> columnInfoEntityList, String text) {
         StringBuilder result = new StringBuilder();
         if (!CollectionUtils.isEmpty(columnInfoEntityList)) {
-            String textTemplate = "<div style=\"margin-bottom:20px\"><input class=\"easyui-%s\" name=\"%s\" style=\"width:100%%\" data-options=\"label:'%s：',required:%b\"></div>";
-            String treeTemplate = "<div style=\"margin-bottom:20px\"><select class=\"easyui-%s\" name=\"%s\" style=\"width:100%%\" data-options=\"label:'%s：',url:'%s',required:%b\"></select></div>";
+            String textTemplate = "<div style=\"margin-bottom:20px\"><input class=\"easyui-%s\" name=\"%s\" style=\"width:100%%\" data-options=\"label:'%s：',required:%b%s\"></div>";
+            String treeTemplate = "<div style=\"margin-bottom:20px\"><select class=\"easyui-%s\" name=\"%s\" style=\"width:100%%\" data-options=\"label:'%s：',required:%b%s\"></select></div>";
             result.append("<form id=\"form\" class=\"easyui-form\" method=\"post\" data-options=\"novalidate:true\">");
             String type;
+            StringBuilder append;
             for (GridColumnInfoEntity columnInfoEntity : columnInfoEntityList) {
                 type = columnInfoEntity.getType();
+                append = new StringBuilder(",url:").append(columnInfoEntity.getUrl());
                 if ("textbox".equalsIgnoreCase(type) || "datebox".equalsIgnoreCase(type)) {
-                    result.append(String.format(textTemplate, type, CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, columnInfoEntity.getField()), columnInfoEntity.getTitle(), columnInfoEntity.getRequired()));
+                    result.append(String.format(textTemplate, type, CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, columnInfoEntity.getField()), columnInfoEntity.getTitle(), columnInfoEntity.getRequired(), ""));
                 } else if ("combotree".equalsIgnoreCase(type)) {
-                    result.append(String.format(treeTemplate, type, CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, columnInfoEntity.getField()), columnInfoEntity.getTitle(), columnInfoEntity.getUrl(), columnInfoEntity.getRequired()));
+                    result.append(String.format(treeTemplate, type, CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, columnInfoEntity.getField()), columnInfoEntity.getTitle(), columnInfoEntity.getRequired(), append));
+                } else if ("combobox".equalsIgnoreCase(type)) {
+                    result.append(String.format(textTemplate, type, CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, columnInfoEntity.getField()), columnInfoEntity.getTitle(), columnInfoEntity.getRequired(), append));
                 }
             }
             result.append("<div style=\"text-align:center;padding:5px 0\">").

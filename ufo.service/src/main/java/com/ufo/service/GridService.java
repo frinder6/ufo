@@ -1,8 +1,6 @@
 package com.ufo.service;
 
-import com.ufo.entity.EasyuiFormTemplate;
-import com.ufo.entity.GridInfoEntity;
-import com.ufo.entity.EasyuiGridTemplate;
+import com.ufo.entity.*;
 import com.ufo.vo.ColumnsVO;
 
 import java.lang.reflect.InvocationTargetException;
@@ -18,7 +16,7 @@ public interface GridService {
 
     List<ColumnsVO> selectColumns(String tableName);
 
-    List<GridInfoEntity> selectPage(GridInfoEntity record);
+    EasyuiGridResult selectPage(Page page, GridInfoEntity record);
 
     void loadValidGridList(Map<String, EasyuiGridTemplate> map) throws Exception;
 

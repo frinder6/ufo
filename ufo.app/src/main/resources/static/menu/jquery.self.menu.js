@@ -17,7 +17,7 @@ $(function () {
          * 初始化菜单项
          */
         $('nav#menu').mmenu({
-            extensions: ['effect-slide-menu', 'shadow-page', 'shadow-panels'],
+            extensions: ['effect-slide-menu', 'shadow-page', 'shadow-panels', 'theme-dark'],
             counters: true,
             iconPanels: true,
             navbar: {

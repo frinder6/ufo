@@ -1,9 +1,7 @@
 package com.ufo.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.ufo.entity.EasyuiFormTemplate;
-import com.ufo.entity.EasyuiGridTemplate;
-import com.ufo.entity.EasyuiResponse;
+import com.ufo.entity.*;
 import com.ufo.init.W2uiGridTemplateLoader;
 import com.ufo.service.GridService;
 import org.slf4j.Logger;
@@ -12,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by frinder6 on 2016/11/5.
@@ -23,7 +23,17 @@ public class GridController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
+    protected HttpServletRequest request;
+
+    @Autowired
     private GridService gridService;
+
+    @RequestMapping("/page.menu")
+    public EasyuiGridResult page(GridInfoEntity entity) {
+        Page page = Page.getInstance(request);
+        return gridService.selectPage(page, entity);
+    }
+
 
     @RequestMapping("/grid.options")
     public EasyuiGridTemplate gridTemplate(@RequestParam("gridName") String gridName) {

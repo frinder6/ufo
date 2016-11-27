@@ -20,4 +20,42 @@
         where status = 1
     </select>
 
+    <sql id="Base_Where_Clause">
+        <if test="e.name != null">
+            AND `name` LIKE #{e.name,jdbcType=VARCHAR}'%',
+        </if>
+        <if test="e.status != null">
+            AND `status` = #{e.status,jdbcType=BIT},
+        </if>
+        <if test="e.createTime != null">
+            AND create_time = #{e.createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="e.creater != null">
+            AND creater = #{e.creater,jdbcType=VARCHAR},
+        </if>
+        <if test="e.updateTime != null">
+            AND update_time = #{e.updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="e.updater != null">
+            AND updater = #{e.updater,jdbcType=VARCHAR},
+        </if>
+    </sql>
+    <!-- 分页查询 -->
+    <select id="selectPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ufo_grid_info
+        WHERE 1 = 1
+        <include refid="Base_Where_Clause"/>
+        ORDER BY ${p.sort} ${p.order}
+        LIMIT #{p.pageFrom}, #{p.pageSize}
+    </select>
+    <select id="selectPageCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM ufo_grid_info
+        WHERE 1 = 1
+        <include refid="Base_Where_Clause"/>
+    </select>
+
 </mapper>

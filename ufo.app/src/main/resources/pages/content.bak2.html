@@ -50,10 +50,6 @@
 
 
 <div id="dialog" class="hide"></div>
-<div id="win" class="easyui-window" title="配置项" style="width:600px;height:400px;overflow: hidden;"
-     data-options="iconCls:'icon-save',closed:true,modal:true">
-    <iframe id="win-frame" src="content" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
-</div>
 
 </body>
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
@@ -62,8 +58,6 @@
 <script type="text/javascript" src="layer/layer.js"></script>
 
 <script type="text/javascript">
-
-    var gridName = '${gridName!"menu-info"}';
 
     /**
      * 加载方法
@@ -81,7 +75,7 @@
                     v.handler = eval('(' + v.handler + ')');
                 }
             });
-            // data.queryParams = {title: 'test'};
+            data.queryParams = {title: 'test'};
             console.log(data);
             $('#grid').datagrid(data);
         });
@@ -89,20 +83,8 @@
 
     load({
         url: 'grid/grid.options',
-//        gridName: 'menu-info',
-        gridName: gridName
+        gridName: 'menu-info'
     });
-
-
-    var man = function () {
-        var row = $('#grid').datagrid('getSelected');
-        if (row) {
-            $('#win-frame').attr('src', 'http://localhost:8080/ufo/content?gridName=grid-info?t=' + new Date().getMilliseconds());
-            $('#win').window('open');
-        } else {
-            layer.msg('请选择需要配置的记录！');
-        }
-    };
 
 
     /**
@@ -139,7 +121,7 @@
             $('#dialog').dialog({
                 title: '更新',
                 width: 400,
-                href: 'grid/grid.form?action=modify&gridName=' + gridName,
+                href: 'grid/grid.form?gridName=menu-info&action=modify',
                 modal: true,
                 resizable: true,
                 onLoad: function () {
@@ -182,7 +164,7 @@
         $('#dialog').dialog({
             title: '新增',
             width: 400,
-            href: 'grid/grid.form?action=insert&gridName=' + gridName,
+            href: 'grid/grid.form?gridName=menu-info&action=insert',
             modal: true,
             resizable: true,
             onLoad: function () {
@@ -221,7 +203,7 @@
         $('#dialog').dialog({
             title: '搜索栏',
             width: 400,
-            href: 'grid/grid.form?action=search&gridName=' + gridName,
+            href: 'grid/grid.form?gridName=menu-info&action=search',
             left: 20,
             top: 50,
             modal: false,

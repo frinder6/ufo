@@ -25,6 +25,26 @@
         <include refid="com.ufo.mapper.MenuInfoEntityMapper.Base_Column_List"/>
     </sql>
 
+    <!-- 级联查询菜单 -->
+    <select id="selectByPid" resultMap="MenuResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ufo_menu_info
+        WHERE status = 1
+        AND parent_id = #{parentId,jdbcType=BIGINT}
+        ORDER BY orderby
+    </select>
+
+    <!-- 级联查询菜单树 -->
+    <select id="selectTreeByPid" resultMap="TreeResultMap">
+        SELECT
+        id, title
+        FROM ufo_menu_info
+        WHERE status = 1
+        AND parent_id = #{parentId,jdbcType=BIGINT}
+        ORDER BY orderby
+    </select>
+
     <sql id="Base_Where_Clause">
         <if test="e.parentId != null">
             AND parent_id = #{e.parentId,jdbcType=BIGINT}
@@ -57,28 +77,6 @@
             AND updater = #{e.updater,jdbcType=VARCHAR}
         </if>
     </sql>
-
-    <!-- 级联查询菜单 -->
-    <select id="selectByPid" resultMap="MenuResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM ufo_menu_info
-        WHERE status = 1
-        AND parent_id = #{parentId,jdbcType=BIGINT}
-        ORDER BY orderby
-    </select>
-
-    <!-- 级联查询菜单树 -->
-    <select id="selectTreeByPid" resultMap="TreeResultMap">
-        SELECT
-        id, title
-        FROM ufo_menu_info
-        WHERE status = 1
-        AND parent_id = #{parentId,jdbcType=BIGINT}
-        ORDER BY orderby
-    </select>
-
-
     <!-- 分页查询 -->
     <select id="selectPage" resultMap="BaseResultMap">
         SELECT
