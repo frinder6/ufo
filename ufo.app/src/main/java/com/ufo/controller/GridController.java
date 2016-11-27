@@ -28,7 +28,7 @@ public class GridController {
     @Autowired
     private GridService gridService;
 
-    @RequestMapping("/page.menu")
+    @RequestMapping("/page.grid")
     public EasyuiGridResult page(GridInfoEntity entity) {
         Page page = Page.getInstance(request);
         return gridService.selectPage(page, entity);
