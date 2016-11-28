@@ -10,7 +10,7 @@
     <result column="nowrap" property="nowrap" jdbcType="BIT" />
     <result column="pagination" property="pagination" jdbcType="BIT" />
     <result column="rownumbers" property="rownumbers" jdbcType="BIT" />
-    <result column="singleSelect" property="singleselect" jdbcType="BIT" />
+    <result column="single_select" property="singleSelect" jdbcType="BIT" />
     <result column="multi_sort" property="multiSort" jdbcType="BIT" />
     <result column="page_position" property="pagePosition" jdbcType="VARCHAR" />
     <result column="page_size" property="pageSize" jdbcType="INTEGER" />
@@ -21,7 +21,7 @@
     <result column="updater" property="updater" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, grid_id, url, fit_columns, stripe, nowrap, pagination, rownumbers, singleSelect, 
+    id, grid_id, url, fit_columns, stripe, nowrap, pagination, rownumbers, single_select, 
     multi_sort, page_position, page_size, `status`, create_time, creater, update_time, 
     updater
   </sql>
@@ -38,13 +38,13 @@
   <insert id="insert" parameterType="com.ufo.entity.GridExtendInfoEntity" >
     insert into ufo_grid_extend_info (id, grid_id, url, 
       fit_columns, stripe, nowrap, pagination, 
-      rownumbers, singleSelect, multi_sort, 
+      rownumbers, single_select, multi_sort, 
       page_position, page_size, `status`, 
       create_time, creater, update_time, 
       updater)
     values (#{id,jdbcType=BIGINT}, #{gridId,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, 
       #{fitColumns,jdbcType=BIT}, #{stripe,jdbcType=BIT}, #{nowrap,jdbcType=BIT}, #{pagination,jdbcType=BIT}, 
-      #{rownumbers,jdbcType=BIT}, #{singleselect,jdbcType=BIT}, #{multiSort,jdbcType=BIT}, 
+      #{rownumbers,jdbcType=BIT}, #{singleSelect,jdbcType=BIT}, #{multiSort,jdbcType=BIT}, 
       #{pagePosition,jdbcType=VARCHAR}, #{pageSize,jdbcType=INTEGER}, #{status,jdbcType=BIT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{updater,jdbcType=VARCHAR})
@@ -76,8 +76,8 @@
       <if test="rownumbers != null" >
         rownumbers,
       </if>
-      <if test="singleselect != null" >
-        singleSelect,
+      <if test="singleSelect != null" >
+        single_select,
       </if>
       <if test="multiSort != null" >
         multi_sort,
@@ -129,8 +129,8 @@
       <if test="rownumbers != null" >
         #{rownumbers,jdbcType=BIT},
       </if>
-      <if test="singleselect != null" >
-        #{singleselect,jdbcType=BIT},
+      <if test="singleSelect != null" >
+        #{singleSelect,jdbcType=BIT},
       </if>
       <if test="multiSort != null" >
         #{multiSort,jdbcType=BIT},
@@ -182,8 +182,8 @@
       <if test="rownumbers != null" >
         rownumbers = #{rownumbers,jdbcType=BIT},
       </if>
-      <if test="singleselect != null" >
-        singleSelect = #{singleselect,jdbcType=BIT},
+      <if test="singleSelect != null" >
+        single_select = #{singleSelect,jdbcType=BIT},
       </if>
       <if test="multiSort != null" >
         multi_sort = #{multiSort,jdbcType=BIT},
@@ -221,7 +221,7 @@
       nowrap = #{nowrap,jdbcType=BIT},
       pagination = #{pagination,jdbcType=BIT},
       rownumbers = #{rownumbers,jdbcType=BIT},
-      singleSelect = #{singleselect,jdbcType=BIT},
+      single_select = #{singleSelect,jdbcType=BIT},
       multi_sort = #{multiSort,jdbcType=BIT},
       page_position = #{pagePosition,jdbcType=VARCHAR},
       page_size = #{pageSize,jdbcType=INTEGER},

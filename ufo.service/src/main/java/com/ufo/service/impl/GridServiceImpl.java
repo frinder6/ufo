@@ -1,14 +1,21 @@
 package com.ufo.service.impl;
 
 import com.google.common.base.CaseFormat;
-import com.ufo.dao.ColumnsDao;
-import com.ufo.entity.*;
+import com.ufo.entity.EasyuiFormTemplate;
+import com.ufo.entity.EasyuiGridResult;
+import com.ufo.entity.EasyuiGridTemplate;
+import com.ufo.entity.GridButtonInfoEntity;
+import com.ufo.entity.GridColumnInfoEntity;
+import com.ufo.entity.GridExtendInfoEntity;
+import com.ufo.entity.GridInfoEntity;
+import com.ufo.entity.Page;
 import com.ufo.mapper.impl.GridButtonInfoEntityMapperImpl;
 import com.ufo.mapper.impl.GridColumnInfoEntityMapperImpl;
 import com.ufo.mapper.impl.GridExtendInfoEntityMapperImpl;
 import com.ufo.mapper.impl.GridInfoEntityMapperImpl;
+import com.ufo.mapper.impl.SystemDatabaseMapperImpl;
 import com.ufo.service.GridService;
-import com.ufo.vo.ColumnsVO;
+import com.ufo.vo.TableVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,14 +45,14 @@ public class GridServiceImpl implements GridService {
     private GridButtonInfoEntityMapperImpl gridButtonInfoEntityMapperImpl;
 
     @Autowired
-    private ColumnsDao columnsDao;
+    private SystemDatabaseMapperImpl systemDatabaseMapperImpl;
 
 
     @Override
-    public EasyuiGridResult selectPage(Page page, GridInfoEntity record) {
+    public EasyuiGridResult selectPage(Page page, GridInfoEntity entity) {
         EasyuiGridResult result = new EasyuiGridResult();
-        int count = gridInfoEntityMapperImpl.selectPageCount(record);
-        List<GridInfoEntity> list = gridInfoEntityMapperImpl.selectPage(page, record);
+        int count = gridInfoEntityMapperImpl.selectPageCount(entity);
+        List<GridInfoEntity> list = gridInfoEntityMapperImpl.selectPage(page, entity);
         result.setTotal(count);
         result.setRows(list);
         return result;
@@ -53,8 +60,32 @@ public class GridServiceImpl implements GridService {
 
 
     @Override
-    public List<ColumnsVO> selectColumns(String tableName) {
-        return columnsDao.selectByTableName(tableName);
+    public EasyuiGridResult selectTablePage(Page page) {
+        EasyuiGridResult result = new EasyuiGridResult();
+        List<TableVO> list = systemDatabaseMapperImpl.selectTablePage();
+        result.setTotal(list.size());
+        result.setRows(list);
+        return result;
+    }
+
+    @Override
+    public EasyuiGridResult selectTableColumnPage(Page page, String tableName) {
+        EasyuiGridResult result = new EasyuiGridResult();
+        List<GridColumnInfoEntity> list = systemDatabaseMapperImpl.selectTableColumnPage(tableName);
+        result.setTotal(list.size());
+        result.setRows(list);
+        return result;
+    }
+
+
+    @Override
+    public EasyuiGridResult selectColumnPage(Page page, GridColumnInfoEntity entity) {
+        EasyuiGridResult result = new EasyuiGridResult();
+        int count = gridColumnInfoEntityMapperImpl.selectPageCount(entity);
+        List<GridColumnInfoEntity> list = gridColumnInfoEntityMapperImpl.selectPage(page, entity);
+        result.setTotal(count);
+        result.setRows(list);
+        return result;
     }
 
 
@@ -79,7 +110,6 @@ public class GridServiceImpl implements GridService {
     public void loadValidGridList(Map<String, EasyuiGridTemplate> map) throws Exception {
         List<GridInfoEntity> gridInfoEntityList = gridInfoEntityMapperImpl.selectValidList();
         if (!CollectionUtils.isEmpty(gridInfoEntityList)) {
-
             // 临时变量
             EasyuiGridTemplate gridTemplate;
             long gridId;

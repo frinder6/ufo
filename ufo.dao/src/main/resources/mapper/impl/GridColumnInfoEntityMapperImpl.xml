@@ -15,4 +15,124 @@
         ORDER BY data_id DESC
     </select>
 
+
+    <sql id="Base_Where_Clause">
+        <if test="e.gridId != null">
+            AND grid_id = #{e.gridId,jdbcType=BIGINT}
+        </if>
+        <if test="e.dataId != null">
+            AND data_id = #{e.dataId,jdbcType=BIGINT}
+        </if>
+        <if test="e.title != null">
+            AND title = #{e.title,jdbcType=VARCHAR}
+        </if>
+        <if test="e.field != null">
+            AND field = #{e.field,jdbcType=VARCHAR}
+        </if>
+        <if test="e.url != null">
+            AND url = #{e.url,jdbcType=VARCHAR}
+        </if>
+        <if test="e.width != null">
+            AND width = #{e.width,jdbcType=INTEGER}
+        </if>
+        <if test="e.rowspan != null">
+            AND rowspan = #{e.rowspan,jdbcType=INTEGER}
+        </if>
+        <if test="e.colspan != null">
+            AND colspan = #{e.colspan,jdbcType=INTEGER}
+        </if>
+        <if test="e.halign != null">
+            AND halign = #{e.halign,jdbcType=VARCHAR}
+        </if>
+        <if test="e.align != null">
+            AND align = #{e.align,jdbcType=VARCHAR}
+        </if>
+        <if test="e.sortable != null">
+            AND sortable = #{e.sortable,jdbcType=BIT}
+        </if>
+        <!--<if test="e.order != null">
+            AND `order` = #{e.order,jdbcType=VARCHAR}
+        </if>-->
+        <if test="e.resizable != null">
+            AND resizable = #{e.resizable,jdbcType=BIT}
+        </if>
+        <if test="e.fixed != null">
+            AND fixed = #{e.fixed,jdbcType=BIT}
+        </if>
+        <if test="e.hidden != null">
+            AND hidden = #{e.hidden,jdbcType=BIT}
+        </if>
+        <if test="e.checkbox != null">
+            AND checkbox = #{e.checkbox,jdbcType=BIT}
+        </if>
+        <if test="e.frozen != null">
+            AND frozen = #{e.frozen,jdbcType=BIT}
+        </if>
+        <if test="e.formatter != null">
+            AND formatter = #{e.formatter,jdbcType=VARCHAR}
+        </if>
+        <if test="e.styler != null">
+            AND styler = #{e.styler,jdbcType=VARCHAR}
+        </if>
+        <if test="e.sorter != null">
+            AND sorter = #{e.sorter,jdbcType=VARCHAR}
+        </if>
+        <if test="e.editor != null">
+            AND editor = #{e.editor,jdbcType=VARCHAR}
+        </if>
+        <if test="e.type != null">
+            AND `type` = #{e.type,jdbcType=VARCHAR}
+        </if>
+        <if test="e.value != null">
+            AND `value` = #{e.value,jdbcType=VARCHAR}
+        </if>
+        <if test="e.validType != null">
+            AND valid_type = #{e.validType,jdbcType=VARCHAR}
+        </if>
+        <if test="e.required != null">
+            AND required = #{e.required,jdbcType=BIT}
+        </if>
+        <if test="e.searchable != null">
+            AND searchable = #{e.searchable,jdbcType=BIT}
+        </if>
+        <if test="e.insertable != null">
+            AND insertable = #{e.insertable,jdbcType=BIT}
+        </if>
+        <if test="e.modifyable != null">
+            AND modifyable = #{e.modifyable,jdbcType=BIT}
+        </if>
+        <if test="e.status != null">
+            AND `status` = #{e.status,jdbcType=BIT}
+        </if>
+        <if test="e.createTime != null">
+            AND create_time = #{e.createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="e.creater != null">
+            AND creater = #{e.creater,jdbcType=VARCHAR}
+        </if>
+        <if test="e.updateTime != null">
+            AND update_time = #{e.updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="e.updater != null">
+            AND updater = #{e.updater,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    <!-- 分页查询 -->
+    <select id="selectPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ufo_grid_column_info
+        WHERE 1 = 1
+        <include refid="Base_Where_Clause"/>
+        ORDER BY ${p.sort} ${p.order}
+        LIMIT #{p.pageFrom}, #{p.pageSize}
+    </select>
+    <select id="selectPageCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM ufo_grid_column_info
+        WHERE 1 = 1
+        <include refid="Base_Where_Clause"/>
+    </select>
+
 </mapper>

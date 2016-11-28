@@ -50,8 +50,8 @@
         </javaClientGenerator>
         <!-- 表 -->
 
-        <table tableName="ufo_dict_info"
-               domainObjectName="DictInfoEntity"
+        <table tableName="ufo_grid_extend_info"
+               domainObjectName="GridExtendInfoEntity"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

@@ -14,7 +14,7 @@
             height: 100%;
         }
 
-        .hide {
+        #dialog {
             width: 100%;
             max-width: 500px;
             min-height: 200px;
@@ -49,53 +49,29 @@
 </div>
 
 
-<div id="dialog" class="hide"></div>
-<div id="window" style="overflow: hidden;"></div>
-
-
 </body>
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="layer/layer.js"></script>
-
+<script type="text/javascript" src="easyui/jquery.easyui.self.js"></script>
 <script type="text/javascript">
-
-    var gridName = '${gridName!"menu-info"}';
-    layer.msg(gridName);
-
-    /**
-     * 加载方法
-     */
-    var load = function (params) {
-        $.getJSON(params.url, {gridName: params.gridName}, function (data) {
-            console.log(data);
-            $.each(data.columns[0], function (i, v) {
-                if (v.formatter) {
-                    v.formatter = eval('(' + v.formatter + ')');
-                }
-            });
-            $.each(data.toolbar, function (i, v) {
-                if (v.handler) {
-                    v.handler = eval('(' + v.handler + ')');
-                }
-            });
-            // data.queryParams = {title: 'test'};
-            console.log(data);
-            $('#grid').datagrid(data);
-        });
+    $grid = $('#grid');
+    params = {
+        gridName: '${gridName!"menu-info"}',
+        removeUrl: 'menu/remove.menu',
+        addUrl: 'menu/add.menu',
+        modifyUrl: 'menu/update.menu'
     };
 
-    load({
-        url: 'grid/grid.options',
-//        gridName: 'menu-info',
-        gridName: gridName
-    });
+    console.log(params);
 
+    grid();
 
     var man = function () {
         var row = $('#grid').datagrid('getSelected');
         if (row) {
+            $(document.body).append('<div id="window" style="overflow: hidden;"></div>');
             $('#window').window({
                 title: '表格配置',
                 width: 800,
@@ -108,155 +84,11 @@
                 draggable: false,
                 resizable: false,
                 iconCls: 'icon-save',
-                href: 'column-config'
+                href: 't3-conf'
             });
         } else {
             layer.msg('请选择需要配置的记录！');
         }
-    };
-
-
-    /**
-     * 删除方法
-     */
-    var remove = function () {
-        var row = $('#grid').datagrid('getSelected');
-        if (row) {
-            $.messager.confirm('删除操作确认', '确认删除选中记录？', function (r) {
-                if (r) {
-                    $.getJSON('menu/remove.menu', {id: row.id}, function (data) {
-                        $('#grid').datagrid('reload');
-                        if (data.status) {
-                            layer.msg(data.message);
-                            row = null;
-                        } else {
-                            layer.msg('系统去开ufo了，请稍后重试！');
-                        }
-                    });
-                }
-            });
-        } else {
-            layer.msg('请选择需要删除的记录！');
-        }
-    };
-
-
-    /**
-     * 更新方法
-     */
-    var modify = function () {
-        var row = $('#grid').datagrid('getSelected');
-        if (row) {
-            $('#dialog').dialog({
-                title: '更新',
-                width: 400,
-                href: 'grid/grid.form?action=modify&gridName=' + gridName,
-                modal: true,
-                resizable: true,
-                onLoad: function () {
-                    $('#form').form('load', row);
-                    $('#form').find('#btnOk').click(function () {
-                        $('#form').form('submit', {
-                            url: 'menu/update.menu?id=' + row.id,
-                            onSubmit: function () {
-                                return $(this).form('enableValidation').form('validate');
-                            },
-                            success: function (data) {
-                                $('#grid').datagrid('reload');
-                                $('#dialog').dialog('close');
-                                var r = JSON.parse(data);
-                                if (r.status) {
-                                    layer.msg(r.message);
-                                } else {
-                                    layer.msg('系统去开ufo了，请稍后重试！');
-                                }
-                            }
-                        });
-                    });
-                    $('#form').find('#btnCancel').click(function () {
-                        $('#form').form('clear');
-                    });
-                },
-                onClose: function () {
-                    $('#form').form('clear');
-                }
-            });
-        } else {
-            layer.msg('请选择需要更新的记录！');
-        }
-    };
-
-    /**
-     * 添加方法
-     */
-    var insert = function () {
-        $('#dialog').dialog({
-            title: '新增',
-            width: 400,
-            href: 'grid/grid.form?action=insert&gridName=' + gridName,
-            modal: true,
-            resizable: true,
-            onLoad: function () {
-                $('#form').find('#btnOk').click(function () {
-                    $('#form').form('submit', {
-                        url: 'menu/add.menu',
-                        onSubmit: function () {
-                            return $(this).form('enableValidation').form('validate');
-                        },
-                        success: function (data) {
-                            $('#dialog').dialog('close');
-                            $('#grid').datagrid('reload');
-                            var r = JSON.parse(data);
-                            if (r.status) {
-                                layer.msg(r.message);
-                            } else {
-                                layer.msg('系统去开ufo了，请稍后重试！');
-                            }
-                        }
-                    });
-                });
-                $('#form').find('#btnCancel').click(function () {
-                    $('#form').form('clear');
-                });
-            },
-            onClose: function () {
-                $('#form').form('clear');
-            }
-        });
-    };
-
-    /**
-     * 查询方法
-     */
-    var search = function () {
-        $('#dialog').dialog({
-            title: '搜索栏',
-            width: 400,
-            href: 'grid/grid.form?action=search&gridName=' + gridName,
-            left: 20,
-            top: 50,
-            modal: false,
-            resizable: true,
-            onLoad: function () {
-                $('#form').find('#btnOk').click(function () {
-                    var formData = $('#form').serializeArray();
-                    var queryData = {};
-                    $.each(formData, function (i, v) {
-                        if (v.value != '') {
-                            queryData[v.name] = v.value;
-                        }
-                    });
-                    $('#dialog').dialog('close');
-                    $('#grid').datagrid('load', queryData);
-                });
-                $('#form').find('#btnCancel').click(function () {
-                    $('#form').form('clear');
-                });
-            },
-            onClose: function () {
-                // $('#form').form('clear');
-            }
-        });
     };
 
 </script>

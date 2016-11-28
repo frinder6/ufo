@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @SpringBootApplication
 @EnableAsync
-@MapperScan({"com.ufo.mapper", "com.ufo.mapper.impl", "com.ufo.dao"})
+@MapperScan({"com.ufo.mapper", "com.ufo.mapper.impl"})
 public class App {
 
     public static void main(String[] args) {

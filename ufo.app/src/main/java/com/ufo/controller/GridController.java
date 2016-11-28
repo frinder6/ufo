@@ -35,6 +35,27 @@ public class GridController {
     }
 
 
+    @RequestMapping("/page.db.tables")
+    public EasyuiGridResult tablePage() {
+        Page page = Page.getInstance(request);
+        return gridService.selectTablePage(page);
+    }
+
+
+    @RequestMapping("/page.db.table.cls")
+    public EasyuiGridResult tableColumnPage(@RequestParam(required = false, name = "tableName")
+                                                    String tableName) {
+        Page page = Page.getInstance(request);
+        return gridService.selectTableColumnPage(page, tableName);
+    }
+
+    @RequestMapping("/page.grid.cls")
+    public EasyuiGridResult columnPage(GridColumnInfoEntity entity) {
+        Page page = Page.getInstance(request);
+        return gridService.selectColumnPage(page, entity);
+    }
+
+
     @RequestMapping("/grid.options")
     public EasyuiGridTemplate gridTemplate(@RequestParam("gridName") String gridName) {
         return W2uiGridTemplateLoader.GRIDS.get(gridName);

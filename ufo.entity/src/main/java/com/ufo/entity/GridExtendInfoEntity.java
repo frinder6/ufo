@@ -19,7 +19,7 @@ public class GridExtendInfoEntity {
 
     private Boolean rownumbers;
 
-    private Boolean singleselect;
+    private Boolean singleSelect;
 
     private Boolean multiSort;
 
@@ -101,12 +101,12 @@ public class GridExtendInfoEntity {
         this.rownumbers = rownumbers;
     }
 
-    public Boolean getSingleselect() {
-        return singleselect;
+    public Boolean getSingleSelect() {
+        return singleSelect;
     }
 
-    public void setSingleselect(Boolean singleselect) {
-        this.singleselect = singleselect;
+    public void setSingleSelect(Boolean singleSelect) {
+        this.singleSelect = singleSelect;
     }
 
     public Boolean getMultiSort() {
@@ -193,7 +193,7 @@ public class GridExtendInfoEntity {
             && (this.getNowrap() == null ? other.getNowrap() == null : this.getNowrap().equals(other.getNowrap()))
             && (this.getPagination() == null ? other.getPagination() == null : this.getPagination().equals(other.getPagination()))
             && (this.getRownumbers() == null ? other.getRownumbers() == null : this.getRownumbers().equals(other.getRownumbers()))
-            && (this.getSingleselect() == null ? other.getSingleselect() == null : this.getSingleselect().equals(other.getSingleselect()))
+            && (this.getSingleSelect() == null ? other.getSingleSelect() == null : this.getSingleSelect().equals(other.getSingleSelect()))
             && (this.getMultiSort() == null ? other.getMultiSort() == null : this.getMultiSort().equals(other.getMultiSort()))
             && (this.getPagePosition() == null ? other.getPagePosition() == null : this.getPagePosition().equals(other.getPagePosition()))
             && (this.getPageSize() == null ? other.getPageSize() == null : this.getPageSize().equals(other.getPageSize()))
@@ -216,7 +216,7 @@ public class GridExtendInfoEntity {
         result = prime * result + ((getNowrap() == null) ? 0 : getNowrap().hashCode());
         result = prime * result + ((getPagination() == null) ? 0 : getPagination().hashCode());
         result = prime * result + ((getRownumbers() == null) ? 0 : getRownumbers().hashCode());
-        result = prime * result + ((getSingleselect() == null) ? 0 : getSingleselect().hashCode());
+        result = prime * result + ((getSingleSelect() == null) ? 0 : getSingleSelect().hashCode());
         result = prime * result + ((getMultiSort() == null) ? 0 : getMultiSort().hashCode());
         result = prime * result + ((getPagePosition() == null) ? 0 : getPagePosition().hashCode());
         result = prime * result + ((getPageSize() == null) ? 0 : getPageSize().hashCode());
@@ -242,7 +242,7 @@ public class GridExtendInfoEntity {
         sb.append(", nowrap=").append(nowrap);
         sb.append(", pagination=").append(pagination);
         sb.append(", rownumbers=").append(rownumbers);
-        sb.append(", singleselect=").append(singleselect);
+        sb.append(", singleSelect=").append(singleSelect);
         sb.append(", multiSort=").append(multiSort);
         sb.append(", pagePosition=").append(pagePosition);
         sb.append(", pageSize=").append(pageSize);

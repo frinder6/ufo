@@ -14,9 +14,13 @@ public interface GridService {
 
     EasyuiGridTemplate selectGrid(String gridName) throws NullPointerException;
 
-    List<ColumnsVO> selectColumns(String tableName);
+    EasyuiGridResult selectPage(Page page, GridInfoEntity entity);
 
-    EasyuiGridResult selectPage(Page page, GridInfoEntity record);
+    EasyuiGridResult selectTablePage(Page page);
+
+    EasyuiGridResult selectTableColumnPage(Page page, String tableName);
+
+    EasyuiGridResult selectColumnPage(Page page, GridColumnInfoEntity entity);
 
     void loadValidGridList(Map<String, EasyuiGridTemplate> map) throws Exception;
 
