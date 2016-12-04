@@ -20,6 +20,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,9 +70,9 @@ public class GridServiceImpl implements GridService {
     }
 
     @Override
-    public EasyuiGridResult selectTableColumnPage(Page page, String tableName) {
+    public EasyuiGridResult selectTableColumnPage(Page page, String tableName, Long gridId) {
         EasyuiGridResult result = new EasyuiGridResult();
-        List<GridColumnInfoEntity> list = systemDatabaseMapperImpl.selectTableColumnPage(tableName);
+        List<GridColumnInfoEntity> list = systemDatabaseMapperImpl.selectTableColumnPage(tableName, gridId);
         result.setTotal(list.size());
         result.setRows(list);
         return result;
@@ -157,7 +158,7 @@ public class GridServiceImpl implements GridService {
                         gridTemplate.getToolbar().add(toolbar);
                     }
                 }
-                map.put(entity.getName(), gridTemplate);
+                map.put(entity.getName().toLowerCase(), gridTemplate);
             }
         }
     }
@@ -207,7 +208,7 @@ public class GridServiceImpl implements GridService {
                     if (!CollectionUtils.isEmpty(modifyList)) {
                         formTemplate.setModify(form(modifyList, "提交"));
                     }
-                    map.put(entity.getName(), formTemplate);
+                    map.put(entity.getName().toLowerCase(), formTemplate);
                 }
             }
         }

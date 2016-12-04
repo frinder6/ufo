@@ -9,6 +9,12 @@ public class GridExtendInfoEntity {
 
     private String url;
 
+    private String addUrl;
+
+    private String removeUrl;
+
+    private String modifyUrl;
+
     private Boolean fitColumns;
 
     private Boolean stripe;
@@ -59,6 +65,30 @@ public class GridExtendInfoEntity {
 
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
+    }
+
+    public String getAddUrl() {
+        return addUrl;
+    }
+
+    public void setAddUrl(String addUrl) {
+        this.addUrl = addUrl == null ? null : addUrl.trim();
+    }
+
+    public String getRemoveUrl() {
+        return removeUrl;
+    }
+
+    public void setRemoveUrl(String removeUrl) {
+        this.removeUrl = removeUrl == null ? null : removeUrl.trim();
+    }
+
+    public String getModifyUrl() {
+        return modifyUrl;
+    }
+
+    public void setModifyUrl(String modifyUrl) {
+        this.modifyUrl = modifyUrl == null ? null : modifyUrl.trim();
     }
 
     public Boolean getFitColumns() {
@@ -188,6 +218,9 @@ public class GridExtendInfoEntity {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getGridId() == null ? other.getGridId() == null : this.getGridId().equals(other.getGridId()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
+            && (this.getAddUrl() == null ? other.getAddUrl() == null : this.getAddUrl().equals(other.getAddUrl()))
+            && (this.getRemoveUrl() == null ? other.getRemoveUrl() == null : this.getRemoveUrl().equals(other.getRemoveUrl()))
+            && (this.getModifyUrl() == null ? other.getModifyUrl() == null : this.getModifyUrl().equals(other.getModifyUrl()))
             && (this.getFitColumns() == null ? other.getFitColumns() == null : this.getFitColumns().equals(other.getFitColumns()))
             && (this.getStripe() == null ? other.getStripe() == null : this.getStripe().equals(other.getStripe()))
             && (this.getNowrap() == null ? other.getNowrap() == null : this.getNowrap().equals(other.getNowrap()))
@@ -211,6 +244,9 @@ public class GridExtendInfoEntity {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGridId() == null) ? 0 : getGridId().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
+        result = prime * result + ((getAddUrl() == null) ? 0 : getAddUrl().hashCode());
+        result = prime * result + ((getRemoveUrl() == null) ? 0 : getRemoveUrl().hashCode());
+        result = prime * result + ((getModifyUrl() == null) ? 0 : getModifyUrl().hashCode());
         result = prime * result + ((getFitColumns() == null) ? 0 : getFitColumns().hashCode());
         result = prime * result + ((getStripe() == null) ? 0 : getStripe().hashCode());
         result = prime * result + ((getNowrap() == null) ? 0 : getNowrap().hashCode());
@@ -237,6 +273,9 @@ public class GridExtendInfoEntity {
         sb.append(", id=").append(id);
         sb.append(", gridId=").append(gridId);
         sb.append(", url=").append(url);
+        sb.append(", addUrl=").append(addUrl);
+        sb.append(", removeUrl=").append(removeUrl);
+        sb.append(", modifyUrl=").append(modifyUrl);
         sb.append(", fitColumns=").append(fitColumns);
         sb.append(", stripe=").append(stripe);
         sb.append(", nowrap=").append(nowrap);

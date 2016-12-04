@@ -18,7 +18,7 @@ public interface GridService {
 
     EasyuiGridResult selectTablePage(Page page);
 
-    EasyuiGridResult selectTableColumnPage(Page page, String tableName);
+    EasyuiGridResult selectTableColumnPage(Page page, String tableName, Long gridId);
 
     EasyuiGridResult selectColumnPage(Page page, GridColumnInfoEntity entity);
 

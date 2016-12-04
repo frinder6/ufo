@@ -2,13 +2,14 @@
  * 定义下面2个参数后，即可自动完成功能
  */
 var $grid;
-var params = {gridName: '', removeUrl: '', addUrl: '', modifyUrl: ''}
+var params = {gridName: '', removeUrl: '', addUrl: '', modifyUrl: ''};
+var selectRow;
 
 /**
  * 加载表格，使用全局参数
  * @param params
  */
-var grid = function () {
+var grid = function (q) {
     $.getJSON('grid/grid.options', {gridName: params.gridName}, function (data) {
         console.log(data);
         $.each(data.columns[0], function (i, v) {
@@ -21,6 +22,21 @@ var grid = function () {
                 v.handler = eval('(' + v.handler + ')');
             }
         });
+        if (q) {
+            data.queryParams = {};
+            $.extend(true, data.queryParams, q);
+        }
+        data.onSelect = function () {
+            selectRow = $grid.datagrid('getSelected');
+        };
+        data.onUnselect = function () {
+            var r = $grid.datagrid('getSelected');
+            if (r) {
+                selectRow = r;
+            } else {
+                selectRow = null;
+            }
+        };
         console.log(data);
         $grid.datagrid(data);
     });
@@ -30,7 +46,7 @@ var grid = function () {
  * 加载表格，使用自定义参数
  * @param params
  */
-var gridp = function (grid, p, queryParams) {
+var gridp = function (grid, p, q) {
     $.getJSON('grid/grid.options', {gridName: p.gridName}, function (data) {
         console.log(data);
         $.each(data.columns[0], function (i, v) {
@@ -43,10 +59,21 @@ var gridp = function (grid, p, queryParams) {
                 v.handler = eval('(' + v.handler + ')');
             }
         });
-        if (queryParams){
+        if (q) {
             data.queryParams = {};
-            $.extend(true, data.queryParams, queryParams);
+            $.extend(true, data.queryParams, q);
         }
+        data.onSelect = function () {
+            selectRow = $grid.datagrid('getSelected');
+        };
+        data.onUnselect = function () {
+            var r = $grid.datagrid('getSelected');
+            if (r) {
+                selectRow = r;
+            } else {
+                selectRow = null;
+            }
+        };
         console.log(data);
         grid.datagrid(data);
     });
@@ -85,15 +112,15 @@ var remove = function () {
 var modify = function () {
     var row = $grid.datagrid('getSelected');
     if (row) {
-        $(document.body).append('<div id="dialog"></div>');
-        $('#dialog').dialog({
+        var d = 'win_' + new Date().getMilliseconds();
+        $(document.body).append('<div id="' + d + '"></div>');
+        $('#' + d).dialog({
             title: '更新',
             width: 400,
             href: 'grid/grid.form?action=modify&gridName=' + params.gridName,
             modal: true,
             resizable: true,
             onLoad: function () {
-
                 $('#form').form('load', row);
                 $('#form').find('#btnOk').click(function () {
                     $('#form').form('submit', {
@@ -119,7 +146,7 @@ var modify = function () {
             },
             onClose: function () {
                 $('#form').form('clear');
-                $('#dialog').remove();
+                $('#' + d).remove();
             }
         });
     } else {
@@ -133,8 +160,9 @@ var modify = function () {
  * @param params
  */
 var insert = function () {
-    $(document.body).append('<div id="dialog"></div>');
-    $('#dialog').dialog({
+    var d = 'win_' + new Date().getMilliseconds();
+    $(document.body).append('<div id="' + d + '"></div>');
+    $('#' + d).dialog({
         title: '新增',
         width: 400,
         href: 'grid/grid.form?action=insert&gridName=' + params.gridName,
@@ -165,7 +193,7 @@ var insert = function () {
         },
         onClose: function () {
             $('#form').form('clear');
-            $('#dialog').remove();
+            $('#' + d).remove();
         }
     });
 };
@@ -176,8 +204,9 @@ var insert = function () {
  * @param params
  */
 var search = function () {
-    $(document.body).append('<div id="dialog"></div>');
-    $('#dialog').dialog({
+    var d = 'win_' + new Date().getMilliseconds();
+    $(document.body).append('<div id="' + d + '"></div>');
+    $('#' + d).dialog({
         title: '搜索栏',
         width: 400,
         href: 'grid/grid.form?action=search&gridName=' + params.gridName,
@@ -202,7 +231,59 @@ var search = function () {
             });
         },
         onClose: function () {
-            $('#dialog').remove();
+            $('#' + d).remove();
         }
     });
 };
+
+
+/**
+ * 使用 win 打开
+ * @param url
+ */
+var open = function (url, p) {
+    var d = 'win_' + new Date().getMilliseconds();
+    $(document.body).append('<div id="' + d + '" style="overflow:hidden"></div>');
+    var title = '';
+    if (selectRow) {
+        title = '[' + selectRow.title + ']';
+    }
+    var options = {
+        title: title + '配置窗',
+        width: 800,
+        height: 600,
+        left: 100,
+        top: 30,
+        modal: true,
+        // fit: true,
+        collapsible: false,
+        minimizable: false,
+        maximizable: false,
+        // draggable: false,
+        resizable: false,
+        iconCls: 'icon-save',
+        content: $('<iframe src="' + url + '" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>'),
+        onClose: function () {
+            $('#' + d).remove();
+        }
+    };
+    if (p) {
+        $.extend(true, options, p);
+    }
+    $('#' + d).window(options);
+};
+
+/**
+ * 选择一条记录后打开
+ * @param url
+ */
+var open2 = function (url, p) {
+    var row = $grid.datagrid('getSelected');
+    if (row) {
+        open(url, p);
+    } else {
+        layer.msg('请选择需要配置的记录！');
+    }
+};
+
+

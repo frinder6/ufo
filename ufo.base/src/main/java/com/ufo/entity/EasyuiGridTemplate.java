@@ -15,7 +15,11 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class EasyuiGridTemplate {
 
+    private String gridName;
     private String url;
+    private String addUrl;
+    private String removeUrl;
+    private String modifyUrl;
     private List<List<Column>> columns = new ArrayList<>();
     private List<List<Column>> frozenColumns = new ArrayList<>();
     private boolean fitColumns = true;

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <title>Content</title>
     <link rel="stylesheet" type="text/css" href="easyui/themes/black/easyui.css">
     <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
@@ -13,32 +12,7 @@
             width: 100%;
             height: 100%;
         }
-
-        #dialog {
-            width: 100%;
-            max-width: 500px;
-            min-height: 200px;
-            padding: 10px;
-            display: none;
-        }
-
-        .combobox-children {
-            font-size: 12px;
-            padding: 3px;
-        }
-
-        .combobox-children-hover {
-            background-color: #777;
-            color: #fff;
-        }
-
-        .combobox-children-selected {
-            background-color: #0052A3;
-            color: #fff;
-        }
-
     </style>
-
 </head>
 <body>
 
@@ -57,19 +31,13 @@
 <script type="text/javascript" src="easyui/jquery.easyui.self.js"></script>
 <script type="text/javascript">
     $grid = $('#grid');
-    var gridInfo = JSON.parse('${gridInfo!{}}');
-    console.log(gridInfo);
-    $.extend(true, params, gridInfo);
-    console.log(params);
-    selectRow = parent.selectRow;
-    if (selectRow) {
-        // 弹出页面
-        grid({gridId: selectRow.id});
-    } else {
-        // 主页面
-        grid();
-    }
+    params = {
+        gridName: '${gridName!"menu-info"}',
+        removeUrl: '',
+        addUrl: '',
+        modifyUrl: ''
+    };
+    var row = parent.selectRow;
+    grid({gridId: row.id});
 </script>
-
-
 </html>

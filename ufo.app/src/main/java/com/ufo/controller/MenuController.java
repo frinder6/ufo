@@ -40,7 +40,7 @@ public class MenuController {
         return treeTemplateList;
     }
 
-    @RequestMapping("/page.menu")
+    @RequestMapping("/page.menus")
     public EasyuiGridResult page(MenuInfoEntity entity) {
         Page page = Page.getInstance(request);
         return menuService.selectPage(page, entity);
@@ -61,13 +61,13 @@ public class MenuController {
 
     @RequestMapping("/update.menu")
     public EasyuiResponse modify(MenuInfoEntity entity) {
-        menuService.update(entity);
+        // menuService.update(entity);
         return new EasyuiResponse(EasyuiResponse.SUCCESS, "更新成功！");
     }
 
     @RequestMapping("/remove.menu")
     public EasyuiResponse remove(@RequestParam("id") Long id) {
-        menuService.delete(id);
+        // menuService.delete(id);
         return new EasyuiResponse(EasyuiResponse.SUCCESS, "更新成功！");
     }
 

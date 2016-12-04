@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Content</title>
+    <link rel="stylesheet" type="text/css" href="easyui/themes/black/easyui.css">
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+    <link href="layer/skin/layer.css" rel="stylesheet"/>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'west',split:false,collapsible:false" title="已配置项" style="width:50%;">
+        <table id="lgrid"></table>
+    </div>
+
+    <div data-options="region:'center',split:false" title="系统表与列项" style="width:50%;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'north'" style="height:50px;padding:10px;">
+                <select class="easyui-combogrid" style="width:350px;"
+                        data-options="
+                    panelWidth: 350,
+                    idField: 'tableName',
+                    textField: 'tableComment',
+                    url: 'grid/page.tables',
+                    columns: [[{
+                        field: 'tableName',
+                        title: '表名',
+                        width: 100
+                    },
+                    {
+                        field: 'tableComment',
+                        title: '描述',
+                        width: 150
+                    }]],
+                    fitColumns: true,
+                    label: '选择系统表：',
+                    onChange: function(newValue, oldValue){
+                        change(newValue);
+                    }
+                ">
+                </select>
+            </div>
+            <div data-options="region:'center',fit:true">
+                <table id="rgrid"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="layer/layer.js"></script>
+<script type="text/javascript" src="easyui/jquery.easyui.self.js"></script>
+<script type="text/javascript">
+    $lgrid = $('#lgrid');
+    $rgrid = $('#rgrid');
+    selectRow = parent.selectRow;
+    gridp($lgrid, {gridName: 'conf-grid-columns-info'}, {gridId: selectRow.id});
+    gridp($rgrid, {gridName: 'conf-table-columns-info'});
+
+    var importC = function () {
+        var rows = $rgrid.datagrid('getSelections');
+        $.each(rows, function (i, row) {
+            $rgrid.datagrid('deleteRow', i);
+            $lgrid.datagrid('appendRow', row);
+        });
+        console.log(rows);
+    };
+
+    /**
+     * 下拉grid变化时触发事件
+     * @param v
+     */
+    var change = function (v) {
+        $rgrid.datagrid('load', {tableName: v, gridId: selectRow.id});
+    };
+</script>
+</html>

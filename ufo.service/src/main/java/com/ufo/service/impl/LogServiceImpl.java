@@ -35,7 +35,11 @@ public class LogServiceImpl implements LogService {
         entity.setHandler("sys");
         entity.setClassName(point.getTarget().getClass().getName());
         entity.setMethod(point.getSignature().getName());
-        entity.setMethodParams(Joiner.on(",").join(point.getArgs()));
+        try {
+            entity.setMethodParams(Joiner.on(",").join(point.getArgs()));
+        } catch (Exception e) {
+            entity.setMethodParams("{}");
+        }
         entity.setCreateTime(new Date());
         Object result = null;
         try {

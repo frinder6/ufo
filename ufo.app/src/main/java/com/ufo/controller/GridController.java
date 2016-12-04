@@ -7,6 +7,7 @@ import com.ufo.service.GridService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,28 +29,34 @@ public class GridController {
     @Autowired
     private GridService gridService;
 
-    @RequestMapping("/page.grid")
+    @RequestMapping("/page.grids")
     public EasyuiGridResult page(GridInfoEntity entity) {
         Page page = Page.getInstance(request);
         return gridService.selectPage(page, entity);
     }
 
 
-    @RequestMapping("/page.db.tables")
+    @RequestMapping("/page.tables")
     public EasyuiGridResult tablePage() {
         Page page = Page.getInstance(request);
         return gridService.selectTablePage(page);
     }
 
 
-    @RequestMapping("/page.db.table.cls")
-    public EasyuiGridResult tableColumnPage(@RequestParam(required = false, name = "tableName")
-                                                    String tableName) {
+    @RequestMapping("/page.table.columns")
+    public EasyuiGridResult tableColumnPage(
+            @RequestParam(required = false, name = "tableName") String tableName,
+            @RequestParam(required = false, name = "gridId") Long gridId) {
         Page page = Page.getInstance(request);
-        return gridService.selectTableColumnPage(page, tableName);
+        if (StringUtils.isEmpty(tableName) || null == gridId) {
+            return EasyuiGridResult.getEmptyInstance();
+        }
+        tableName = StringUtils.isEmpty(tableName) ? "" : tableName;
+        gridId = null == gridId ? 0L : gridId;
+        return gridService.selectTableColumnPage(page, tableName, gridId);
     }
 
-    @RequestMapping("/page.grid.cls")
+    @RequestMapping("/page.columns")
     public EasyuiGridResult columnPage(GridColumnInfoEntity entity) {
         Page page = Page.getInstance(request);
         return gridService.selectColumnPage(page, entity);
@@ -58,7 +65,7 @@ public class GridController {
 
     @RequestMapping("/grid.options")
     public EasyuiGridTemplate gridTemplate(@RequestParam("gridName") String gridName) {
-        return W2uiGridTemplateLoader.GRIDS.get(gridName);
+        return W2uiGridTemplateLoader.GRIDS.get(gridName.toLowerCase());
     }
 
     @RequestMapping("/grid.form")
