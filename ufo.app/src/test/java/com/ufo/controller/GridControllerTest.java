@@ -38,11 +38,12 @@ public class GridControllerTest {
 
     @Test
     public void dxGridTemplate() throws Exception {
-        String uri = "/grid/dx.grid.options";
+        String uri = "/grid/grid.form2";
         String responseStr = mvc.perform(MockMvcRequestBuilders
                 .post(uri, "json")
                 .accept(MediaType.APPLICATION_JSON)
-                .param("gridName", "导航信息表")
+                .param("gridName", "menu-info")
+                .param("action", "search")
         )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())

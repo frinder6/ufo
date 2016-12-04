@@ -1,6 +1,8 @@
 package com.ufo.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.ufo.entity.*;
 import com.ufo.init.W2uiGridTemplateLoader;
 import com.ufo.service.GridService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -108,6 +111,22 @@ public class GridController {
             return template.getModify();
         }
         return null;
+    }
+
+    @RequestMapping("/grid.form2")
+    public Collection<EasyuiFieldTemplate> form2Template(@RequestParam("gridName") String gridName, @RequestParam("action") String action) {
+        EasyuiFormTemplate template = W2uiGridTemplateLoader.FROMS2.get(gridName.toLowerCase());
+        Predicate<EasyuiFieldTemplate> predicate;
+        if ("search".equalsIgnoreCase(action)) {
+            predicate = (EasyuiFieldTemplate o) -> o.isSearchable();
+        } else if ("insert".equalsIgnoreCase(action)) {
+            predicate = (EasyuiFieldTemplate o) -> o.isInsertable();
+        } else if ("modify".equalsIgnoreCase(action)) {
+            predicate = (EasyuiFieldTemplate o) -> o.isModifyable();
+        } else {
+            predicate = (EasyuiFieldTemplate o) -> o.isSearchable();
+        }
+        return Collections2.filter(template.getTemplateList(), predicate);
     }
 
 

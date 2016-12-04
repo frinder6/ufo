@@ -23,6 +23,7 @@ public class W2uiGridTemplateLoader {
 
     public static final Map<String, EasyuiGridTemplate> GRIDS = new ConcurrentHashMap<>();
     public static final Map<String, EasyuiFormTemplate> FROMS = new ConcurrentHashMap<>();
+    public static final Map<String, EasyuiFormTemplate> FROMS2 = new ConcurrentHashMap<>();
 
     @Autowired
     private GridServiceImpl gridService;
@@ -31,8 +32,10 @@ public class W2uiGridTemplateLoader {
     public void load() throws Exception {
         gridService.loadValidGridList(GRIDS);
         gridService.loadValidFormList(FROMS);
+        gridService.loadValidFormList2(FROMS2);
         logger.info(JSON.toJSONString(GRIDS));
         logger.info(JSON.toJSONString(FROMS));
+        logger.info(JSON.toJSONString(FROMS2));
     }
 
 }

@@ -239,6 +239,13 @@ public class GridServiceImpl implements GridService {
         }
     }
 
+    /**
+     * 后台构造出form对象，将拼接交给前端
+     *
+     * @param map
+     * @throws Exception
+     */
+    @Override
     public void loadValidFormList2(Map<String, EasyuiFormTemplate> map) throws Exception {
         List<GridInfoEntity> gridInfoEntityList = gridInfoEntityMapperImpl.selectValidList();
         if (!CollectionUtils.isEmpty(gridInfoEntityList)) {
@@ -267,6 +274,7 @@ public class GridServiceImpl implements GridService {
                         fieldTemplate.setInsertable(columnInfoEntity.getInsertable());
                         fieldTemplate.setSearchable(columnInfoEntity.getSearchable());
                         fieldTemplate.setModifyable(columnInfoEntity.getModifyable());
+                        formTemplate.getTemplateList().add(fieldTemplate);
                     }
                     map.put(entity.getName().toLowerCase(), formTemplate);
                 }
