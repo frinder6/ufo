@@ -55,7 +55,7 @@ public class MenuController {
     @RequestMapping("/add.menu")
     public EasyuiResponse insert(MenuInfoEntity entity) {
         entity.setCreateTime(new Date());
-        menuService.insert(entity);
+        // menuService.insert(entity);
         return new EasyuiResponse(EasyuiResponse.SUCCESS, "添加成功！");
     }
 

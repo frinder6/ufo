@@ -135,4 +135,23 @@
         <include refid="Base_Where_Clause"/>
     </select>
 
+
+    <insert id="batchInsertSelective" parameterType="com.ufo.vo.ColumnsVO" useGeneratedKeys="true" keyProperty="id">
+        insert into ufo_grid_column_info
+        <trim prefix="(" suffix=") VALUES" suffixOverrides=",">
+            grid_id,
+            title,
+            field,
+            create_time
+        </trim>
+        <foreach collection="entityList" item="e" separator=",">
+            <trim prefix="(" suffix=")">
+                #{gridId,jdbcType=BIGINT},
+                #{e.title,jdbcType=VARCHAR},
+                #{e.field,jdbcType=VARCHAR},
+                NOW()
+            </trim>
+        </foreach>
+    </insert>
+
 </mapper>

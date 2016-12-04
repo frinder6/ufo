@@ -26,4 +26,14 @@ public interface GridService {
 
     void loadValidFormList(Map<String, EasyuiFormTemplate> map) throws Exception;
 
+    void loadValidFormList2(Map<String, EasyuiFormTemplate> map) throws Exception;
+
+    void batchInsertSelective(ColumnsVO columnsVO);
+
+    void insert(GridInfoEntity entity);
+
+    void delete(Long id);
+
+    void update(GridInfoEntity entity);
+
 }

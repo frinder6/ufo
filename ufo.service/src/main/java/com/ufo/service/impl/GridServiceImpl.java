@@ -1,6 +1,7 @@
 package com.ufo.service.impl;
 
 import com.google.common.base.CaseFormat;
+import com.ufo.entity.EasyuiFieldTemplate;
 import com.ufo.entity.EasyuiFormTemplate;
 import com.ufo.entity.EasyuiGridResult;
 import com.ufo.entity.EasyuiGridTemplate;
@@ -9,12 +10,14 @@ import com.ufo.entity.GridColumnInfoEntity;
 import com.ufo.entity.GridExtendInfoEntity;
 import com.ufo.entity.GridInfoEntity;
 import com.ufo.entity.Page;
+import com.ufo.mapper.GridInfoEntityMapper;
 import com.ufo.mapper.impl.GridButtonInfoEntityMapperImpl;
 import com.ufo.mapper.impl.GridColumnInfoEntityMapperImpl;
 import com.ufo.mapper.impl.GridExtendInfoEntityMapperImpl;
 import com.ufo.mapper.impl.GridInfoEntityMapperImpl;
 import com.ufo.mapper.impl.SystemDatabaseMapperImpl;
 import com.ufo.service.GridService;
+import com.ufo.vo.ColumnsVO;
 import com.ufo.vo.TableVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +43,9 @@ public class GridServiceImpl implements GridService {
     private GridInfoEntityMapperImpl gridInfoEntityMapperImpl;
 
     @Autowired
+    private GridInfoEntityMapper gridInfoEntityMapper;
+
+    @Autowired
     private GridExtendInfoEntityMapperImpl gridExtendInfoEntityMapperImpl;
 
     @Autowired
@@ -48,6 +54,25 @@ public class GridServiceImpl implements GridService {
     @Autowired
     private SystemDatabaseMapperImpl systemDatabaseMapperImpl;
 
+    @Override
+    public void insert(GridInfoEntity entity) {
+        gridInfoEntityMapper.insertSelective(entity);
+    }
+
+    @Override
+    public void delete(Long id) {
+        gridInfoEntityMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void update(GridInfoEntity entity) {
+        gridInfoEntityMapper.updateByPrimaryKeySelective(entity);
+    }
+
+    @Override
+    public void batchInsertSelective(ColumnsVO columnsVO) {
+        gridColumnInfoEntityMapperImpl.batchInsertSelective(columnsVO);
+    }
 
     @Override
     public EasyuiGridResult selectPage(Page page, GridInfoEntity entity) {
@@ -207,6 +232,41 @@ public class GridServiceImpl implements GridService {
                     }
                     if (!CollectionUtils.isEmpty(modifyList)) {
                         formTemplate.setModify(form(modifyList, "提交"));
+                    }
+                    map.put(entity.getName().toLowerCase(), formTemplate);
+                }
+            }
+        }
+    }
+
+    public void loadValidFormList2(Map<String, EasyuiFormTemplate> map) throws Exception {
+        List<GridInfoEntity> gridInfoEntityList = gridInfoEntityMapperImpl.selectValidList();
+        if (!CollectionUtils.isEmpty(gridInfoEntityList)) {
+            long gridId;
+            String classTemplate = "easyui-%s";
+            for (GridInfoEntity entity : gridInfoEntityList) {
+                EasyuiFormTemplate formTemplate = new EasyuiFormTemplate();
+                gridId = entity.getId();
+                // 查询grid对应的列
+                List<GridColumnInfoEntity> columnInfoEntityList = gridColumnInfoEntityMapperImpl.selectByGridId(gridId);
+                if (!CollectionUtils.isEmpty(columnInfoEntityList)) {
+                    EasyuiFieldTemplate fieldTemplate;
+                    String type;
+                    for (GridColumnInfoEntity columnInfoEntity : columnInfoEntityList) {
+                        fieldTemplate = new EasyuiFieldTemplate();
+                        type = columnInfoEntity.getType();
+                        if ("combotree".equalsIgnoreCase(type)) {
+                            fieldTemplate.getElement().setElementName("select");
+                        }
+                        fieldTemplate.getElement().setClassName(String.format(classTemplate, type));
+                        fieldTemplate.getElement().setName(columnInfoEntity.getField());
+                        fieldTemplate.getElement().getDataOptions().setLabel(columnInfoEntity.getTitle());
+                        fieldTemplate.getElement().getDataOptions().setRequired(columnInfoEntity.getRequired());
+                        fieldTemplate.getElement().getDataOptions().setUrl(columnInfoEntity.getUrl());
+                        fieldTemplate.getElement().getDataOptions().setValidType(columnInfoEntity.getValidType());
+                        fieldTemplate.setInsertable(columnInfoEntity.getInsertable());
+                        fieldTemplate.setSearchable(columnInfoEntity.getSearchable());
+                        fieldTemplate.setModifyable(columnInfoEntity.getModifyable());
                     }
                     map.put(entity.getName().toLowerCase(), formTemplate);
                 }

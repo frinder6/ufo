@@ -35,8 +35,8 @@ public class RedirectController {
                 EasyuiGridTemplate gridTemplate = W2uiGridTemplateLoader.GRIDS.get(gridName.toLowerCase());
                 put("gridName", gridName);
                 put("addUrl", gridTemplate.getAddUrl());
-                put("removeUrl", gridTemplate.getAddUrl());
-                put("modifyUrl", gridTemplate.getAddUrl());
+                put("removeUrl", gridTemplate.getRemoveUrl());
+                put("modifyUrl", gridTemplate.getModifyUrl());
             }};
             modelMap.put("gridInfo", JSON.toJSONString(gridInfo));
         }

@@ -14,27 +14,12 @@
             height: 100%;
         }
 
-        #dialog {
+        .dialog {
             width: 100%;
             max-width: 500px;
             min-height: 200px;
             padding: 10px;
             display: none;
-        }
-
-        .combobox-children {
-            font-size: 12px;
-            padding: 3px;
-        }
-
-        .combobox-children-hover {
-            background-color: #777;
-            color: #fff;
-        }
-
-        .combobox-children-selected {
-            background-color: #0052A3;
-            color: #fff;
         }
 
     </style>
@@ -55,20 +40,14 @@
 <script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="layer/layer.js"></script>
 <script type="text/javascript" src="easyui/jquery.easyui.self.js"></script>
+<script type="text/javascript" src="easyui/jquery.easyui.self.extend.js"></script>
 <script type="text/javascript">
     $grid = $('#grid');
     var gridInfo = JSON.parse('${gridInfo!{}}');
-    console.log(gridInfo);
     $.extend(true, params, gridInfo);
     console.log(params);
-    selectRow = parent.selectRow;
-    if (selectRow) {
-        // 弹出页面
-        grid({gridId: selectRow.id});
-    } else {
-        // 主页面
-        grid();
-    }
+    // 主页面
+    _grid();
 </script>
 
 

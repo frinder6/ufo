@@ -1,7 +1,9 @@
 package com.ufo.service;
 
 import com.alibaba.fastjson.JSON;
+import com.ufo.entity.GridColumnInfoEntity;
 import com.ufo.service.GridService;
+import com.ufo.vo.ColumnsVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,18 @@ public class GridServiceImplTest {
 
     @Test
     public void selectGrid() throws Exception {
-        System.out.println(JSON.toJSONString(gridService.selectGrid("导航信息表")));
+//        System.out.println(JSON.toJSONString(gridService.selectGrid("导航信息表")));
+        ColumnsVO columnsVO = new ColumnsVO();
+        columnsVO.setGridId(9L);
+        GridColumnInfoEntity entity1 = new GridColumnInfoEntity();
+        entity1.setField("标题");
+        entity1.setField("title");
+        GridColumnInfoEntity entity2 = new GridColumnInfoEntity();
+        entity2.setField("名称");
+        entity2.setField("name");
+        columnsVO.getEntityList().add(entity1);
+        columnsVO.getEntityList().add(entity2);
+        gridService.batchInsertSelective(columnsVO);
     }
 
 }

@@ -1,6 +1,10 @@
 package com.ufo.vo;
 
+import com.ufo.entity.GridColumnInfoEntity;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by frinder6 on 2016/11/12.
@@ -8,6 +12,8 @@ import lombok.Data;
 @Data
 public class ColumnsVO {
 
-    private String columnName;
-    private String columnComment;
+    private Long gridId;
+
+    private List<GridColumnInfoEntity> entityList = new ArrayList<>();
+
 }
