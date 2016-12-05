@@ -155,7 +155,7 @@ public class GridController {
     }
 
     /**
-     * 获取 grid form
+     * 获取 grid form string对象
      *
      * @param gridName
      * @param action
@@ -172,6 +172,18 @@ public class GridController {
             return template.getModify();
         }
         return null;
+    }
+
+
+    /**
+     * 返回 from 对象
+     *
+     * @param gridName
+     * @return
+     */
+    @RequestMapping("/grid.form2")
+    public EasyuiFormTemplate formTemplate(@RequestParam("gridName") String gridName) {
+        return W2uiGridTemplateLoader.FROMS.get(gridName.toLowerCase());
     }
 
 

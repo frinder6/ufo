@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Grid列信息配置</title>
+    <title>Grid基本信息配置</title>
     <link rel="stylesheet" type="text/css" href="easyui/themes/black/easyui.css">
     <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
     <link href="layer/skin/layer.css" rel="stylesheet"/>
@@ -63,55 +63,6 @@
 <script type="text/javascript" src="layer/layer.js"></script>
 <script type="text/javascript" src="easyui/jquery.easyui.self.js"></script>
 <script type="text/javascript">
-    $lgrid = $('#lgrid');
-    $rgrid = $('#rgrid');
-    grid($lgrid, {gridName: 'conf-grid-columns-info'}, {gridId: parent.selectRow.id});
-    grid($rgrid, {gridName: 'conf-table-columns-info'});
 
-    var _add = function () {
-        var rows = $lgrid.datagrid('getChanges');
-        console.log(rows);
-        $.ajax({
-            url: 'grid/add.columns',
-            type: "POST",
-            data: JSON.stringify({
-                gridId: parent.selectRow.id,
-                entityList: rows
-            }),
-            success: function (data) {
-                layer.msg(data.message);
-            }
-            ,
-            dataType: "json",
-            contentType: "application/json"
-        })
-        ;
-    };
-
-    var _remove = function () {
-        remove($lgrid, {removeUrl: 'grid/remove.columns'});
-    };
-
-    var _import = function () {
-        var rows = $rgrid.datagrid('getSelections');
-        // 先添加
-        $.each(rows, function (i, row) {
-            $lgrid.datagrid('appendRow', row);
-        });
-        // 后删除
-        $.each(rows, function (i, row) {
-            $rgrid.datagrid('deleteRow', $rgrid.datagrid('getRowIndex', row));
-        });
-    };
-
-    /**
-     * 下拉grid变化时触发事件
-     * @param v
-     */
-    var _change = function (v) {
-        $rgrid.datagrid('load', {tableName: v, gridId: parent.selectRow.id});
-    };
-
-//    function f(){open('window-column-setting?gridName=conf-grid-columns-info', {width:900, height:600});}
 </script>
 </html>
