@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public interface GridService {
 
-    EasyuiGridTemplate selectGrid(String gridName) throws NullPointerException;
+    GridExtendInfoEntity getGridExtendInfoByGridId(Long gridId);
 
     EasyuiGridResult selectPage(Page page, GridInfoEntity entity);
 
@@ -25,8 +25,6 @@ public interface GridService {
     void loadValidGridList(Map<String, EasyuiGridTemplate> map) throws Exception;
 
     void loadValidFormList(Map<String, EasyuiFormTemplate> map) throws Exception;
-
-    void loadValidFormList2(Map<String, EasyuiFormTemplate> map) throws Exception;
 
     void batchInsertSelective(ColumnsVO columnsVO);
 

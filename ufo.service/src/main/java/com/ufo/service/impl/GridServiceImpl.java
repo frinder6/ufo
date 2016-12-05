@@ -1,6 +1,6 @@
 package com.ufo.service.impl;
 
-import com.google.common.base.CaseFormat;
+import com.google.common.collect.Collections2;
 import com.ufo.entity.EasyuiFieldTemplate;
 import com.ufo.entity.EasyuiFormTemplate;
 import com.ufo.entity.EasyuiGridResult;
@@ -23,9 +23,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -54,26 +54,68 @@ public class GridServiceImpl implements GridService {
     @Autowired
     private SystemDatabaseMapperImpl systemDatabaseMapperImpl;
 
+
+    /**
+     * 加载grid extend 数据
+     *
+     * @param gridId
+     * @return
+     */
+    @Override
+    public GridExtendInfoEntity getGridExtendInfoByGridId(Long gridId) {
+        return gridExtendInfoEntityMapperImpl.selectByGridId(gridId);
+    }
+
+
+    /**
+     * 新增grid
+     *
+     * @param entity
+     */
     @Override
     public void insert(GridInfoEntity entity) {
         gridInfoEntityMapper.insertSelective(entity);
     }
 
+    /**
+     * 删除grid
+     *
+     * @param id
+     */
     @Override
     public void delete(Long id) {
         gridInfoEntityMapper.deleteByPrimaryKey(id);
     }
 
+    /**
+     * 更新grid
+     *
+     * @param entity
+     */
     @Override
     public void update(GridInfoEntity entity) {
         gridInfoEntityMapper.updateByPrimaryKeySelective(entity);
     }
 
+
+    /**
+     * 批量插入 grid columns 配置信息
+     *
+     * @param columnsVO
+     */
     @Override
     public void batchInsertSelective(ColumnsVO columnsVO) {
         gridColumnInfoEntityMapperImpl.batchInsertSelective(columnsVO);
     }
 
+
+    /**
+     * 分页查询配置 grid 记录
+     *
+     * @param page
+     * @param entity
+     * @return
+     */
     @Override
     public EasyuiGridResult selectPage(Page page, GridInfoEntity entity) {
         EasyuiGridResult result = new EasyuiGridResult();
@@ -85,6 +127,12 @@ public class GridServiceImpl implements GridService {
     }
 
 
+    /**
+     * 分页查询系统表
+     *
+     * @param page
+     * @return
+     */
     @Override
     public EasyuiGridResult selectTablePage(Page page) {
         EasyuiGridResult result = new EasyuiGridResult();
@@ -94,6 +142,15 @@ public class GridServiceImpl implements GridService {
         return result;
     }
 
+
+    /**
+     * 分页查询系统表列
+     *
+     * @param page
+     * @param tableName
+     * @param gridId
+     * @return
+     */
     @Override
     public EasyuiGridResult selectTableColumnPage(Page page, String tableName, Long gridId) {
         EasyuiGridResult result = new EasyuiGridResult();
@@ -104,6 +161,13 @@ public class GridServiceImpl implements GridService {
     }
 
 
+    /**
+     * 分页查询 grid 配置 columns 对象
+     *
+     * @param page
+     * @param entity
+     * @return
+     */
     @Override
     public EasyuiGridResult selectColumnPage(Page page, GridColumnInfoEntity entity) {
         EasyuiGridResult result = new EasyuiGridResult();
@@ -112,17 +176,6 @@ public class GridServiceImpl implements GridService {
         result.setTotal(count);
         result.setRows(list);
         return result;
-    }
-
-
-    @Override
-    public EasyuiGridTemplate selectGrid(String gridName) {
-        GridInfoEntity gridInfoEntity = gridInfoEntityMapperImpl.selectByName(gridName);
-        if (null != gridInfoEntity) {
-            return null;
-        } else {
-            throw new NullPointerException("表格：[ " + gridName + " ]未配置，请联系管理员！");
-        }
     }
 
 
@@ -205,67 +258,11 @@ public class GridServiceImpl implements GridService {
                 // 查询grid对应的列
                 List<GridColumnInfoEntity> columnInfoEntityList = gridColumnInfoEntityMapperImpl.selectByGridId(gridId);
                 if (!CollectionUtils.isEmpty(columnInfoEntityList)) {
-                    List<GridColumnInfoEntity> searchList = new ArrayList<>();
-                    List<GridColumnInfoEntity> insertList = new ArrayList<>();
-                    List<GridColumnInfoEntity> modifyList = new ArrayList<>();
-                    boolean searchable, insertable, modifyable;
-                    for (GridColumnInfoEntity columnInfoEntity : columnInfoEntityList) {
-                        searchable = columnInfoEntity.getSearchable();
-                        insertable = columnInfoEntity.getInsertable();
-                        modifyable = columnInfoEntity.getModifyable();
-                        if (searchable) {
-                            searchList.add(columnInfoEntity);
-                        }
-                        if (insertable) {
-                            insertList.add(columnInfoEntity);
-                        }
-                        if (modifyable) {
-                            modifyList.add(columnInfoEntity);
-                        }
-                    }
                     EasyuiFormTemplate formTemplate = new EasyuiFormTemplate();
-                    if (!CollectionUtils.isEmpty(searchList)) {
-                        formTemplate.setSearch(form(searchList, "搜索"));
-                    }
-                    if (!CollectionUtils.isEmpty(insertList)) {
-                        formTemplate.setInsert(form(insertList, "提交"));
-                    }
-                    if (!CollectionUtils.isEmpty(modifyList)) {
-                        formTemplate.setModify(form(modifyList, "提交"));
-                    }
-                    map.put(entity.getName().toLowerCase(), formTemplate);
-                }
-            }
-        }
-    }
-
-    /**
-     * 后台构造出form对象，将拼接交给前端
-     *
-     * @param map
-     * @throws Exception
-     */
-    @Override
-    public void loadValidFormList2(Map<String, EasyuiFormTemplate> map) throws Exception {
-        List<GridInfoEntity> gridInfoEntityList = gridInfoEntityMapperImpl.selectValidList();
-        if (!CollectionUtils.isEmpty(gridInfoEntityList)) {
-            long gridId;
-            String classTemplate = "easyui-%s";
-            for (GridInfoEntity entity : gridInfoEntityList) {
-                EasyuiFormTemplate formTemplate = new EasyuiFormTemplate();
-                gridId = entity.getId();
-                // 查询grid对应的列
-                List<GridColumnInfoEntity> columnInfoEntityList = gridColumnInfoEntityMapperImpl.selectByGridId(gridId);
-                if (!CollectionUtils.isEmpty(columnInfoEntityList)) {
                     EasyuiFieldTemplate fieldTemplate;
-                    String type;
                     for (GridColumnInfoEntity columnInfoEntity : columnInfoEntityList) {
                         fieldTemplate = new EasyuiFieldTemplate();
-                        type = columnInfoEntity.getType();
-                        if ("combotree".equalsIgnoreCase(type)) {
-                            fieldTemplate.getElement().setElementName("select");
-                        }
-                        fieldTemplate.getElement().setClassName(String.format(classTemplate, type));
+                        fieldTemplate.getElement().setClassName(columnInfoEntity.getType());
                         fieldTemplate.getElement().setName(columnInfoEntity.getField());
                         fieldTemplate.getElement().getDataOptions().setLabel(columnInfoEntity.getTitle());
                         fieldTemplate.getElement().getDataOptions().setRequired(columnInfoEntity.getRequired());
@@ -276,6 +273,10 @@ public class GridServiceImpl implements GridService {
                         fieldTemplate.setModifyable(columnInfoEntity.getModifyable());
                         formTemplate.getTemplateList().add(fieldTemplate);
                     }
+                    // 添加返回字符串
+                    formTemplate.setSearch(form(Collections2.filter(formTemplate.getTemplateList(), (EasyuiFieldTemplate o) -> o.isSearchable()), "搜索"));
+                    formTemplate.setInsert(form(Collections2.filter(formTemplate.getTemplateList(), (EasyuiFieldTemplate o) -> o.isSearchable()), "提交"));
+                    formTemplate.setModify(form(Collections2.filter(formTemplate.getTemplateList(), (EasyuiFieldTemplate o) -> o.isSearchable()), "提交"));
                     map.put(entity.getName().toLowerCase(), formTemplate);
                 }
             }
@@ -286,34 +287,24 @@ public class GridServiceImpl implements GridService {
     /**
      * 将列转换为form html代码
      *
-     * @param columnInfoEntityList
+     * @param fieldTemplates
      * @param text
      * @return
      */
-    private StringBuilder form(List<GridColumnInfoEntity> columnInfoEntityList, String text) {
+    private StringBuilder form(Collection<EasyuiFieldTemplate> fieldTemplates, String text) {
         StringBuilder result = new StringBuilder();
-        if (!CollectionUtils.isEmpty(columnInfoEntityList)) {
-            String textTemplate = "<div style=\"margin-bottom:20px\"><input class=\"easyui-%s\" name=\"%s\" style=\"width:100%%\" data-options=\"label:'%s：',required:%b%s\"></div>";
-            String treeTemplate = "<div style=\"margin-bottom:20px\"><select class=\"easyui-%s\" name=\"%s\" style=\"width:100%%\" data-options=\"label:'%s：',required:%b%s\"></select></div>";
+        if (!CollectionUtils.isEmpty(fieldTemplates)) {
             result.append("<form id=\"form\" class=\"easyui-form\" method=\"post\" data-options=\"novalidate:true\">");
-            String type;
-            StringBuilder append;
-            for (GridColumnInfoEntity columnInfoEntity : columnInfoEntityList) {
-                type = columnInfoEntity.getType();
-                append = new StringBuilder(",url:").append(columnInfoEntity.getUrl());
-                if ("textbox".equalsIgnoreCase(type) || "datebox".equalsIgnoreCase(type)) {
-                    result.append(String.format(textTemplate, type, CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, columnInfoEntity.getField()), columnInfoEntity.getTitle(), columnInfoEntity.getRequired(), ""));
-                } else if ("combotree".equalsIgnoreCase(type)) {
-                    result.append(String.format(treeTemplate, type, CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, columnInfoEntity.getField()), columnInfoEntity.getTitle(), columnInfoEntity.getRequired(), append));
-                } else if ("combobox".equalsIgnoreCase(type)) {
-                    result.append(String.format(textTemplate, type, CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, columnInfoEntity.getField()), columnInfoEntity.getTitle(), columnInfoEntity.getRequired(), append));
-                }
+            for (EasyuiFieldTemplate template : fieldTemplates) {
+                result.append(template.toString());
             }
-            result.append("<div style=\"text-align:center;padding:5px 0\">").
-                    append("<a id=\"btnOk\" href=\"javascript:void(0)\" class=\"easyui-linkbutton\" style=\"width:80px\">" + text + "</a>").
-                    append("<a id=\"btnCancel\" href=\"javascript:void(0)\" class=\"easyui-linkbutton\" style=\"width:80px\">重置</a>").
-                    append("</div>");
-            result.append("</form>");
+            result.append("<div style=\"text-align:center;padding:5px 0\">")
+                    .append("<a id=\"btnOk\" href=\"javascript:void(0)\" class=\"easyui-linkbutton\" style=\"width:80px\">")
+                    .append(text)
+                    .append("</a>")
+                    .append("<a id=\"btnCancel\" href=\"javascript:void(0)\" class=\"easyui-linkbutton\" style=\"width:80px\">重置</a>")
+                    .append("</div>")
+                    .append("</form>");
         }
         return result;
     }

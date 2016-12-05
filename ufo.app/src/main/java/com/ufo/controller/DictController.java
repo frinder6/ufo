@@ -23,6 +23,12 @@ public class DictController {
     @Autowired
     private DictService dictService;
 
+    /**
+     * 根据 name 加载字典数据
+     *
+     * @param name
+     * @return
+     */
     @RequestMapping("/get.dict")
     public List<DictInfoEntity> dict(@RequestParam("name") String name) {
         return dictService.selectByName(name);

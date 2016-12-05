@@ -22,6 +22,13 @@ public class LogServiceImpl implements LogService {
     @Autowired
     private LogInfoEntityMapper logInfoEntityMapper;
 
+    /**
+     * 系统记录日志方法
+     *
+     * @param point
+     * @param request
+     * @return
+     */
     @Override
     public Object insert(ProceedingJoinPoint point, HttpServletRequest request) {
         LogInfoEntityWithBLOBs entity = new LogInfoEntityWithBLOBs();

@@ -17,6 +17,12 @@ public class DictServiceImpl implements DictService {
     @Autowired
     private DictInfoEntityMapperImpl dictInfoEntityMapperImpl;
 
+    /**
+     * 根据 name 加载字典数据
+     *
+     * @param name
+     * @return
+     */
     @Override
     public List<DictInfoEntity> selectByName(String name) {
         return dictInfoEntityMapperImpl.selectByName(name);

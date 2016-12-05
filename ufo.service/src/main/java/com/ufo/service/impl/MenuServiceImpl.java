@@ -26,23 +26,48 @@ public class MenuServiceImpl implements MenuService {
     private MenuInfoEntityMapper menuInfoEntityMapper;
 
 
+    /**
+     * 加载系统菜单
+     *
+     * @param pid
+     * @return
+     */
     @Override
     public List<MenuInfoSubEntity> selectMenu(Long pid) {
         return menuInfoEntityMapperImpl.selectByPid(pid);
     }
 
+    /**
+     * 加载系统菜单树
+     *
+     * @param pid
+     * @return
+     */
     @Override
     public List<EasyuiTreeTemplate> selectTree(Long pid) {
         return menuInfoEntityMapperImpl.selectTreeByPid(pid);
     }
 
 
+    /**
+     * 查询 menu 记录数量
+     *
+     * @param entity
+     * @return
+     */
     @Override
     public int selectPageCount(MenuInfoEntity entity) {
         return menuInfoEntityMapperImpl.selectPageCount(entity);
     }
 
 
+    /**
+     * 分页查询 menu 记录
+     *
+     * @param page
+     * @param entity
+     * @return
+     */
     @Override
     public EasyuiGridResult selectPage(Page page, MenuInfoEntity entity) {
         EasyuiGridResult result = new EasyuiGridResult();
@@ -53,12 +78,24 @@ public class MenuServiceImpl implements MenuService {
         return result;
     }
 
+    /**
+     * 通过id加载 menu
+     *
+     * @param id
+     * @return
+     */
     @Override
     public MenuInfoEntity findById(Long id) {
         return menuInfoEntityMapper.selectByPrimaryKey(id);
     }
 
 
+    /**
+     * 新增 menu
+     *
+     * @param record
+     * @return
+     */
     @Override
     public Long insert(MenuInfoEntity record) {
         menuInfoEntityMapper.insertSelective(record);
@@ -66,12 +103,22 @@ public class MenuServiceImpl implements MenuService {
     }
 
 
+    /**
+     * 更新 menu
+     *
+     * @param record
+     */
     @Override
     public void update(MenuInfoEntity record) {
         menuInfoEntityMapper.updateByPrimaryKeySelective(record);
     }
 
 
+    /**
+     * 删除 menu
+     *
+     * @param id
+     */
     @Override
     public void delete(Long id) {
         menuInfoEntityMapper.deleteByPrimaryKey(id);

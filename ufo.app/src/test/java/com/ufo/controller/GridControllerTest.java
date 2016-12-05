@@ -38,7 +38,7 @@ public class GridControllerTest {
 
     @Test
     public void dxGridTemplate() throws Exception {
-        String uri = "/grid/grid.form2";
+        String uri = "/grid/grid.form";
         String responseStr = mvc.perform(MockMvcRequestBuilders
                 .post(uri, "json")
                 .accept(MediaType.APPLICATION_JSON)

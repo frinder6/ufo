@@ -1,0 +1,56 @@
+<script type="text/javascript">
+    $.getJSON('grid/grid.form2', {gridName: 'grid-info', action: 'search'}, function (fields) {
+        $.each(fields, function (i, field) {
+            var div = field.div;
+            if (div) {
+                var $div = $(document.createElement('div'));
+                $div.attr('style', div.style);
+                var element = field.element;
+                if (element) {
+                    var $ele = $(document.createElement(element.elementName));
+                    $ele.attr('class', element.className);
+                    $ele.attr('name', element.name);
+                    $ele.attr('style', element.style);
+                    var dps = element.dataOptions;
+                    if (dps) {
+                        $ele.attr('label', dps.label);
+                        $ele.attr('required', dps.required);
+                        $ele.attr('data-options', 'url:' + dps.url);
+                        $ele.attr('validType', dps.validType);
+                    }
+                    $div.append($ele);
+                }
+                $('#form').append($div);
+            }
+        });
+    });
+</script>
+
+
+<form id="form" method="post">
+    <div style="margin-bottom:20px">
+        <input id="language" class="easyui-combobox" name="language" style="width:100%;" data-options="
+                    url:'dict/get.dict?name=status-combobox',
+                    valueField:'value',
+                    textField:'key',
+                    panelHeight:'auto',
+                    label: 'State:',
+                    labelPosition: 'top'
+                    ">
+
+        <input id="language2" class="easyui-combobox" name="language" style="width:100%;"
+               url="dict/get.dict?name=status-combobox"
+               valueField="value"
+               textField="key"
+               panelHeight="auto"
+               label="State"
+               labelPosition="top"
+        >
+    </div>
+</form>
+<div style="text-align:center;padding:5px 0">
+    <a id="btnOk" href="javascript:void(0)" class="easyui-linkbutton" style="width:80px">Submit</a>
+    <a id="btnCancel" href="javascript:void(0)" class="easyui-linkbutton" style="width:80px">Clear</a>
+</div>
+
+

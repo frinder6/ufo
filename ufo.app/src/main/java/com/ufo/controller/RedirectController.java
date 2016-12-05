@@ -27,6 +27,14 @@ public class RedirectController {
     @Autowired
     private HttpServletRequest request;
 
+    /**
+     * 跳转方法
+     * 如果包含 gridName 参数，则加载配置信息返回
+     *
+     * @param modelMap
+     * @param path
+     * @return
+     */
     @RequestMapping("/{path}")
     public String redirect(ModelMap modelMap, @PathVariable("path") String path) {
         String gridName = request.getParameter("gridName");

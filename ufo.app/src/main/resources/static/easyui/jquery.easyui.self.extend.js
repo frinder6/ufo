@@ -46,23 +46,5 @@ var _insert = function () {
  * @param params
  */
 var _search = function () {
-    //search($grid, params);
-    var d = 'win_' + new Date().getMilliseconds();
-    $(document.body).append('<div id="' + d + '" class="dialog"></div>');
-    var $dialog = $('#' + d);
-    $dialog.dialog({
-        title: '搜索栏',
-        width: 400,
-        href: 'form',
-        left: 20,
-        top: 50,
-        modal: false,
-        resizable: true,
-        onLoad: function () {
-
-        },
-        onClose: function () {
-            $dialog.remove();
-        }
-    });
+    search($grid, params);
 };

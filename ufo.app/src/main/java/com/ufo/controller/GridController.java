@@ -35,25 +35,49 @@ public class GridController {
     @Autowired
     private GridService gridService;
 
+    /**
+     * 添加 grid
+     *
+     * @param entity
+     * @return
+     */
     @RequestMapping("/add.grid")
     public EasyuiResponse add(GridInfoEntity entity) {
         gridService.insert(entity);
         return new EasyuiResponse(EasyuiResponse.SUCCESS, "新增成功！");
     }
 
-    @RequestMapping("/add.remove")
+    /**
+     * 删除 grid
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/remove.grid")
     public EasyuiResponse remove(Long id) {
         gridService.delete(id);
         return new EasyuiResponse(EasyuiResponse.SUCCESS, "删除成功！");
     }
 
-    @RequestMapping("/add.modify")
+    /**
+     * 更新 grid
+     *
+     * @param entity
+     * @return
+     */
+    @RequestMapping("/update.grid")
     public EasyuiResponse modify(GridInfoEntity entity) {
         gridService.update(entity);
         return new EasyuiResponse(EasyuiResponse.SUCCESS, "更新成功！");
     }
 
 
+    /**
+     * 批量新增 grid columns
+     *
+     * @param columnsVO
+     * @return
+     */
     @RequestMapping(value = "/add.columns", consumes = "application/json; charset=utf-8")
     public EasyuiResponse addColumns(@RequestBody ColumnsVO columnsVO) {
         gridService.batchInsertSelective(columnsVO);
@@ -61,6 +85,12 @@ public class GridController {
     }
 
 
+    /**
+     * 分页查询 grid
+     *
+     * @param entity
+     * @return
+     */
     @RequestMapping("/page.grids")
     public EasyuiGridResult page(GridInfoEntity entity) {
         Page page = Page.getInstance(request);
@@ -68,6 +98,11 @@ public class GridController {
     }
 
 
+    /**
+     * 分页查询系统表
+     *
+     * @return
+     */
     @RequestMapping("/page.tables")
     public EasyuiGridResult tablePage() {
         Page page = Page.getInstance(request);
@@ -75,6 +110,13 @@ public class GridController {
     }
 
 
+    /**
+     * 分页查询系统表列
+     *
+     * @param tableName
+     * @param gridId
+     * @return
+     */
     @RequestMapping("/page.table.columns")
     public EasyuiGridResult tableColumnPage(
             @RequestParam(required = false, name = "tableName") String tableName,
@@ -88,6 +130,12 @@ public class GridController {
         return gridService.selectTableColumnPage(page, tableName, gridId);
     }
 
+    /**
+     * 分页查询 grid columns
+     *
+     * @param entity
+     * @return
+     */
     @RequestMapping("/page.columns")
     public EasyuiGridResult columnPage(GridColumnInfoEntity entity) {
         Page page = Page.getInstance(request);
@@ -95,11 +143,24 @@ public class GridController {
     }
 
 
+    /**
+     * 获取 grid 配置信息
+     *
+     * @param gridName
+     * @return
+     */
     @RequestMapping("/grid.options")
     public EasyuiGridTemplate gridTemplate(@RequestParam("gridName") String gridName) {
         return W2uiGridTemplateLoader.GRIDS.get(gridName.toLowerCase());
     }
 
+    /**
+     * 获取 grid form
+     *
+     * @param gridName
+     * @param action
+     * @return
+     */
     @RequestMapping("/grid.form")
     public StringBuilder formTemplate(@RequestParam("gridName") String gridName, @RequestParam("action") String action) {
         EasyuiFormTemplate template = W2uiGridTemplateLoader.FROMS.get(gridName.toLowerCase());
@@ -113,23 +174,25 @@ public class GridController {
         return null;
     }
 
-    @RequestMapping("/grid.form2")
-    public Collection<EasyuiFieldTemplate> form2Template(@RequestParam("gridName") String gridName, @RequestParam("action") String action) {
-        EasyuiFormTemplate template = W2uiGridTemplateLoader.FROMS2.get(gridName.toLowerCase());
-        Predicate<EasyuiFieldTemplate> predicate;
-        if ("search".equalsIgnoreCase(action)) {
-            predicate = (EasyuiFieldTemplate o) -> o.isSearchable();
-        } else if ("insert".equalsIgnoreCase(action)) {
-            predicate = (EasyuiFieldTemplate o) -> o.isInsertable();
-        } else if ("modify".equalsIgnoreCase(action)) {
-            predicate = (EasyuiFieldTemplate o) -> o.isModifyable();
-        } else {
-            predicate = (EasyuiFieldTemplate o) -> o.isSearchable();
-        }
-        return Collections2.filter(template.getTemplateList(), predicate);
+
+    /**
+     * 获取 grid extend信息
+     *
+     * @param gridId
+     * @return
+     */
+    @RequestMapping("/grid.extend")
+    public GridExtendInfoEntity gridExtendInfoEntity(@RequestParam("gridId") Long gridId) {
+        return gridService.getGridExtendInfoByGridId(gridId);
     }
 
 
+    /**
+     * 刷新 grid 信息
+     *
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/flush")
     public EasyuiResponse flush() throws Exception {
         W2uiGridTemplateLoader.GRIDS.clear();
