@@ -29,8 +29,8 @@
         <if test="e.field != null">
             AND field = #{e.field,jdbcType=VARCHAR}
         </if>
-        <if test="e.url != null">
-            AND url = #{e.url,jdbcType=VARCHAR}
+        <if test="e.dataOptions != null" >
+            AND #{e.dataOptions,jdbcType=VARCHAR}
         </if>
         <if test="e.width != null">
             AND width = #{e.width,jdbcType=INTEGER}
@@ -50,9 +50,6 @@
         <if test="e.sortable != null">
             AND sortable = #{e.sortable,jdbcType=BIT}
         </if>
-        <!--<if test="e.order != null">
-            AND `order` = #{e.order,jdbcType=VARCHAR}
-        </if>-->
         <if test="e.resizable != null">
             AND resizable = #{e.resizable,jdbcType=BIT}
         </if>

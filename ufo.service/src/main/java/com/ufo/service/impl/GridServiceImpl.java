@@ -1,5 +1,6 @@
 package com.ufo.service.impl;
 
+import com.google.common.base.CaseFormat;
 import com.google.common.collect.Collections2;
 import com.ufo.entity.EasyuiFieldTemplate;
 import com.ufo.entity.EasyuiFormTemplate;
@@ -23,6 +24,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -259,24 +261,10 @@ public class GridServiceImpl implements GridService {
                 List<GridColumnInfoEntity> columnInfoEntityList = gridColumnInfoEntityMapperImpl.selectByGridId(gridId);
                 if (!CollectionUtils.isEmpty(columnInfoEntityList)) {
                     EasyuiFormTemplate formTemplate = new EasyuiFormTemplate();
-                    EasyuiFieldTemplate fieldTemplate;
-                    for (GridColumnInfoEntity columnInfoEntity : columnInfoEntityList) {
-                        fieldTemplate = new EasyuiFieldTemplate();
-                        fieldTemplate.getElement().setClassName(columnInfoEntity.getType());
-                        fieldTemplate.getElement().setName(columnInfoEntity.getField());
-                        fieldTemplate.getElement().getDataOptions().setLabel(columnInfoEntity.getTitle());
-                        fieldTemplate.getElement().getDataOptions().setRequired(columnInfoEntity.getRequired());
-                        fieldTemplate.getElement().getDataOptions().setUrl(columnInfoEntity.getUrl());
-                        fieldTemplate.getElement().getDataOptions().setValidType(columnInfoEntity.getValidType());
-                        fieldTemplate.setInsertable(columnInfoEntity.getInsertable());
-                        fieldTemplate.setSearchable(columnInfoEntity.getSearchable());
-                        fieldTemplate.setModifyable(columnInfoEntity.getModifyable());
-                        formTemplate.getTemplateList().add(fieldTemplate);
-                    }
                     // 添加返回字符串
-                    formTemplate.setSearch(form(Collections2.filter(formTemplate.getTemplateList(), (EasyuiFieldTemplate o) -> o.isSearchable()), "搜索"));
-                    formTemplate.setInsert(form(Collections2.filter(formTemplate.getTemplateList(), (EasyuiFieldTemplate o) -> o.isSearchable()), "提交"));
-                    formTemplate.setModify(form(Collections2.filter(formTemplate.getTemplateList(), (EasyuiFieldTemplate o) -> o.isSearchable()), "提交"));
+                    formTemplate.setSearch(form(Collections2.filter(columnInfoEntityList, (GridColumnInfoEntity o) -> o.getSearchable()), "搜索"));
+                    formTemplate.setInsert(form(Collections2.filter(columnInfoEntityList, (GridColumnInfoEntity o) -> o.getInsertable()), "提交"));
+                    formTemplate.setModify(form(Collections2.filter(columnInfoEntityList, (GridColumnInfoEntity o) -> o.getModifyable()), "提交"));
                     map.put(entity.getName().toLowerCase(), formTemplate);
                 }
             }
@@ -291,12 +279,23 @@ public class GridServiceImpl implements GridService {
      * @param text
      * @return
      */
-    private StringBuilder form(Collection<EasyuiFieldTemplate> fieldTemplates, String text) {
+    private StringBuilder form(Collection<GridColumnInfoEntity> fieldTemplates, String text) {
         StringBuilder result = new StringBuilder();
         if (!CollectionUtils.isEmpty(fieldTemplates)) {
             result.append("<form id=\"form\" class=\"easyui-form\" method=\"post\" data-options=\"novalidate:true\">");
-            for (EasyuiFieldTemplate template : fieldTemplates) {
-                result.append(template.toString());
+            for (GridColumnInfoEntity entity : fieldTemplates) {
+                result.append("<div style=\"margin-bottom:20px\">")
+                        .append("<input")
+                        .append(" class=\"").append(entity.getType()).append("\"")
+                        .append(" name=\"").append(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, entity.getField())).append("\"")
+                        .append(" style=\"width:100%\"")
+                        .append(" label=\"").append(entity.getTitle()).append("\"")
+                        .append(" required=\"").append(entity.getRequired()).append("\"")
+                        .append(" validType=\"").append(entity.getValidType()).append("\"")
+                        .append(" value=\"").append(entity.getValue()).append("\"")
+                        .append(" data-options=\"").append(entity.getDataOptions()).append("\"")
+                        .append(">")
+                        .append("</div>");
             }
             result.append("<div style=\"text-align:center;padding:5px 0\">")
                     .append("<a id=\"btnOk\" href=\"javascript:void(0)\" class=\"easyui-linkbutton\" style=\"width:80px\">")

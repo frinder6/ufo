@@ -42,8 +42,8 @@ public class GridControllerTest {
         String responseStr = mvc.perform(MockMvcRequestBuilders
                 .post(uri, "json")
                 .accept(MediaType.APPLICATION_JSON)
-                .param("gridName", "menu-info")
-                .param("action", "search")
+                .param("gridName", "grid-extend-info")
+                .param("action", "modify")
         )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())

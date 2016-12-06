@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Grid列信息配置</title>
-    <link rel="stylesheet" type="text/css" href="easyui/themes/black/easyui.css">
-    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
-    <link href="layer/skin/layer.css" rel="stylesheet"/>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-</head>
-<body>
-
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'west',split:false,collapsible:false" title="已配置项" style="width:50%;">
         <table id="lgrid"></table>
@@ -43,7 +25,7 @@
                     fitColumns: true,
                     label: '选择系统表：',
                     onChange: function(newValue, oldValue){
-                        _change(newValue);
+                        _rchange(newValue);
                     }
                 ">
                 </select>
@@ -56,43 +38,35 @@
 </div>
 
 
-</body>
-<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="layer/layer.js"></script>
-<script type="text/javascript" src="easyui/jquery.easyui.self.js"></script>
 <script type="text/javascript">
     $lgrid = $('#lgrid');
     $rgrid = $('#rgrid');
-    grid($lgrid, {gridName: 'conf-grid-columns-info'}, {gridId: parent.selectRow.id});
+    grid($lgrid, {gridName: 'conf-grid-columns-info'}, {gridId: selectRow.id});
     grid($rgrid, {gridName: 'conf-table-columns-info'});
 
-    var _add = function () {
+    var _lsave = function () {
         var rows = $lgrid.datagrid('getChanges');
         console.log(rows);
         $.ajax({
             url: 'grid/add.columns',
             type: "POST",
             data: JSON.stringify({
-                gridId: parent.selectRow.id,
+                gridId: selectRow.id,
                 entityList: rows
             }),
             success: function (data) {
                 layer.msg(data.message);
-            }
-            ,
+            },
             dataType: "json",
             contentType: "application/json"
-        })
-        ;
+        });
     };
 
-    var _remove = function () {
+    var _lremove = function () {
         remove($lgrid, {removeUrl: 'grid/remove.columns'});
     };
 
-    var _import = function () {
+    var _rimport = function () {
         var rows = $rgrid.datagrid('getSelections');
         // 先添加
         $.each(rows, function (i, row) {
@@ -108,10 +82,9 @@
      * 下拉grid变化时触发事件
      * @param v
      */
-    var _change = function (v) {
+    var _rchange = function (v) {
         $rgrid.datagrid('load', {tableName: v, gridId: parent.selectRow.id});
     };
 
-//    function f(){open('window-column-setting?gridName=conf-grid-columns-info', {width:900, height:600});}
+    //    function f(){open('window-column-setting?gridName=conf-grid-columns-info', {width:900, height:600});}
 </script>
-</html>

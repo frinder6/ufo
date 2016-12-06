@@ -200,42 +200,37 @@ var search = function ($grid, p) {
  * 选择一条记录后打开
  * @param url
  */
-var open = function (url, p) {
-    var row = $grid.datagrid('getSelected');
-    if (row) {
-        var d = 'win_' + new Date().getMilliseconds();
-        $(document.body).append('<div id="' + d + '" style="overflow:hidden"></div>');
-        var $dialog = $('#' + d);
-        var title = '';
-        if (selectRow) {
-            title = '[ ' + selectRow.name + ' ]';
-        }
-        var options = {
-            title: title + '配置窗',
-            width: 800,
-            height: 600,
-            left: 100,
-            top: 30,
-            modal: true,
-            // fit: true,
-            collapsible: false,
-            minimizable: false,
-            maximizable: false,
-            // draggable: false,
-            resizable: false,
-            iconCls: 'icon-save',
-            content: $('<iframe src="' + url + '" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>'),
-            onClose: function () {
-                $dialog.remove();
+var open = function (p, q, fn) {
+    var d = 'win_' + new Date().getMilliseconds();
+    if (!p.padding) p.padding = 0;
+    $(document.body).append('<div id="' + d + '" style="padding: ' + p.padding + 'px;"></div>');
+    var $dialog = $('#' + d);
+    var options = {
+        title: '[ ' + p.title + ' ]' + '配置窗',
+        width: 500,
+        height: 600,
+        left: 100,
+        top: 30,
+        modal: true,
+        collapsible: false,
+        minimizable: false,
+        maximizable: false,
+        resizable: false,
+        iconCls: 'icon-save',
+        href: p.url,
+        onLoad: function () {
+            if (fn) {
+                fn($dialog);
             }
-        };
-        if (p) {
-            $.extend(true, options, p);
+        },
+        onClose: function () {
+            $dialog.remove();
         }
-        $dialog.window(options);
-    } else {
-        layer.msg('请选择需要配置的记录！');
+    };
+    if (q) {
+        $.extend(true, options, q);
     }
+    $dialog.window(options);
 };
 
 

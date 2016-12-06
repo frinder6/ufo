@@ -200,6 +200,24 @@ public class GridController {
 
 
     /**
+     * 新增 or 更新 extend 对象
+     *
+     * @param entity
+     * @return
+     */
+    @RequestMapping("/upsert.grid.extend")
+    public EasyuiResponse upsertExtendEntity(GridExtendInfoEntity entity) {
+        logger.info(JSON.toJSONString(entity));
+        if (null == entity.getId()) {
+            // add
+        } else {
+            // update
+        }
+        return new EasyuiResponse(EasyuiResponse.SUCCESS, "更新成功！");
+    }
+
+
+    /**
      * 刷新 grid 信息
      *
      * @return

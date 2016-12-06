@@ -48,41 +48,55 @@
     _grid();
 
     var _conf = function () {
-        var row = $grid.datagrid('getSelected');
-        if (row) {
-            var d = 'win_' + new Date().getMilliseconds();
-            $(document.body).append('<div id="' + d + '" style="padding: 10px;"></div>');
-            var $dialog = $('#' + d);
-            var title = '';
-            if (selectRow) {
-                title = '[ ' + selectRow.name + ' ]';
-            }
-            var options = {
-                title: title + '配置窗',
-                width: 500,
-                height: 600,
-                left: 100,
-                top: 30,
-                modal: true,
-                // fit: true,
-                collapsible: false,
-                minimizable: false,
-                maximizable: false,
-                // draggable: false,
-                resizable: false,
-                iconCls: 'icon-save',
-                href: 'grid/grid.form?gridName=grid-extend-info&action=modify',
-                onLoad: function () {
-                    alert($('#form').html());
-                },
-                onClose: function () {
-                    $dialog.remove();
-                }
+        if (selectRow) {
+            var p = {
+                title: selectRow.name + '基本信息',
+                url: 'grid/grid.form?gridName=grid-extend-info&action=modify',
+                padding: 20
             };
-            $dialog.window(options);
+            console.log(p);
+            open(p, null, _fn);
         } else {
             layer.msg('请选择需要配置的记录！');
         }
+    };
+
+    var _fn = function ($dialog) {
+        $.getJSON('grid/grid.extend', {gridId: selectRow.id}, function (data) {
+            var id;
+            if (data) {
+                for (var k in data) {
+                    data[k] == true ? data[k] = 'true' : '';
+                    data[k] == false ? data[k] = 'false' : '';
+                }
+                id = data.id;
+                $('#form').form('load', data);
+            }
+            $('#form').find('#btnOk').click(function () {
+                $('#form').form('submit', {
+                    url: 'grid/upsert.grid.extend?id=' + id,
+                    onSubmit: function () {
+                        return $(this).form('enableValidation').form('validate');
+                    },
+                    success: function (data) {
+                        var r = JSON.parse(data);
+                        if (r.status) {
+                            layer.msg(r.message);
+                        } else {
+                            layer.msg('系统去开ufo了，请稍后重试！');
+                        }
+                    }
+                });
+            });
+        });
+        $('#form').find('#btnCancel span.l-btn-text').text('下一步');
+        $('#form').find('#btnCancel').click(function () {
+            $dialog.dialog('close');
+            open({
+                title: selectRow.name + '列信息',
+                url: 'window-column-setting?gridName=conf-grid-columns-info'
+            }, {width: 900, height: 600});
+        });
     };
 </script>
 
