@@ -11,6 +11,7 @@ import com.ufo.entity.GridColumnInfoEntity;
 import com.ufo.entity.GridExtendInfoEntity;
 import com.ufo.entity.GridInfoEntity;
 import com.ufo.entity.Page;
+import com.ufo.mapper.GridExtendInfoEntityMapper;
 import com.ufo.mapper.GridInfoEntityMapper;
 import com.ufo.mapper.impl.GridButtonInfoEntityMapperImpl;
 import com.ufo.mapper.impl.GridColumnInfoEntityMapperImpl;
@@ -51,6 +52,9 @@ public class GridServiceImpl implements GridService {
     private GridExtendInfoEntityMapperImpl gridExtendInfoEntityMapperImpl;
 
     @Autowired
+    private GridExtendInfoEntityMapper gridExtendInfoEntityMapper;
+
+    @Autowired
     private GridButtonInfoEntityMapperImpl gridButtonInfoEntityMapperImpl;
 
     @Autowired
@@ -68,6 +72,35 @@ public class GridServiceImpl implements GridService {
         return gridExtendInfoEntityMapperImpl.selectByGridId(gridId);
     }
 
+    /**
+     * 新增 extend
+     *
+     * @param entity
+     */
+    @Override
+    public void insertExtendEntity(GridExtendInfoEntity entity) {
+        gridExtendInfoEntityMapper.insertSelective(entity);
+    }
+
+    /**
+     * 删除 extend
+     *
+     * @param id
+     */
+    @Override
+    public void deleteExtendEntity(Long id) {
+        gridExtendInfoEntityMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 更新 extend
+     *
+     * @param entity
+     */
+    @Override
+    public void updateExtendEntity(GridExtendInfoEntity entity) {
+        gridExtendInfoEntityMapper.updateByPrimaryKeySelective(entity);
+    }
 
     /**
      * 新增grid

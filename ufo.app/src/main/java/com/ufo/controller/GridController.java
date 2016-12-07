@@ -208,10 +208,12 @@ public class GridController {
     @RequestMapping("/upsert.grid.extend")
     public EasyuiResponse upsertExtendEntity(GridExtendInfoEntity entity) {
         logger.info(JSON.toJSONString(entity));
-        if (null == entity.getId()) {
+        if (0L == entity.getId()) {
             // add
+            gridService.insertExtendEntity(entity);
         } else {
             // update
+            gridService.updateExtendEntity(entity);
         }
         return new EasyuiResponse(EasyuiResponse.SUCCESS, "更新成功！");
     }

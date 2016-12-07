@@ -34,4 +34,10 @@ public interface GridService {
 
     void update(GridInfoEntity entity);
 
+    void insertExtendEntity(GridExtendInfoEntity entity);
+
+    void deleteExtendEntity(Long id);
+
+    void updateExtendEntity(GridExtendInfoEntity entity);
+
 }

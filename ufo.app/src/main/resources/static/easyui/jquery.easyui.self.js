@@ -1,4 +1,26 @@
 /**
+ * window基本信息
+ * @type {{title: string, width: number, left: number, top: number, modal: boolean, collapsible: boolean, minimizable: boolean, maximizable: boolean, resizable: boolean, iconCls: string, href: string, onLoad: windowOptions.onLoad, onClose: windowOptions.onClose}}
+ */
+var windowOptions = {
+    title: '',
+    width: 500,
+    left: 100,
+    top: 30,
+    modal: true,
+    collapsible: false,
+    minimizable: false,
+    maximizable: false,
+    resizable: false,
+    iconCls: 'icon-save',
+    href: '',
+    onLoad: function () {
+    },
+    onClose: function () {
+    }
+};
+
+/**
  * 加载表格
  * @param params
  */
@@ -71,12 +93,19 @@ var modify = function ($grid, p) {
         var d = 'win_' + new Date().getMilliseconds();
         $(document.body).append('<div id="' + d + '" class="dialog"></div>');
         var $dialog = $('#' + d);
-        $dialog.dialog({
+        $dialog.window({
             title: '更新',
-            width: 400,
             href: 'grid/grid.form?action=modify&gridName=' + p.gridName,
-            modal: true,
-            resizable: true,
+            modal: false,
+            width: 500,
+            // height: 600,
+            left: 100,
+            top: 30,
+            collapsible: false,
+            minimizable: false,
+            maximizable: false,
+            resizable: false,
+            iconCls: 'icon-save',
             onLoad: function () {
                 $('#form').form('load', row);
                 $('#form').find('#btnOk').click(function () {
@@ -120,12 +149,19 @@ var insert = function ($grid, p) {
     var d = 'win_' + new Date().getMilliseconds();
     $(document.body).append('<div id="' + d + '" class="dialog"></div>');
     var $dialog = $('#' + d);
-    $dialog.dialog({
+    $dialog.window({
         title: '新增',
-        width: 400,
         href: 'grid/grid.form?action=insert&gridName=' + p.gridName,
-        modal: true,
-        resizable: true,
+        modal: false,
+        width: 500,
+        // height: 600,
+        left: 100,
+        top: 30,
+        collapsible: false,
+        minimizable: false,
+        maximizable: false,
+        resizable: false,
+        iconCls: 'icon-save',
         onLoad: function () {
             $('#form').find('#btnOk').click(function () {
                 $('#form').form('submit', {
@@ -165,14 +201,19 @@ var search = function ($grid, p) {
     var d = 'win_' + new Date().getMilliseconds();
     $(document.body).append('<div id="' + d + '" class="dialog"></div>');
     var $dialog = $('#' + d);
-    $dialog.dialog({
+    $dialog.window({
         title: '搜索栏',
-        width: 400,
         href: 'grid/grid.form?action=search&gridName=' + p.gridName,
-        left: 20,
-        top: 50,
         modal: false,
-        resizable: true,
+        width: 500,
+        // height: 600,
+        left: 100,
+        top: 30,
+        collapsible: false,
+        minimizable: false,
+        maximizable: false,
+        resizable: false,
+        iconCls: 'icon-save',
         onLoad: function () {
             $('#form').find('#btnOk').click(function () {
                 var formData = $('#form').serializeArray();
@@ -200,24 +241,12 @@ var search = function ($grid, p) {
  * 选择一条记录后打开
  * @param url
  */
-var open = function (p, q, fn) {
+var open = function (p, fn) {
     var d = 'win_' + new Date().getMilliseconds();
     if (!p.padding) p.padding = 0;
     $(document.body).append('<div id="' + d + '" style="padding: ' + p.padding + 'px;"></div>');
     var $dialog = $('#' + d);
-    var options = {
-        title: '[ ' + p.title + ' ]' + '配置窗',
-        width: 500,
-        height: 600,
-        left: 100,
-        top: 30,
-        modal: true,
-        collapsible: false,
-        minimizable: false,
-        maximizable: false,
-        resizable: false,
-        iconCls: 'icon-save',
-        href: p.url,
+    var fns = {
         onLoad: function () {
             if (fn) {
                 fn($dialog);
@@ -227,9 +256,8 @@ var open = function (p, q, fn) {
             $dialog.remove();
         }
     };
-    if (q) {
-        $.extend(true, options, q);
-    }
+    var options = $.extend(true, {}, windowOptions, p, fns);
+    console.log(options);
     $dialog.window(options);
 };
 
