@@ -40,4 +40,10 @@ public interface GridService {
 
     void updateExtendEntity(GridExtendInfoEntity entity);
 
+    void insertColumn(GridColumnInfoEntity entity);
+
+    void deleteColumns(Long id);
+
+    void updateColumn(GridColumnInfoEntity entity);
+
 }

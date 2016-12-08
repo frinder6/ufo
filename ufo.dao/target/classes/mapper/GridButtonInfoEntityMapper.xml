@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.ufo.entity.GridButtonInfoEntity" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="grid_id" property="gridId" jdbcType="BIGINT" />
+    <result column="grid_name" property="gridName" jdbcType="VARCHAR" />
     <result column="text" property="text" jdbcType="VARCHAR" />
     <result column="icon_cls" property="iconCls" jdbcType="VARCHAR" />
     <result column="plain" property="plain" jdbcType="BIT" />
@@ -20,8 +21,8 @@
     <result column="updater" property="updater" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, grid_id, `text`, icon_cls, plain, disabled, `size`, icon_align, width, height, 
-    `handler`, `status`, create_time, creater, update_time, updater
+    id, grid_id, grid_name, `text`, icon_cls, plain, disabled, `size`, icon_align, width, 
+    height, `handler`, `status`, create_time, creater, update_time, updater
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -34,18 +35,18 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.ufo.entity.GridButtonInfoEntity" >
-    insert into ufo_grid_button_info (id, grid_id, `text`, 
-      icon_cls, plain, disabled, `size`, 
-      icon_align, width, height, 
-      `handler`, `status`, create_time, 
-      creater, update_time, updater
-      )
-    values (#{id,jdbcType=BIGINT}, #{gridId,jdbcType=BIGINT}, #{text,jdbcType=VARCHAR}, 
-      #{iconCls,jdbcType=VARCHAR}, #{plain,jdbcType=BIT}, #{disabled,jdbcType=BIT}, #{size,jdbcType=VARCHAR}, 
-      #{iconAlign,jdbcType=VARCHAR}, #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, 
-      #{handler,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}
-      )
+    insert into ufo_grid_button_info (id, grid_id, grid_name, 
+      `text`, icon_cls, plain, disabled, 
+      `size`, icon_align, width, 
+      height, `handler`, `status`, 
+      create_time, creater, update_time, 
+      updater)
+    values (#{id,jdbcType=BIGINT}, #{gridId,jdbcType=BIGINT}, #{gridName,jdbcType=VARCHAR}, 
+      #{text,jdbcType=VARCHAR}, #{iconCls,jdbcType=VARCHAR}, #{plain,jdbcType=BIT}, #{disabled,jdbcType=BIT}, 
+      #{size,jdbcType=VARCHAR}, #{iconAlign,jdbcType=VARCHAR}, #{width,jdbcType=INTEGER}, 
+      #{height,jdbcType=INTEGER}, #{handler,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ufo.entity.GridButtonInfoEntity" >
     insert into ufo_grid_button_info
@@ -55,6 +56,9 @@
       </if>
       <if test="gridId != null" >
         grid_id,
+      </if>
+      <if test="gridName != null" >
+        grid_name,
       </if>
       <if test="text != null" >
         `text`,
@@ -106,6 +110,9 @@
       <if test="gridId != null" >
         #{gridId,jdbcType=BIGINT},
       </if>
+      <if test="gridName != null" >
+        #{gridName,jdbcType=VARCHAR},
+      </if>
       <if test="text != null" >
         #{text,jdbcType=VARCHAR},
       </if>
@@ -156,6 +163,9 @@
       <if test="gridId != null" >
         grid_id = #{gridId,jdbcType=BIGINT},
       </if>
+      <if test="gridName != null" >
+        grid_name = #{gridName,jdbcType=VARCHAR},
+      </if>
       <if test="text != null" >
         `text` = #{text,jdbcType=VARCHAR},
       </if>
@@ -204,6 +214,7 @@
   <update id="updateByPrimaryKey" parameterType="com.ufo.entity.GridButtonInfoEntity" >
     update ufo_grid_button_info
     set grid_id = #{gridId,jdbcType=BIGINT},
+      grid_name = #{gridName,jdbcType=VARCHAR},
       `text` = #{text,jdbcType=VARCHAR},
       icon_cls = #{iconCls,jdbcType=VARCHAR},
       plain = #{plain,jdbcType=BIT},

@@ -7,7 +7,11 @@ public class GridExtendInfoEntity {
 
     private Long gridId;
 
+    private String gridName;
+
     private String url;
+
+    private String dataOptions;
 
     private String addUrl;
 
@@ -59,12 +63,28 @@ public class GridExtendInfoEntity {
         this.gridId = gridId;
     }
 
+    public String getGridName() {
+        return gridName;
+    }
+
+    public void setGridName(String gridName) {
+        this.gridName = gridName == null ? null : gridName.trim();
+    }
+
     public String getUrl() {
         return url;
     }
 
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
+    }
+
+    public String getDataOptions() {
+        return dataOptions;
+    }
+
+    public void setDataOptions(String dataOptions) {
+        this.dataOptions = dataOptions == null ? null : dataOptions.trim();
     }
 
     public String getAddUrl() {
@@ -217,7 +237,9 @@ public class GridExtendInfoEntity {
         GridExtendInfoEntity other = (GridExtendInfoEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getGridId() == null ? other.getGridId() == null : this.getGridId().equals(other.getGridId()))
+            && (this.getGridName() == null ? other.getGridName() == null : this.getGridName().equals(other.getGridName()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
+            && (this.getDataOptions() == null ? other.getDataOptions() == null : this.getDataOptions().equals(other.getDataOptions()))
             && (this.getAddUrl() == null ? other.getAddUrl() == null : this.getAddUrl().equals(other.getAddUrl()))
             && (this.getRemoveUrl() == null ? other.getRemoveUrl() == null : this.getRemoveUrl().equals(other.getRemoveUrl()))
             && (this.getModifyUrl() == null ? other.getModifyUrl() == null : this.getModifyUrl().equals(other.getModifyUrl()))
@@ -243,7 +265,9 @@ public class GridExtendInfoEntity {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGridId() == null) ? 0 : getGridId().hashCode());
+        result = prime * result + ((getGridName() == null) ? 0 : getGridName().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
+        result = prime * result + ((getDataOptions() == null) ? 0 : getDataOptions().hashCode());
         result = prime * result + ((getAddUrl() == null) ? 0 : getAddUrl().hashCode());
         result = prime * result + ((getRemoveUrl() == null) ? 0 : getRemoveUrl().hashCode());
         result = prime * result + ((getModifyUrl() == null) ? 0 : getModifyUrl().hashCode());
@@ -272,7 +296,9 @@ public class GridExtendInfoEntity {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", gridId=").append(gridId);
+        sb.append(", gridName=").append(gridName);
         sb.append(", url=").append(url);
+        sb.append(", dataOptions=").append(dataOptions);
         sb.append(", addUrl=").append(addUrl);
         sb.append(", removeUrl=").append(removeUrl);
         sb.append(", modifyUrl=").append(modifyUrl);

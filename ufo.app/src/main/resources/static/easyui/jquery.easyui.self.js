@@ -27,6 +27,10 @@ var windowOptions = {
 var grid = function ($grid, p, q) {
     $.getJSON('grid/grid.options', {gridName: p.gridName}, function (data) {
         console.log(data);
+        if (data.dataOptions) {
+            $.extend(true, data, eval('(' + data.dataOptions + ')'));
+        }
+        console.log(data);
         $.each(data.columns[0], function (i, v) {
             if (v.formatter) {
                 v.formatter = eval('(' + v.formatter + ')');

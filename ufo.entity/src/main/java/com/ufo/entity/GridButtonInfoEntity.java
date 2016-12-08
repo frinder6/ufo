@@ -7,6 +7,8 @@ public class GridButtonInfoEntity {
 
     private Long gridId;
 
+    private String gridName;
+
     private String text;
 
     private String iconCls;
@@ -49,6 +51,14 @@ public class GridButtonInfoEntity {
 
     public void setGridId(Long gridId) {
         this.gridId = gridId;
+    }
+
+    public String getGridName() {
+        return gridName;
+    }
+
+    public void setGridName(String gridName) {
+        this.gridName = gridName == null ? null : gridName.trim();
     }
 
     public String getText() {
@@ -177,6 +187,7 @@ public class GridButtonInfoEntity {
         GridButtonInfoEntity other = (GridButtonInfoEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getGridId() == null ? other.getGridId() == null : this.getGridId().equals(other.getGridId()))
+            && (this.getGridName() == null ? other.getGridName() == null : this.getGridName().equals(other.getGridName()))
             && (this.getText() == null ? other.getText() == null : this.getText().equals(other.getText()))
             && (this.getIconCls() == null ? other.getIconCls() == null : this.getIconCls().equals(other.getIconCls()))
             && (this.getPlain() == null ? other.getPlain() == null : this.getPlain().equals(other.getPlain()))
@@ -199,6 +210,7 @@ public class GridButtonInfoEntity {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGridId() == null) ? 0 : getGridId().hashCode());
+        result = prime * result + ((getGridName() == null) ? 0 : getGridName().hashCode());
         result = prime * result + ((getText() == null) ? 0 : getText().hashCode());
         result = prime * result + ((getIconCls() == null) ? 0 : getIconCls().hashCode());
         result = prime * result + ((getPlain() == null) ? 0 : getPlain().hashCode());
@@ -224,6 +236,7 @@ public class GridButtonInfoEntity {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", gridId=").append(gridId);
+        sb.append(", gridName=").append(gridName);
         sb.append(", text=").append(text);
         sb.append(", iconCls=").append(iconCls);
         sb.append(", plain=").append(plain);

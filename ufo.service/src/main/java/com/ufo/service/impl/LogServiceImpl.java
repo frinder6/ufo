@@ -2,8 +2,12 @@ package com.ufo.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Joiner;
+import com.ufo.entity.EasyuiGridResult;
+import com.ufo.entity.LogInfoEntity;
 import com.ufo.entity.LogInfoEntityWithBLOBs;
+import com.ufo.entity.Page;
 import com.ufo.mapper.LogInfoEntityMapper;
+import com.ufo.mapper.impl.LogInfoEntityMapperImpl;
 import com.ufo.service.LogService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by frinder6 on 2016/11/7.
@@ -21,6 +26,38 @@ public class LogServiceImpl implements LogService {
 
     @Autowired
     private LogInfoEntityMapper logInfoEntityMapper;
+
+    @Autowired
+    private LogInfoEntityMapperImpl logInfoEntityMapperImpl;
+
+
+    /**
+     * 分页查询
+     *
+     * @param page
+     * @param entity
+     * @return
+     */
+    @Override
+    public EasyuiGridResult selectPage(Page page, LogInfoEntity entity) {
+        EasyuiGridResult result = new EasyuiGridResult();
+        int count = logInfoEntityMapperImpl.selectPageCount(entity);
+        List<LogInfoEntityWithBLOBs> list = logInfoEntityMapperImpl.selectPage(page, entity);
+        result.setTotal(count);
+        result.setRows(list);
+        return result;
+    }
+
+    /**
+     * 查询符合条件记录数
+     *
+     * @param entity
+     * @return
+     */
+    @Override
+    public int selectPageCount(LogInfoEntity entity) {
+        return logInfoEntityMapperImpl.selectPageCount(entity);
+    }
 
     /**
      * 系统记录日志方法

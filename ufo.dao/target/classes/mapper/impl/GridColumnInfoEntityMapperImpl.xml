@@ -29,7 +29,7 @@
         <if test="e.field != null">
             AND field = #{e.field,jdbcType=VARCHAR}
         </if>
-        <if test="e.dataOptions != null" >
+        <if test="e.dataOptions != null">
             AND #{e.dataOptions,jdbcType=VARCHAR}
         </if>
         <if test="e.width != null">
@@ -133,8 +133,9 @@
     </select>
 
 
+    <!-- 批量插入配置列 -->
     <insert id="batchInsertSelective" parameterType="com.ufo.vo.ColumnsVO" useGeneratedKeys="true" keyProperty="id">
-        insert into ufo_grid_column_info
+        insert ignore into ufo_grid_column_info
         <trim prefix="(" suffix=") VALUES" suffixOverrides=",">
             grid_id,
             title,

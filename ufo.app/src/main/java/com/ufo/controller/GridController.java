@@ -73,19 +73,6 @@ public class GridController {
 
 
     /**
-     * 批量新增 grid columns
-     *
-     * @param columnsVO
-     * @return
-     */
-    @RequestMapping(value = "/add.columns", consumes = "application/json; charset=utf-8")
-    public EasyuiResponse addColumns(@RequestBody ColumnsVO columnsVO) {
-        gridService.batchInsertSelective(columnsVO);
-        return new EasyuiResponse(EasyuiResponse.SUCCESS, "配置成功！");
-    }
-
-
-    /**
      * 分页查询 grid
      *
      * @param entity
@@ -218,6 +205,61 @@ public class GridController {
         return new EasyuiResponse(EasyuiResponse.SUCCESS, "更新成功！");
     }
 
+    /**
+     * 删除 grid extend
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/remove.grid.extend")
+    public EasyuiResponse removeExtendEntity(Long id) {
+        gridService.deleteExtendEntity(id);
+        return new EasyuiResponse(EasyuiResponse.SUCCESS, "删除成功！");
+    }
+
+
+    /**
+     * 批量新增 grid columns
+     *
+     * @param columnsVO
+     * @return
+     */
+    @RequestMapping(value = "/add.columns", consumes = "application/json; charset=utf-8")
+    public EasyuiResponse addColumns(@RequestBody ColumnsVO columnsVO) {
+        gridService.batchInsertSelective(columnsVO);
+        return new EasyuiResponse(EasyuiResponse.SUCCESS, "配置成功！");
+    }
+
+    /**
+     * 新增 or 更新 column
+     *
+     * @param entity
+     * @return
+     */
+    @RequestMapping("/upsert.column")
+    public EasyuiResponse upsertColumn(GridColumnInfoEntity entity) {
+        if (0L == entity.getId()) {
+            // add
+            gridService.insertColumn(entity);
+        } else {
+            // update
+            gridService.updateColumn(entity);
+        }
+        return new EasyuiResponse(EasyuiResponse.SUCCESS, "更新成功！");
+    }
+
+
+    /**
+     * 删除 column
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/remove.column")
+    public EasyuiResponse removeColumn(Long id) {
+        gridService.deleteColumns(id);
+        return new EasyuiResponse(EasyuiResponse.SUCCESS, "删除成功！");
+    }
 
     /**
      * 刷新 grid 信息

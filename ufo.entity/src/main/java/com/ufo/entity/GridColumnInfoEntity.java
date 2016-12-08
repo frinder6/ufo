@@ -7,6 +7,8 @@ public class GridColumnInfoEntity {
 
     private Long gridId;
 
+    private String gridName;
+
     private Long dataId;
 
     private String title;
@@ -85,6 +87,14 @@ public class GridColumnInfoEntity {
 
     public void setGridId(Long gridId) {
         this.gridId = gridId;
+    }
+
+    public String getGridName() {
+        return gridName;
+    }
+
+    public void setGridName(String gridName) {
+        this.gridName = gridName == null ? null : gridName.trim();
     }
 
     public Long getDataId() {
@@ -357,6 +367,7 @@ public class GridColumnInfoEntity {
         GridColumnInfoEntity other = (GridColumnInfoEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getGridId() == null ? other.getGridId() == null : this.getGridId().equals(other.getGridId()))
+            && (this.getGridName() == null ? other.getGridName() == null : this.getGridName().equals(other.getGridName()))
             && (this.getDataId() == null ? other.getDataId() == null : this.getDataId().equals(other.getDataId()))
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getField() == null ? other.getField() == null : this.getField().equals(other.getField()))
@@ -397,6 +408,7 @@ public class GridColumnInfoEntity {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGridId() == null) ? 0 : getGridId().hashCode());
+        result = prime * result + ((getGridName() == null) ? 0 : getGridName().hashCode());
         result = prime * result + ((getDataId() == null) ? 0 : getDataId().hashCode());
         result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         result = prime * result + ((getField() == null) ? 0 : getField().hashCode());
@@ -440,6 +452,7 @@ public class GridColumnInfoEntity {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", gridId=").append(gridId);
+        sb.append(", gridName=").append(gridName);
         sb.append(", dataId=").append(dataId);
         sb.append(", title=").append(title);
         sb.append(", field=").append(field);
