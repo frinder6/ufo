@@ -12,7 +12,7 @@ var _lsave = function () {
     console.log(rows);
     if (rows) {
         $.ajax({
-            url: 'grid/add.columns',
+            url: '/grid/add.columns',
             type: "POST",
             data: JSON.stringify({
                 gridId: gridId,
@@ -31,7 +31,7 @@ var _lsave = function () {
  * 左表删除方法
  */
 var _lremove = function () {
-    remove($lgrid, {removeUrl: 'grid/remove.column'});
+    remove($lgrid, {removeUrl: '/grid/remove.column'});
 };
 
 /**

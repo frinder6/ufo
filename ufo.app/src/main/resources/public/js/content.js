@@ -9,7 +9,7 @@ var _conf = function () {
     if (selectRow) {
         var p = {
             title: selectRow.name + '基本信息配置窗',
-            href: 'grid/grid.form?gridName=grid-extend-info&action=modify',
+            href: '/grid/grid.form?gridName=grid-extend-info&action=modify',
             padding: 20
         };
         console.log(p);
@@ -23,7 +23,7 @@ var _fn = function ($dialog) {
     var id = 0;
     $.ajax({
         async: false,
-        url: 'grid/grid.extend',
+        url: '/grid/grid.extend',
         data: {gridId: selectRow.id},
         success: function (data) {
             if (data) {
@@ -41,7 +41,7 @@ var _fn = function ($dialog) {
     });
     $('#form').find('#btnOk').click(function () {
         $('#form').form('submit', {
-            url: 'grid/upsert.grid.extend?id=' + id + '&gridId=' + selectRow.id,
+            url: '/grid/upsert.grid.extend?id=' + id + '&gridId=' + selectRow.id,
             onSubmit: function () {
                 return $(this).form('enableValidation').form('validate');
             },
@@ -60,7 +60,7 @@ var _fn = function ($dialog) {
         $dialog.dialog('close');
         open({
             title: selectRow.name + '列信息配置窗',
-            href: 'window-column-setting?gridName=conf-grid-columns-info',
+            href: '/redirect/window-column-setting/conf-grid-columns-info',
             width: 900,
             height: 600
         });

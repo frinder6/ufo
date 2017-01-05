@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>Grid基本信息配置</title>
-    <link rel="stylesheet" type="text/css" href="easyui/themes/black/easyui.css">
-    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
-    <link href="layer/skin/layer.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/black/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/layer/skin/layer.css"/>
     <style>
         html, body {
             margin: 0;
@@ -29,22 +29,22 @@
                     panelWidth: 350,
                     idField: 'tableName',
                     textField: 'tableComment',
-                    url: 'grid/page.tables',
+                    url: '/grid/page.tables',
                     columns: [[{
                         field: 'tableName',
                         title: '表名',
                         width: 100
-                    },
+                    ,
                     {
                         field: 'tableComment',
                         title: '描述',
                         width: 150
-                    }]],
+                    ]],
                     fitColumns: true,
                     label: '选择系统表：',
                     onChange: function(newValue, oldValue){
                         _change(newValue);
-                    }
+                    
                 ">
                 </select>
             </div>
@@ -57,11 +57,11 @@
 
 
 </body>
-<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="layer/layer.js"></script>
-<script type="text/javascript" src="easyui/jquery.easyui.self.js"></script>
+<script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/layer/layer.js"></script>
+<script type="text/javascript" src="/easyui/jquery.easyui.self.js"></script>
 <script type="text/javascript">
 
 </script>

@@ -25,7 +25,7 @@ var windowOptions = {
  * @param params
  */
 var grid = function ($grid, p, q) {
-    $.getJSON('grid/grid.options', {gridName: p.gridName}, function (data) {
+    $.getJSON('/grid/grid.options', {gridName: p.gridName}, function (data) {
         console.log(data);
         if (data.dataOptions) {
             $.extend(true, data, eval('(' + data.dataOptions + ')'));
@@ -99,7 +99,7 @@ var modify = function ($grid, p) {
         var $dialog = $('#' + d);
         $dialog.window({
             title: '更新',
-            href: 'grid/grid.form?action=modify&gridName=' + p.gridName,
+            href: '/grid/grid.form?action=modify&gridName=' + p.gridName,
             modal: false,
             width: 500,
             // height: 600,
@@ -155,7 +155,7 @@ var insert = function ($grid, p) {
     var $dialog = $('#' + d);
     $dialog.window({
         title: '新增',
-        href: 'grid/grid.form?action=insert&gridName=' + p.gridName,
+        href: '/grid/grid.form?action=insert&gridName=' + p.gridName,
         modal: false,
         width: 500,
         // height: 600,
@@ -207,7 +207,7 @@ var search = function ($grid, p) {
     var $dialog = $('#' + d);
     $dialog.window({
         title: '搜索栏',
-        href: 'grid/grid.form?action=search&gridName=' + p.gridName,
+        href: '/grid/grid.form?action=search&gridName=' + p.gridName,
         modal: false,
         width: 500,
         // height: 600,

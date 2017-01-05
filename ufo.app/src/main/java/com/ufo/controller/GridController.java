@@ -1,9 +1,14 @@
 package com.ufo.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.ufo.entity.*;
+import com.ufo.entity.EasyuiFormTemplate;
+import com.ufo.entity.EasyuiGridResult;
+import com.ufo.entity.EasyuiGridTemplate;
+import com.ufo.entity.EasyuiResponse;
+import com.ufo.entity.GridColumnInfoEntity;
+import com.ufo.entity.GridExtendInfoEntity;
+import com.ufo.entity.GridInfoEntity;
+import com.ufo.entity.Page;
 import com.ufo.init.W2uiGridTemplateLoader;
 import com.ufo.service.GridService;
 import com.ufo.vo.ColumnsVO;
@@ -17,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by frinder6 on 2016/11/5.
@@ -34,6 +39,7 @@ public class GridController {
 
     @Autowired
     private GridService gridService;
+
 
     /**
      * 添加 grid
